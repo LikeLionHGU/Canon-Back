@@ -34,9 +34,9 @@ public class LoginController {
     public ResponseEntity<LoginResponse> LoginWithGoogle(@AuthenticationPrincipal OAuth2User user) {
 
 
-
         LoginResponse loginResponse = new LoginResponse(user);
         return ResponseEntity.ok(loginResponse);
+
     }
 
 
