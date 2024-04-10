@@ -36,7 +36,7 @@ public class LoginController {
 
         LoginResponse loginResponse = new LoginResponse(user);
         return ResponseEntity.ok(loginResponse);
-
+        // return값을 redirect로
     }
 
 
