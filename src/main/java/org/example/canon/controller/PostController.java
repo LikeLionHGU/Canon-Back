@@ -6,6 +6,7 @@ import org.example.canon.controller.response.postResponse.PostResponse;
 import org.example.canon.dto.PostDTO;
 import org.example.canon.service.PostService;
 import org.example.canon.service.S3Uploader;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +20,16 @@ import java.io.IOException;
 @CrossOrigin("*")
 public class PostController {
 
+  @Value("$${spring.jwt.secret}")
+  private String SECRET_KEY;
+
   private final PostService postService;
   private final S3Uploader s3Uploader;
 
   @PostMapping(value = "/uploadFile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<PostResponse> upload(
       @RequestParam("image") MultipartFile image, PostRequest request) throws IOException {
+
     String imageURL = s3Uploader.upload(image, "example");
     PostDTO postDto = PostDTO.of(request, imageURL);
     postService.save(postDto);

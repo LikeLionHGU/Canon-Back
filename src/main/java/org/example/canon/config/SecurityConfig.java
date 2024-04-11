@@ -53,8 +53,8 @@ public class SecurityConfig {
     //경로별 인가 작업
     http
             .authorizeHttpRequests((auth) -> auth
-                    .requestMatchers("/","main").permitAll() //로그인이 필요한 페이지가 아니면 다 허용시켜야 함
-                    .requestMatchers("my").hasRole("USER")
+                    .requestMatchers("/","*/post/main").permitAll() // 게시글 보는 거 다 가능해야함
+                    .requestMatchers("my").hasRole("USER")   //User : 댓글, 게시글 작성 , 마이페이지 / Admin : 컨펌하는 페이지
                     .anyRequest().authenticated());
 
     //세션 설정 : STATELESS

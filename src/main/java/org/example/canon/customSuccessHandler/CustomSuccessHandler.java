@@ -33,13 +33,23 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         CustomOAuth2UserDto customUserDetails = (CustomOAuth2UserDto) authentication.getPrincipal();
 
         String username = customUserDetails.getUsername();
+        System.out.println("=======");
+        System.out.println(username);
+
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
         GrantedAuthority auth = iterator.next();
         String role = auth.getAuthority();
 
-        String token = jwtUtil.createJwt(username, role, 60*60*60L);
+        System.out.println("=======");
+        String email = customUserDetails.getEmail();
+
+        System.out.println(email);
+        System.out.println("=======");
+        System.out.println(role);
+
+        String token = jwtUtil.createJwt(username, email,role, 1000 * 60 * 60 * 24 * 30L);
 
         response.addCookie(createCookie("Authorization", token));
         response.sendRedirect("http://localhost:3000/");
