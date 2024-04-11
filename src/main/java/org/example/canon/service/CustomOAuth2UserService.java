@@ -1,12 +1,10 @@
 package org.example.canon.service;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.example.canon.dto.CustomOAuth2UserDto;
 import org.example.canon.controller.response.GoogleResponse;
-//import org.example.canon.dto.NaverResponse;
+// import org.example.canon.dto.NaverResponse;
 import org.example.canon.dto.OAuth2Response;
+import org.example.canon.dto.UserDTO;
 import org.example.canon.entity.User;
 import org.example.canon.repository.UserRepository;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -18,64 +16,58 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
-    private final UserRepository userRepository;
+  private final UserRepository userRepository;
 
-    public CustomOAuth2UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+  public CustomOAuth2UserService(UserRepository userRepository) {
+    this.userRepository = userRepository;
+  }
 
+  @Override
+  public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 
+    OAuth2User oAuth2User = super.loadUser(userRequest);
+    System.out.println(oAuth2User.getAttributes());
 
+    OAuth2Response oAuth2Response = new GoogleResponse(oAuth2User.getAttributes());
 
-    @Override
-    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+    String name = oAuth2Response.getProvider() + " " + oAuth2Response.getProviderId();
 
-        OAuth2User oAuth2User = super.loadUser(userRequest);
-        System.out.println(oAuth2User.getAttributes());
+    User existData = userRepository.findByUsername(name);
 
-        String registrationId = userRequest.getClientRegistration().getRegistrationId();
-        OAuth2Response oAuth2Response = null;
-        
-        if (registrationId.equals("naver")) {
+    String role = null;
 
-//            oAuth2Response = new NaverResponse(oAuth2User.getAttributes());
-        }
-        else if (registrationId.equals("google")) {
+    if (existData == null) {
+      User userEntity = new User();
+      userEntity.setUsername(oAuth2Response.getName());
+      userEntity.setEmail(oAuth2Response.getEmail());
+      userEntity.setRole("USER");
+      userEntity.setName(name);
+      userRepository.save(userEntity);
 
-            oAuth2Response = new GoogleResponse(oAuth2User.getAttributes());
-        }
-        else {
+      UserDTO userDTO = new UserDTO();
+      userDTO.setName(name);
+      userDTO.setUsername(oAuth2Response.getName());
+      userDTO.setRole("USER");
 
-            return null;
-        }
+      return new CustomOAuth2UserDto(userDTO);
 
-        String idCode = oAuth2Response.getProvider()+" "+oAuth2Response.getProviderId();
-
-        User existData = userRepository.findByUsername(idCode);
-
-        String role = null;
-
-        if (existData == null) {
-
-            User userEntity = new User();
-            userEntity.setUsername(oAuth2Response.getName());
-            userEntity.setEmail(oAuth2Response.getEmail());
-            userEntity.setRole("ROLE_USER");
-            userEntity.setIdCode(idCode);
-
-            userRepository.save(userEntity);
-        }
-        else {
+    } else {
 
       existData.setUsername(oAuth2Response.getName());
-            existData.setEmail(oAuth2Response.getEmail());
-            existData.setIdCode(oAuth2Response.getName());
+      existData.setEmail(oAuth2Response.getEmail());
+      existData.setName(oAuth2Response.getName());
 
-            role = existData.getRole();
+      role = existData.getRole();
 
-            userRepository.save(existData);
-        }
+      userRepository.save(existData);
 
-        return new CustomOAuth2UserDto(oAuth2Response, role);
+      UserDTO userDTO = new UserDTO();
+      userDTO.setUsername(existData.getUsername());
+      userDTO.setRole(existData.getRole());
+      userDTO.setName(existData.getName());
+
+      return new CustomOAuth2UserDto(userDTO);
+
     }
+  }
 }

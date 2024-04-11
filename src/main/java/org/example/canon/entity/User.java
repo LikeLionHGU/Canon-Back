@@ -21,14 +21,14 @@ public class User extends Base {
     private String username;
     private String email;
     private String role;
-    private String idCode;
+    private String name;
 
 
     public User(String username, String email,String role , String idCode) {
         this.username = username;
         this.email = email;
         this.role = role;
-        this.idCode = idCode;
+        this.name = idCode;
     }
 
 
