@@ -1,4 +1,4 @@
-package org.example.canon.controller.response;
+package org.example.canon.controller.response.LoginResponse;
 
 
 import lombok.AllArgsConstructor;
