@@ -24,7 +24,7 @@ public class Post extends Base {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "User")
+    @JoinColumn(name = "User_Id")
     private User user;
 
 

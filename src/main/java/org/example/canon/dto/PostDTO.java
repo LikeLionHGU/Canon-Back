@@ -1,11 +1,23 @@
 package org.example.canon.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
-@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class PostDTO {
+
+
+    private Long userId;
+
+    private String content;
+
+    private String title;
+
+    private byte isComfirmed;
+
+
 
 
 }
