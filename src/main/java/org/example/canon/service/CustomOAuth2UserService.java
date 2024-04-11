@@ -1,7 +1,7 @@
 package org.example.canon.service;
 
 import org.example.canon.dto.CustomOAuth2UserDto;
-import org.example.canon.controller.response.GoogleResponse;
+import org.example.canon.controller.response.LoginResponse.GoogleResponse;
 // import org.example.canon.dto.NaverResponse;
 import org.example.canon.dto.OAuth2Response;
 import org.example.canon.dto.UserDTO;
