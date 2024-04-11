@@ -26,7 +26,7 @@ public class PostController {
   private final PostService postService;
   private final S3Uploader s3Uploader;
 
-  @PostMapping(value = "/uploadFile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+  @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<PostResponse> upload(
       @RequestParam("image") MultipartFile image, PostRequest request) throws IOException {
 
@@ -36,6 +36,7 @@ public class PostController {
 
     PostResponse response = new PostResponse(postDto);
     return ResponseEntity.ok(response);
-
   }
+
+
 }
