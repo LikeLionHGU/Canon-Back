@@ -35,13 +35,9 @@ public class PostController {
 
     String imageURL = s3Uploader.upload(image, "example");
     PostDTO postDto = PostDTO.of(request, imageURL);
-    System.out.println("===controller "+userDto.getEmail()+"===");
-    System.out.println("===controller "+userDto.getName()+"===");
-    System.out.println("===controller "+userDto.getUsername()+"===");
 
     Long postId = postService.save(postDto,userDto.getEmail());
-
-    PostResponse response = new PostResponse(postDto,postId);
+    PostResponse response = new PostResponse(postDto,postId,userDto.getUsername());
     return ResponseEntity.ok(response);
 
   }

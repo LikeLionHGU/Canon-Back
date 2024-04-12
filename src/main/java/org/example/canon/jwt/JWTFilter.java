@@ -60,7 +60,7 @@ public class JWTFilter extends OncePerRequestFilter {
             return;
         }
 
-        //토큰
+
         String token = authorization;
 
         if (jwtUtil.isExpired(token)) {
@@ -71,23 +71,19 @@ public class JWTFilter extends OncePerRequestFilter {
             return;
         }
 
-        //토큰에서 username과 role 획득
         String username = jwtUtil.getUsername(token);
         String email = jwtUtil.getEmail(token);
         String role = jwtUtil.getRole(token);
 
-        //userDTO를 생성하여 값 set
         UserDTO userDTO = new UserDTO();
         userDTO.setUsername(username);
         userDTO.setRole(role);
+        userDTO.setEmail(email);
 
-        //UserDetails에 회원 정보 객체 담기
         CustomOAuth2UserDto customOAuth2User = new CustomOAuth2UserDto(userDTO);
 
-        //스프링 시큐리티 인증 토큰 생성
         Authentication authToken = new UsernamePasswordAuthenticationToken(customOAuth2User, null, customOAuth2User.getAuthorities());
 
-        //세션에 사용자 등록
         SecurityContextHolder.getContext().setAuthentication(authToken);
 
         filterChain.doFilter(request, response);

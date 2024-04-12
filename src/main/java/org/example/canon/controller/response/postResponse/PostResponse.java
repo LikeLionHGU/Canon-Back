@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class PostResponse {
 
   private Long id;
-  private Long userId;
+  private String userName;
   private String title;
   private String content;
   private String category;
@@ -28,9 +28,9 @@ public class PostResponse {
   private byte isComfirmed;
 
 
-  public PostResponse(PostDTO postDto, Long postId) {
+  public PostResponse(PostDTO postDto, Long postId,String userName) {
     this.id = postId;
-    this.userId = postDto.getUserId();
+    this.userName = userName;
     this.title = postDto.getTitle();
     this.content = postDto.getContent();
     this.category = postDto.getCategory();
