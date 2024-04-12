@@ -10,7 +10,6 @@ public class PostRequest {
     private String category;
     private String contact;
     private String content;
-
     private String title;
 
 

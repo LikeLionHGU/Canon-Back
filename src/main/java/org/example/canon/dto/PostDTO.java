@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 @Builder
 public class PostDTO {
 
+
+  private Long id;
   private Long userId;
 
   private String content;
@@ -26,7 +28,6 @@ public class PostDTO {
   private String imageURL;
 
   private LocalDateTime createdDate;
-
 
     public static PostDTO of(PostRequest postrequest, String imageUrl) {
     return PostDTO.builder()

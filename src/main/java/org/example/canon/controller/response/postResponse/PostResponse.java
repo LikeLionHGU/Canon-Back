@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.canon.dto.PostDTO;
+import org.example.canon.entity.User;
 
 import java.time.LocalDateTime;
 
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 public class PostResponse {
 
   private Long id;
+  private Long userId;
   private String title;
   private String content;
   private String category;
@@ -26,7 +28,9 @@ public class PostResponse {
   private byte isComfirmed;
 
 
-  public PostResponse(PostDTO postDto) {
+  public PostResponse(PostDTO postDto, Long postId) {
+    this.id = postId;
+    this.userId = postDto.getUserId();
     this.title = postDto.getTitle();
     this.content = postDto.getContent();
     this.category = postDto.getCategory();

@@ -53,7 +53,7 @@ public class S3Uploader {
 
     private void removeNewFile(File targetFile) {
         if(targetFile.delete()) {
-      System.out.println("삭제 성공");
+      //삭제 성공처리
         }else {
             System.out.println("삭제 실패");
         }
