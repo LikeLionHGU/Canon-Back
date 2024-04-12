@@ -34,14 +34,14 @@ public class Post extends Base {
     private User user;
 
 
-    public static Post of(PostDTO dto){
+    public static Post of(PostDTO dto , User user){
         return Post.builder()
                 .content(dto.getContent())
                 .title(dto.getTitle())
                 .category(dto.getCategory())
                 .imageURL(dto.getImageURL())
                 .contact(dto.getContact())
-                .user(User.builder().id(dto.getUserId()).build())
+                .user(user)
                 .build();
     }
 
