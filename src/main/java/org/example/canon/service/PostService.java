@@ -35,10 +35,17 @@ public class PostService {
     return post.getId();
   }
 
-  public List<PostDTO> getAllConfirmedPost() {
-    List<Post> posts = postRepository.findAllByIsConfirmed();
+  public List<PostDTO> getAllForAdmin() {
+    List<Post> posts = postRepository.findAllByIsNotChecked();
     return posts.stream().map(PostDTO::of).toList();
   }
+
+  public List<PostDTO> getAllForUser() {
+    List<Post> posts = postRepository.findAllByConfirmed();
+    return posts.stream().map(PostDTO::of).toList();
+  }
+
+
 
   //        public List<Post> getAllPostByUserId(Long userId) {
   //

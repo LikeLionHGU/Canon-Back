@@ -6,7 +6,6 @@ import org.example.canon.controller.response.postResponse.PostListResponse;
 import org.example.canon.controller.response.postResponse.PostResponse;
 import org.example.canon.dto.CustomOAuth2UserDto;
 import org.example.canon.dto.PostDTO;
-import org.example.canon.entity.Post;
 import org.example.canon.service.PostService;
 import org.example.canon.service.S3Uploader;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,34 +32,45 @@ public class PostController {
 
   @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<PostResponse> uploadPost(
-          @RequestParam("image") MultipartFile image, PostRequest request, @AuthenticationPrincipal CustomOAuth2UserDto userDto) throws IOException {
+      @RequestParam("image") MultipartFile image,
+      PostRequest request,
+      @AuthenticationPrincipal CustomOAuth2UserDto userDto)
+      throws IOException {
 
     String imageURL = s3Uploader.upload(image, "example");
     PostDTO postDto = PostDTO.of(request, imageURL);
 
-    Long postId = postService.addPost(postDto,userDto.getEmail());
-    PostResponse response = new PostResponse(postDto,postId,userDto.getUsername());
+    Long postId = postService.addPost(postDto, userDto.getEmail());
+    PostResponse response = new PostResponse(postDto, postId, userDto.getUsername());
     return ResponseEntity.ok(response);
-
   }
 
   @GetMapping("/{postId}")
-    public ResponseEntity<PostResponse> getPost(@RequestParam Long postId) {
+  public ResponseEntity<PostResponse> getPost(@PathVariable Long postId) {
     PostDTO postDto = postService.getPost(postId);
     PostResponse response = new PostResponse(postDto);
     return ResponseEntity.ok(response);
   }
 
-  @GetMapping("all")
+  @GetMapping("/admin/all")
   public ResponseEntity<PostListResponse> getAllConfirmedPost() {
-    List<PostDTO> posts = postService.getAllConfirmedPost();
+    List<PostDTO> posts = postService.getAllForAdmin();
     PostListResponse response = new PostListResponse(posts);
     return ResponseEntity.ok(response);
   }
 
   @DeleteMapping("/{postId}")
-    public ResponseEntity<Void> deletePost(@RequestParam Long postId,@AuthenticationPrincipal CustomOAuth2UserDto userDto) {
-    postService.deletePost(postId,userDto);
+  public ResponseEntity<Void> deletePost(
+          @AuthenticationPrincipal CustomOAuth2UserDto userDto, @PathVariable Long postId) {
+    postService.deletePost(postId, userDto);
     return ResponseEntity.ok().build();
+  }
+
+  @GetMapping("/main")
+  public ResponseEntity<PostListResponse> getAllPosts() {
+    List<PostDTO> posts = postService.getAllForUser();
+    PostListResponse response = new PostListResponse(posts);
+    return ResponseEntity.ok(response);
+  }
 
 }

@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 @Builder
 public class PostDTO {
 
-
   private Long id;
   private Long userId;
+  private String userName;
 
   private String content;
 
@@ -30,7 +30,7 @@ public class PostDTO {
 
   private LocalDateTime createdDate;
 
-    public static PostDTO of(PostRequest postrequest, String imageUrl) {
+  public static PostDTO of(PostRequest postrequest, String imageUrl) {
     return PostDTO.builder()
         .content(postrequest.getContent())
         .title(postrequest.getTitle())
@@ -46,6 +46,7 @@ public class PostDTO {
     return PostDTO.builder()
         .id(post.getId())
         .userId(post.getUser().getId())
+        .userName(post.getUser().getUsername())
         .content(post.getContent())
         .title(post.getTitle())
         .category(post.getCategory())
@@ -55,7 +56,4 @@ public class PostDTO {
         .createdDate(post.getCreatedDate())
         .build();
   }
-
-
-
 }

@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 public class PostResponse {
 
   private Long id;
+  private Long userId;
+
   private String userName;
   private String title;
   private String content;
@@ -41,6 +43,16 @@ public class PostResponse {
   }
 
   public PostResponse(PostDTO postDto) {
+    this.id = postDto.getId();
+    this.userId = postDto.getUserId();
+    this.userName = postDto.getUserName();
+    this.title = postDto.getTitle();
+    this.content = postDto.getContent();
+    this.category = postDto.getCategory();
+    this.createdDate = postDto.getCreatedDate();
+    this.imageURL = postDto.getImageURL();
+    this.contact = postDto.getContact();
+    this.isConfirmed = postDto.getIsConfirmed();
   }
 }
 
