@@ -25,7 +25,7 @@ public class Post extends Base {
 
     private String imageURL;
 
-    private byte isComfirmed;
+    private byte isConfirmed;
 
     private String contact;
 
