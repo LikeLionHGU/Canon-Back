@@ -25,7 +25,7 @@ public class PostResponse {
 
   private String contact;
 
-  private byte isComfirmed;
+  private byte isConfirmed;
 
 
   public PostResponse(PostDTO postDto, Long postId,String userName) {
@@ -37,8 +37,10 @@ public class PostResponse {
     this.createdDate = postDto.getCreatedDate();
     this.imageURL = postDto.getImageURL();
     this.contact = postDto.getContact();
-    this.isComfirmed = postDto.getIsComfirmed();
+    this.isConfirmed = postDto.getIsConfirmed();
   }
 
+  public PostResponse(PostDTO postDto) {
+  }
 }
 

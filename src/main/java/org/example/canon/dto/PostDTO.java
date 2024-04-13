@@ -2,6 +2,7 @@ package org.example.canon.dto;
 
 import lombok.*;
 import org.example.canon.controller.request.PostRequest;
+import org.example.canon.entity.Post;
 
 import java.time.LocalDateTime;
 
@@ -23,7 +24,7 @@ public class PostDTO {
 
   private String contact;
 
-  private byte isComfirmed;
+  private byte isConfirmed;
 
   private String imageURL;
 
@@ -36,8 +37,25 @@ public class PostDTO {
         .category(postrequest.getCategory())
         .createdDate(LocalDateTime.now())
         .contact(postrequest.getContact())
-        .isComfirmed((byte) 0)
+        .isConfirmed((byte) 0)
         .imageURL(imageUrl)
         .build();
   }
+
+  public static PostDTO of(Post post) {
+    return PostDTO.builder()
+        .id(post.getId())
+        .userId(post.getUser().getId())
+        .content(post.getContent())
+        .title(post.getTitle())
+        .category(post.getCategory())
+        .contact(post.getContact())
+        .isConfirmed(post.getIsConfirmed())
+        .imageURL(post.getImageURL())
+        .createdDate(post.getCreatedDate())
+        .build();
+  }
+
+
+
 }

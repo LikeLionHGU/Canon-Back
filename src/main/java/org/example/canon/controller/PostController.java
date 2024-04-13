@@ -2,6 +2,7 @@ package org.example.canon.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.canon.controller.request.PostRequest;
+import org.example.canon.controller.response.postResponse.PostListResponse;
 import org.example.canon.controller.response.postResponse.PostResponse;
 import org.example.canon.dto.CustomOAuth2UserDto;
 import org.example.canon.dto.PostDTO;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -36,11 +38,29 @@ public class PostController {
     String imageURL = s3Uploader.upload(image, "example");
     PostDTO postDto = PostDTO.of(request, imageURL);
 
-    Long postId = postService.save(postDto,userDto.getEmail());
+    Long postId = postService.addPost(postDto,userDto.getEmail());
     PostResponse response = new PostResponse(postDto,postId,userDto.getUsername());
     return ResponseEntity.ok(response);
 
   }
 
+  @GetMapping("/{postId}")
+    public ResponseEntity<PostResponse> getPost(@RequestParam Long postId) {
+    PostDTO postDto = postService.getPost(postId);
+    PostResponse response = new PostResponse(postDto);
+    return ResponseEntity.ok(response);
+  }
+
+  @GetMapping("all")
+  public ResponseEntity<PostListResponse> getAllConfirmedPost() {
+    List<PostDTO> posts = postService.getAllConfirmedPost();
+    PostListResponse response = new PostListResponse(posts);
+    return ResponseEntity.ok(response);
+  }
+
+  @DeleteMapping("/{postId}")
+    public ResponseEntity<Void> deletePost(@RequestParam Long postId,@AuthenticationPrincipal CustomOAuth2UserDto userDto) {
+    postService.deletePost(postId,userDto);
+    return ResponseEntity.ok().build();
 
 }
