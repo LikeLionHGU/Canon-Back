@@ -19,10 +19,6 @@ public class Comment extends Base {
 
     private String content;
 
-    @Column(name = "created_date")
-    @CreatedDate
-    private String createdDate;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;

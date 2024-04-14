@@ -16,7 +16,7 @@ public class CommentResponse {
 
     private Long commentId;
     private String content;
-    private String createdDate;
+    private LocalDateTime createdDate;
     private Long userId;
     private Long postId;
     private String userName;
@@ -24,6 +24,7 @@ public class CommentResponse {
     public CommentResponse(String userName,CommentDto commentDto, Long commentId) {
         this.commentId = commentId;
         this.userName = userName;
+        this.userId = commentDto.getUserId();
         this.content = commentDto.getContent();
         this.createdDate = commentDto.getCreatedDate();
         this.postId = commentDto.getPostId();

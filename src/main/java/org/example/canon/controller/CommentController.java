@@ -6,6 +6,7 @@ import org.example.canon.controller.response.CommentResponse.CommentListResponse
 import org.example.canon.controller.response.CommentResponse.CommentResponse;
 import org.example.canon.dto.CommentDto;
 import org.example.canon.dto.CustomOAuth2UserDto;
+import org.example.canon.entity.Comment;
 import org.example.canon.service.CommentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,17 +15,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/comments")
+@RequestMapping("/comment")
 @Controller
 @RequiredArgsConstructor
 public class CommentController {
     private final CommentService commentService;
 
-    @PostMapping("/comment")
+    @PostMapping("/add/{postId}")
     public ResponseEntity<CommentResponse> addComment(@RequestBody CommentRequest commentRequest
-    , @AuthenticationPrincipal CustomOAuth2UserDto userDto) {
-        Long commentId = commentService.addComment(userDto.getEmail(),CommentDto.from(commentRequest));
-        CommentResponse response = new CommentResponse(userDto.getUsername(), CommentDto.from(commentRequest),commentId);
+    , @AuthenticationPrincipal CustomOAuth2UserDto userDto, @PathVariable Long postId) {
+        Comment comment = commentService.addComment(userDto.getEmail(),CommentDto.from(commentRequest, postId));
+        CommentResponse response = new CommentResponse(CommentDto.of(comment));
         return ResponseEntity.ok(response);
     }
 

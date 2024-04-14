@@ -24,17 +24,18 @@ public class CommentDto {
 
     private Long commentId;
     private String content;
-    private String createdDate;
+    private LocalDateTime createdDate;
     private Long userId;
     private Long postId;
     private String userName;
 
 
 // controller 에서 받아서 service로 보낼때
-    public static CommentDto from(CommentRequest commentRequest) {
+    public static CommentDto from(CommentRequest commentRequest, Long postId) {
         return CommentDto.builder()
                 .content(commentRequest.getContent())
-                .postId(commentRequest.getPostId())
+                .createdDate(LocalDateTime.now())
+                .postId(postId)
                 .build();
     }
 
@@ -43,9 +44,9 @@ public class CommentDto {
                 .commentId(comment.getCommentId())
                 .userId(comment.getUser().getId())
                 .postId(comment.getPost().getId())
+                .createdDate(LocalDateTime.now())
                 .userName(comment.getUser().getUsername())
                 .content(comment.getContent())
-                .createdDate(comment.getCreatedDate())
                 .build();
     }
 

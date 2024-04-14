@@ -26,13 +26,13 @@ public class CommentService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
-    public Long addComment (String email, CommentDto commentDto){
+    public Comment addComment (String email, CommentDto commentDto){
         User user = userRepository.findByEmail(email);
         Post post = postRepository.findById(commentDto.getPostId())
                 .orElseThrow(() -> new NoSuchElementException("No post found with id " + commentDto.getPostId()));;
         Comment comment = Comment.of(commentDto, user, post);
         commentRepository.save(comment);
-        return post.getId();
+        return comment;
     }
 
     public CommentDto getComment(Long commentId) {
