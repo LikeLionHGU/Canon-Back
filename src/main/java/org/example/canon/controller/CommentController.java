@@ -2,6 +2,8 @@ package org.example.canon.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.canon.controller.request.CommentRequest;
+import org.example.canon.controller.response.ApiResponse;
+import org.example.canon.controller.response.CommentResponse.CommentIdResponse;
 import org.example.canon.controller.response.CommentResponse.CommentListResponse;
 import org.example.canon.controller.response.CommentResponse.CommentResponse;
 import org.example.canon.dto.CommentDto;
@@ -44,8 +46,9 @@ public class CommentController {
     }
 
     @DeleteMapping("/{commentId}")
-    public ResponseEntity<Void> deleteComment(@PathVariable Long commentId) {
-        commentService.deleteComment(commentId);
+    public ResponseEntity<Void> deleteComment(
+            @AuthenticationPrincipal CustomOAuth2UserDto userDto, @PathVariable Long commentId) {
+        commentService.deleteComment(commentId, userDto);
         return ResponseEntity.ok().build();
     }
 }

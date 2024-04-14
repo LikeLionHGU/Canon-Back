@@ -8,6 +8,7 @@ import org.example.canon.dto.PostDTO;
 import org.example.canon.entity.Comment;
 import org.example.canon.entity.Post;
 import org.example.canon.entity.User;
+import org.example.canon.exception.CommentDeleteDisableException;
 import org.example.canon.exception.PostDeleteDisableException;
 import org.example.canon.exception.PostNotFoundException;
 import org.example.canon.repository.CommentRepository;
@@ -45,8 +46,13 @@ public class CommentService {
         return comments.stream().map(CommentDto::of).toList();
     }
 
-    public void deleteComment(Long commentId) {
-        commentRepository.deleteById(commentId);
+    public void deleteComment(Long commentId, CustomOAuth2UserDto userDTO) {
+        Optional<Comment> comment = commentRepository.findById(commentId);
+        if (userDTO.getEmail().equals(comment.get().getUser().getEmail())) {
+            commentRepository.deleteById(commentId);
+        } else {
+            throw new CommentDeleteDisableException();
+        }
     }
 }
 
