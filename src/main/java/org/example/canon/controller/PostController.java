@@ -36,9 +36,9 @@ public class PostController {
       PostRequest request,
       @AuthenticationPrincipal CustomOAuth2UserDto userDto)
       throws IOException {
-
+    String fileName = image.getOriginalFilename();
     String imageURL = s3Uploader.upload(image, "example");
-    PostDTO postDto = PostDTO.of(request, imageURL);
+    PostDTO postDto = PostDTO.of(request, imageURL,fileName);
 
     Long postId = postService.addPost(postDto, userDto.getEmail());
     PostResponse response = new PostResponse(postDto, postId, userDto.getUsername());
@@ -66,11 +66,28 @@ public class PostController {
     return ResponseEntity.ok().build();
   }
 
+  // 게시글 수정 로직 완성하기
+//   @PatchMapping("/{postId}")
+//   public ResponseEntity<PostResponse> updatePost(
+//           @AuthenticationPrincipal CustomOAuth2UserDto userDto,
+//           @PathVariable Long postId,
+//           @RequestBody PostRequest request) {
+//       PostDTO postDto = postService.updatePost(postId, request, userDto);
+//       PostResponse response = new PostResponse(postDto);
+//       return ResponseEntity.ok(response);
+//   }
+
+
+
   @GetMapping("/main")
   public ResponseEntity<PostListResponse> getAllPosts() {
     List<PostDTO> posts = postService.getAllForUser();
     PostListResponse response = new PostListResponse(posts);
     return ResponseEntity.ok(response);
   }
+
+
+  // 컨펌하는 로직 작성하기
+
 
 }

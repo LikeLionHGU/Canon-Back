@@ -25,6 +25,8 @@ public class Post extends Base {
 
     private String imageURL;
 
+    private String fileName;
+
     private byte isConfirmed;
 
     private String contact;
@@ -41,6 +43,7 @@ public class Post extends Base {
                 .category(dto.getCategory())
                 .imageURL(dto.getImageURL())
                 .contact(dto.getContact())
+                .fileName(dto.getFileName())
                 .user(user)
                 .build();
     }

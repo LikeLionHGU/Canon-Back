@@ -28,15 +28,19 @@ public class PostDTO {
 
   private String imageURL;
 
+  private String fileName;
+
+
   private LocalDateTime createdDate;
 
-  public static PostDTO of(PostRequest postrequest, String imageUrl) {
+  public static PostDTO of(PostRequest postrequest, String imageUrl, String fileName) {
     return PostDTO.builder()
         .content(postrequest.getContent())
         .title(postrequest.getTitle())
         .category(postrequest.getCategory())
         .createdDate(LocalDateTime.now())
         .contact(postrequest.getContact())
+        .fileName(fileName)
         .isConfirmed((byte) 0)
         .imageURL(imageUrl)
         .build();
@@ -52,6 +56,7 @@ public class PostDTO {
         .category(post.getCategory())
         .contact(post.getContact())
         .isConfirmed(post.getIsConfirmed())
+        .fileName(post.getFileName())
         .imageURL(post.getImageURL())
         .createdDate(post.getCreatedDate())
         .build();
