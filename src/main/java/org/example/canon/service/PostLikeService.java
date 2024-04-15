@@ -48,6 +48,11 @@ public class PostLikeService {
         return likes.stream().map(PostLikeDto::of).toList();
     }
 
+    public List<PostLikeDto> getAllForLikesByUser(Long userId) {
+        List<PostLike> likes = postLikeRepository.findAllByUserId(userId);
+        return likes.stream().map(PostLikeDto::of).toList();
+    }
+
     public void deleteLike(Long likeId, CustomOAuth2UserDto userDTO) {
         Optional<PostLike> postLike = postLikeRepository.findById(likeId);
         Post post = postLike.get().getPost();

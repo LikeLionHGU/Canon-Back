@@ -41,6 +41,13 @@ public class LikeController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/byUser/{userId}")
+    public ResponseEntity<PostLikeListResponse> getAllLikeByUser(@PathVariable Long userId) {
+        List<PostLikeDto> postLikes = postLikeService.getAllForLikesByUser(userId);
+        PostLikeListResponse response = new PostLikeListResponse(postLikes);
+        return ResponseEntity.ok(response);
+    }
+
     @DeleteMapping("/{likeId}")
     public ResponseEntity<Void> deleteLike(
             @AuthenticationPrincipal CustomOAuth2UserDto userDto, @PathVariable Long likeId) {
