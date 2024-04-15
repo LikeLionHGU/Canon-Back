@@ -1,14 +1,14 @@
 package org.example.canon.dto;
 
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.example.canon.entity.Post;
-import org.example.canon.entity.User;
+import org.example.canon.controller.request.CommentRequest;
+import org.example.canon.entity.Comment;
+import org.example.canon.entity.PostLike;
+
+import java.time.LocalDateTime;
 
 @Builder
 @Getter
@@ -17,8 +17,18 @@ import org.example.canon.entity.User;
 public class PostLikeDto {
 
     private Long postLikeId;
-
+    private Long userId;
     private Long postId;
 
-    private String email;
+
+// controller 에서 받아서 service로 보낼때
+
+    public static PostLikeDto of(PostLike postLike) {
+        return PostLikeDto.builder()
+                .postLikeId(postLike.getPostLikeId())
+                .userId(postLike.getUser().getId())
+                .postId(postLike.getPost().getId())
+                .build();
+    }
+
 }

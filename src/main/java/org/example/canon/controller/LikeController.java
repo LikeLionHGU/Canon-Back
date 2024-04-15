@@ -8,6 +8,7 @@ import org.example.canon.controller.response.PostLikeResponse.LikeIdResponse;
 import org.example.canon.controller.response.PostLikeResponse.PostLikeListResponse;
 import org.example.canon.dto.CommentDto;
 import org.example.canon.dto.CustomOAuth2UserDto;
+import org.example.canon.dto.PostLikeDto;
 import org.example.canon.entity.Comment;
 import org.example.canon.entity.PostLike;
 import org.example.canon.service.CommentService;
@@ -35,7 +36,7 @@ public class LikeController {
 
     @GetMapping("/byPost/{postId}")
     public ResponseEntity<PostLikeListResponse> getAllLikeByPost(@PathVariable Long postId) {
-        List<PostLike> postLikes = postLikeService.getAllForLikesByPost(postId);
+        List<PostLikeDto> postLikes = postLikeService.getAllForLikesByPost(postId);
         PostLikeListResponse response = new PostLikeListResponse(postLikes);
         return ResponseEntity.ok(response);
     }

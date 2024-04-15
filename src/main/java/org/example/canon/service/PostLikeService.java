@@ -3,6 +3,7 @@ package org.example.canon.service;
 import lombok.RequiredArgsConstructor;
 import org.example.canon.dto.CommentDto;
 import org.example.canon.dto.CustomOAuth2UserDto;
+import org.example.canon.dto.PostLikeDto;
 import org.example.canon.entity.Comment;
 import org.example.canon.entity.Post;
 import org.example.canon.entity.PostLike;
@@ -42,9 +43,9 @@ public class PostLikeService {
         return postLike;
     }
 
-    public List<PostLike> getAllForLikesByPost(Long postId) {
+    public List<PostLikeDto> getAllForLikesByPost(Long postId) {
         List<PostLike> likes = postLikeRepository.findAllByPostId(postId);
-        return likes.stream().toList();
+        return likes.stream().map(PostLikeDto::of).toList();
     }
 
     public void deleteLike(Long likeId, CustomOAuth2UserDto userDTO) {
