@@ -3,6 +3,8 @@ package org.example.canon.service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import lombok.RequiredArgsConstructor;
+import org.example.canon.controller.request.AdminConfirmRequest;
+import org.example.canon.controller.request.PostRequest;
 import org.example.canon.dto.CustomOAuth2UserDto;
 import org.example.canon.dto.PostDTO;
 import org.example.canon.dto.UserDTO;
@@ -44,6 +46,11 @@ public class PostService {
   }
 
   // 컨펌하는 로직
+  public void confirmPost(Long postId, AdminConfirmRequest request) {
+      Post post = postRepository.findById(postId).orElseThrow(PostNotFoundException::new);
+      post.confirmPost(request.getDecision());
+      postRepository.save(post);
+  }
 
   // 수정하는 로직
 

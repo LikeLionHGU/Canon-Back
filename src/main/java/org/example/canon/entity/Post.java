@@ -48,4 +48,7 @@ public class Post extends Base {
                 .build();
     }
 
+    public void confirmPost(byte decision){
+    this.isConfirmed = decision;
+     }
 }

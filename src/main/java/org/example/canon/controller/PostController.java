@@ -52,12 +52,7 @@ public class PostController {
     return ResponseEntity.ok(response);
   }
 
-  @GetMapping("/admin/all")
-  public ResponseEntity<PostListResponse> getAllConfirmedPost() {
-    List<PostDTO> posts = postService.getAllForAdmin();
-    PostListResponse response = new PostListResponse(posts);
-    return ResponseEntity.ok(response);
-  }
+
 
   @DeleteMapping("/{postId}")
   public ResponseEntity<Void> deletePost(
@@ -87,7 +82,6 @@ public class PostController {
   }
 
 
-  // 컨펌하는 로직 작성하기
 
 
 }
