@@ -25,6 +25,8 @@ public class Post extends Base {
 
     private String imageURL;
 
+    private String fileName;
+
     private int countLike = 0;
 
     private byte isConfirmed;
@@ -50,8 +52,12 @@ public class Post extends Base {
                 .category(dto.getCategory())
                 .imageURL(dto.getImageURL())
                 .contact(dto.getContact())
+                .fileName(dto.getFileName())
                 .user(user)
                 .build();
     }
 
+    public void confirmPost(byte decision){
+    this.isConfirmed = decision;
+     }
 }

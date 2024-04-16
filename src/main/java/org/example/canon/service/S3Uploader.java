@@ -59,6 +59,15 @@ public class S3Uploader {
         }
     }
 
+
+//    public void deleteFile(String fileName) {
+//        amazonS3Client.deleteObject(bucket, fileName);
+//    }
+
+    public void deleteFile(String dirName, String fileName) {
+        amazonS3Client.deleteObject(bucket, dirName + "/" + fileName);
+    }
+
     private Optional<File> convert(MultipartFile file) throws  IOException {
         File convertFile = new File(file.getOriginalFilename());
         if(convertFile.createNewFile()) {
