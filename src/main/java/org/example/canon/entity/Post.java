@@ -27,6 +27,8 @@ public class Post extends Base {
 
     private String fileName;
 
+    private int countLike = 0;
+
     private byte isConfirmed;
 
     private String contact;
@@ -35,6 +37,13 @@ public class Post extends Base {
     @JoinColumn(name = "User_Id")
     private User user;
 
+    public void plusLike() {
+        this.countLike += 1;
+    }
+
+    public void minusLike() {
+        this.countLike -= 1;
+    }
 
     public static Post of(PostDTO dto , User user){
         return Post.builder()
