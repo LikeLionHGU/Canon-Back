@@ -45,12 +45,7 @@ public class PostService {
     return posts.stream().map(PostDTO::of).toList();
   }
 
-  // 컨펌하는 로직
-  public void confirmPost(Long postId, AdminConfirmRequest request) {
-      Post post = postRepository.findById(postId).orElseThrow(PostNotFoundException::new);
-      post.confirmPost(request.getDecision());
-      postRepository.save(post);
-  }
+
 
   // 수정하는 로직
 
