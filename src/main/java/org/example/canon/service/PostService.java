@@ -11,6 +11,7 @@ import org.example.canon.dto.UserDTO;
 import org.example.canon.entity.Post;
 import org.example.canon.entity.User;
 import org.example.canon.exception.PostDeleteDisableException;
+import org.example.canon.exception.PostEditDisableException;
 import org.example.canon.exception.PostNotFoundException;
 import org.example.canon.repository.PostRepository;
 import org.example.canon.repository.UserRepository;
@@ -106,7 +107,7 @@ public class PostService {
 
         }
       } else {
-      throw new PostDeleteDisableException();
+      throw new PostEditDisableException();
     }
 
 
