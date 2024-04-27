@@ -16,6 +16,7 @@ import org.example.canon.repository.PostRepository;
 import org.example.canon.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.List;
@@ -89,4 +90,26 @@ public class PostService {
 
 
   }
+
+
+  @Transactional
+  public void updatePost(Long postId, PostRequest request, CustomOAuth2UserDto userDTO, MultipartFile image) {
+    Optional<Post> post = postRepository.findById(postId);
+    if ((userDTO.getEmail().equals(post.get().getUser().getEmail())) ) {
+        if(image.getName().equals(post.get().getFileName())){
+
+        // 파일 뺴고 나머지 내용을 Request로 업데이트 해준다.
+
+        }else{
+
+          // 파일도 새로 업로드 후 ULR + Request 를 업데이트 해준다.
+
+        }
+      } else {
+      throw new PostDeleteDisableException();
+    }
+
+
+  }
+
 }

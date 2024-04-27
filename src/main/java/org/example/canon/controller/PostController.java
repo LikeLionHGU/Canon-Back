@@ -6,6 +6,7 @@ import org.example.canon.controller.response.postResponse.PostListResponse;
 import org.example.canon.controller.response.postResponse.PostResponse;
 import org.example.canon.dto.CustomOAuth2UserDto;
 import org.example.canon.dto.PostDTO;
+import org.example.canon.entity.Post;
 import org.example.canon.service.PostService;
 import org.example.canon.service.S3Uploader;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,13 +46,13 @@ public class PostController {
     return ResponseEntity.ok(response);
   }
 
+
   @GetMapping("/{postId}")
   public ResponseEntity<PostResponse> getPost(@PathVariable Long postId) {
     PostDTO postDto = postService.getPost(postId);
     PostResponse response = new PostResponse(postDto);
     return ResponseEntity.ok(response);
   }
-
 
 
   @DeleteMapping("/{postId}")
@@ -61,16 +62,17 @@ public class PostController {
     return ResponseEntity.ok().build();
   }
 
-  // 게시글 수정 로직 완성하기
-//   @PatchMapping("/{postId}")
-//   public ResponseEntity<PostResponse> updatePost(
-//           @AuthenticationPrincipal CustomOAuth2UserDto userDto,
-//           @PathVariable Long postId,
-//           @RequestBody PostRequest request) {
-//       PostDTO postDto = postService.updatePost(postId, request, userDto);
-//       PostResponse response = new PostResponse(postDto);
-//       return ResponseEntity.ok(response);
-//   }
+
+   @PatchMapping("/{postId}")
+   public ResponseEntity<Void> updatePost(
+           @AuthenticationPrincipal CustomOAuth2UserDto userDto,
+           @RequestParam("image") MultipartFile image,
+           @PathVariable Long postId,
+           @RequestBody PostRequest request) throws IOException {
+
+     postService.updatePost(postId, request, userDto,image);
+     return ResponseEntity.ok().build();
+   }
 
 
 
