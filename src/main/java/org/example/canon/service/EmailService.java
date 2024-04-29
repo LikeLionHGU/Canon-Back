@@ -28,14 +28,9 @@ public class EmailService {
 
 
     public void sendMail(CustomOAuth2UserDTO userDTO, EmailRequest request , Long postId){
-
         Optional<Post> post = postRepository.findById(postId);
         String receiverMail = post.get().getUser().getEmail();
         EmailDTO dto = EmailDTO.of(request);
-        System.out.println("받는 사람 : "+receiverMail);
-        System.out.println("보내는 사람 : "+userDTO.getEmail());
-        System.out.println("제목 : "+dto.getSubject());
-        System.out.println("내용 :"+dto.getMessage());
 
         SimpleMailMessage msg = new SimpleMailMessage();
 

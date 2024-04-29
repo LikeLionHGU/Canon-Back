@@ -24,6 +24,7 @@ public class EmailController {
             @PathVariable Long postId,
             @AuthenticationPrincipal CustomOAuth2UserDTO userDto){
 
+        System.out.println("==여기까지는 됨 ===");
         emailService.sendMail(userDto,request,postId);
 
         return ResponseEntity.ok().build();
