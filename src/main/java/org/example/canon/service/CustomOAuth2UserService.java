@@ -60,7 +60,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
       role = existData.getRole();
 
-      userRepository.save(existData);
+//      userRepository.save(existData);
 
       UserDTO userDTO = new UserDTO();
       userDTO.setUsername(existData.getUsername());
