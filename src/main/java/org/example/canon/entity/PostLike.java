@@ -2,7 +2,6 @@ package org.example.canon.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.example.canon.dto.CommentDto;
 
 @Entity
 @Getter

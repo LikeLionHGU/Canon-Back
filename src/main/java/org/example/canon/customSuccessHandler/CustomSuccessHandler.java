@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.example.canon.dto.CustomOAuth2UserDto;
+import org.example.canon.dto.CustomOAuth2UserDTO;
 import org.example.canon.jwt.JWTUtil;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,7 +30,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
         //OAuth2User
-        CustomOAuth2UserDto customUserDetails = (CustomOAuth2UserDto) authentication.getPrincipal();
+        CustomOAuth2UserDTO customUserDetails = (CustomOAuth2UserDTO) authentication.getPrincipal();
 
         String username = customUserDetails.getUsername();
         System.out.println("=======");

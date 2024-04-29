@@ -1,17 +1,13 @@
 package org.example.canon.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.canon.dto.CommentDto;
-import org.example.canon.dto.CustomOAuth2UserDto;
-import org.example.canon.dto.PostLikeDto;
-import org.example.canon.entity.Comment;
+import org.example.canon.dto.CustomOAuth2UserDTO;
+import org.example.canon.dto.PostLikeDTO;
 import org.example.canon.entity.Post;
 import org.example.canon.entity.PostLike;
 import org.example.canon.entity.User;
-import org.example.canon.exception.CommentDeleteDisableException;
 import org.example.canon.exception.LikeDeleteDisableException;
 import org.example.canon.exception.UserAlreadyLikedException;
-import org.example.canon.repository.CommentRepository;
 import org.example.canon.repository.PostLikeRepository;
 import org.example.canon.repository.PostRepository;
 import org.example.canon.repository.UserRepository;
@@ -43,17 +39,17 @@ public class PostLikeService {
         return postLike;
     }
 
-    public List<PostLikeDto> getAllForLikesByPost(Long postId) {
+    public List<PostLikeDTO> getAllForLikesByPost(Long postId) {
         List<PostLike> likes = postLikeRepository.findAllByPostId(postId);
-        return likes.stream().map(PostLikeDto::of).toList();
+        return likes.stream().map(PostLikeDTO::of).toList();
     }
 
-    public List<PostLikeDto> getAllForLikesByUser(Long userId) {
+    public List<PostLikeDTO> getAllForLikesByUser(Long userId) {
         List<PostLike> likes = postLikeRepository.findAllByUserId(userId);
-        return likes.stream().map(PostLikeDto::of).toList();
+        return likes.stream().map(PostLikeDTO::of).toList();
     }
 
-    public void deleteLike(Long likeId, CustomOAuth2UserDto userDTO) {
+    public void deleteLike(Long likeId, CustomOAuth2UserDTO userDTO) {
         Optional<PostLike> postLike = postLikeRepository.findById(likeId);
         Post post = postLike.get().getPost();
         if (userDTO.getEmail().equals(postLike.get().getUser().getEmail())) {

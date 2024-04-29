@@ -1,13 +1,10 @@
 package org.example.canon.service;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
 import lombok.RequiredArgsConstructor;
 import org.example.canon.controller.request.AdminConfirmRequest;
 import org.example.canon.controller.request.PostRequest;
-import org.example.canon.dto.CustomOAuth2UserDto;
+import org.example.canon.dto.CustomOAuth2UserDTO;
 import org.example.canon.dto.PostDTO;
-import org.example.canon.dto.UserDTO;
 import org.example.canon.entity.Post;
 import org.example.canon.entity.User;
 import org.example.canon.exception.PostDeleteDisableException;
@@ -19,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -78,7 +74,7 @@ public class PostService {
   }
 
   @Transactional
-  public void deletePost(Long postId, CustomOAuth2UserDto userDTO) {
+  public void deletePost(Long postId, CustomOAuth2UserDTO userDTO) {
     Optional<Post> post = postRepository.findById(postId);
     String imageName = post.get().getFileName();
     System.out.println("==="+ imageName+"===");
@@ -95,7 +91,7 @@ public class PostService {
 
 
   @Transactional
-  public void updatePost(Long postId, PostRequest request, CustomOAuth2UserDto userDTO, MultipartFile image) throws IOException {
+  public void updatePost(Long postId, PostRequest request, CustomOAuth2UserDTO userDTO, MultipartFile image) throws IOException {
     Optional<Post> post = postRepository.findById(postId);
     if ((userDTO.getEmail().equals(post.get().getUser().getEmail())) ) {
         if(image.getName().equals(post.get().getFileName())){

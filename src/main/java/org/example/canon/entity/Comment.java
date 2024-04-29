@@ -2,8 +2,7 @@ package org.example.canon.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.example.canon.dto.CommentDto;
-import org.springframework.data.annotation.CreatedDate;
+import org.example.canon.dto.CommentDTO;
 
 @Entity
 @Getter
@@ -27,7 +26,7 @@ public class Comment extends Base {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    public static Comment of(CommentDto dto , User user, Post post){
+    public static Comment of(CommentDTO dto , User user, Post post){
         return Comment.builder()
                 .content(dto.getContent())
                 .user(user)
