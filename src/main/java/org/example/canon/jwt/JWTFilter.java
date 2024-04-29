@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import org.example.canon.dto.CustomOAuth2UserDto;
+import org.example.canon.dto.CustomOAuth2UserDTO;
 import org.example.canon.dto.UserDTO;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -80,7 +80,7 @@ public class JWTFilter extends OncePerRequestFilter {
         userDTO.setRole(role);
         userDTO.setEmail(email);
 
-        CustomOAuth2UserDto customOAuth2User = new CustomOAuth2UserDto(userDTO);
+        CustomOAuth2UserDTO customOAuth2User = new CustomOAuth2UserDTO(userDTO);
 
         Authentication authToken = new UsernamePasswordAuthenticationToken(customOAuth2User, null, customOAuth2User.getAuthorities());
 

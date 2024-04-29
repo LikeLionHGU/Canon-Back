@@ -1,6 +1,6 @@
 package org.example.canon.service;
 
-import org.example.canon.dto.CustomOAuth2UserDto;
+import org.example.canon.dto.CustomOAuth2UserDTO;
 import org.example.canon.controller.response.LoginResponse.GoogleResponse;
 // import org.example.canon.dto.NaverResponse;
 import org.example.canon.dto.OAuth2Response;
@@ -50,7 +50,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
       userDTO.setEmail(oAuth2Response.getEmail());
       userDTO.setRole("USER");
 
-      return new CustomOAuth2UserDto(userDTO);
+      return new CustomOAuth2UserDTO(userDTO);
 
     } else {
 
@@ -68,7 +68,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
       userDTO.setName(existData.getName());
       userDTO.setEmail(existData.getEmail());
 
-      return new CustomOAuth2UserDto(userDTO);
+      return new CustomOAuth2UserDTO(userDTO);
 
     }
   }

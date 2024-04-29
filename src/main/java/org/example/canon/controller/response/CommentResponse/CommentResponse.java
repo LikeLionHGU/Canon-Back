@@ -3,9 +3,7 @@ package org.example.canon.controller.response.CommentResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.example.canon.dto.CommentDto;
-import org.example.canon.dto.PostDTO;
-import org.example.canon.entity.User;
+import org.example.canon.dto.CommentDTO;
 
 import java.time.LocalDateTime;
 
@@ -21,7 +19,7 @@ public class CommentResponse {
     private Long postId;
     private String userName;
 
-    public CommentResponse(String userName,CommentDto commentDto, Long commentId) {
+    public CommentResponse(String userName, CommentDTO commentDto, Long commentId) {
         this.commentId = commentId;
         this.userName = userName;
         this.userId = commentDto.getUserId();
@@ -30,7 +28,7 @@ public class CommentResponse {
         this.postId = commentDto.getPostId();
     }
 
-    public CommentResponse(CommentDto commentDto) {
+    public CommentResponse(CommentDTO commentDto) {
         this.commentId = commentDto.getCommentId();
         this.userId = commentDto.getUserId();
         this.userName = commentDto.getUserName();

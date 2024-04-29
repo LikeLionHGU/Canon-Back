@@ -1,8 +1,6 @@
 package org.example.canon.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
@@ -12,12 +10,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Builder
-public class CustomOAuth2UserDto implements OAuth2User{
+public class CustomOAuth2UserDTO implements OAuth2User{
 
 
     private final UserDTO userDTO;
 
-    public CustomOAuth2UserDto(UserDTO userDTO) {
+    public CustomOAuth2UserDTO(UserDTO userDTO) {
 
         this.userDTO = userDTO;
     }

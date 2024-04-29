@@ -4,9 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.example.canon.controller.request.PostRequest;
 import org.example.canon.controller.response.postResponse.PostListResponse;
 import org.example.canon.controller.response.postResponse.PostResponse;
-import org.example.canon.dto.CustomOAuth2UserDto;
+import org.example.canon.dto.CustomOAuth2UserDTO;
 import org.example.canon.dto.PostDTO;
-import org.example.canon.entity.Post;
 import org.example.canon.service.PostService;
 import org.example.canon.service.S3Uploader;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,7 +34,7 @@ public class PostController {
   public ResponseEntity<PostResponse> uploadPost(
       @RequestParam("image") MultipartFile image,
       PostRequest request,
-      @AuthenticationPrincipal CustomOAuth2UserDto userDto)
+      @AuthenticationPrincipal CustomOAuth2UserDTO userDto)
       throws IOException {
     String fileName = image.getOriginalFilename();
     String imageURL = s3Uploader.upload(image, "example");
@@ -57,7 +56,7 @@ public class PostController {
 
   @DeleteMapping("/{postId}")
   public ResponseEntity<Void> deletePost(
-          @AuthenticationPrincipal CustomOAuth2UserDto userDto, @PathVariable Long postId) {
+          @AuthenticationPrincipal CustomOAuth2UserDTO userDto, @PathVariable Long postId) {
     postService.deletePost(postId, userDto);
     return ResponseEntity.ok().build();
   }
@@ -65,7 +64,7 @@ public class PostController {
 
    @PatchMapping("/{postId}")
    public ResponseEntity<Void> updatePost(
-           @AuthenticationPrincipal CustomOAuth2UserDto userDto,
+           @AuthenticationPrincipal CustomOAuth2UserDTO userDto,
            @RequestParam("image") MultipartFile image,
            PostRequest request,
            @PathVariable Long postId
