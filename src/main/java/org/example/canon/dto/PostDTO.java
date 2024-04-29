@@ -61,4 +61,5 @@ public class PostDTO {
         .createdDate(post.getCreatedDate())
         .build();
   }
+
 }

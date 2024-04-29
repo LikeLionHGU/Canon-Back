@@ -2,6 +2,7 @@ package org.example.canon.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.canon.controller.request.PostRequest;
 import org.example.canon.dto.PostDTO;
 
 @Entity
@@ -60,4 +61,24 @@ public class Post extends Base {
     public void confirmPost(byte decision){
     this.isConfirmed = decision;
      }
+
+    public void updatePostAndFile(PostRequest request, String imageURL, String fileName){
+
+        this.content = request.getContent();
+        this.title = request.getTitle();
+        this.category = request.getCategory();
+        this.contact = request.getContact();
+        this.imageURL = imageURL;
+        this.fileName = fileName;
+    }
+
+
+    public void updatePostOnly(PostRequest request){
+        this.content = request.getContent();
+        this.title = request.getTitle();
+        this.category = request.getCategory();
+        this.contact = request.getContact();
+    }
+
+
 }

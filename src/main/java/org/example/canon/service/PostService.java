@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -94,16 +95,21 @@ public class PostService {
 
 
   @Transactional
-  public void updatePost(Long postId, PostRequest request, CustomOAuth2UserDto userDTO, MultipartFile image) {
+  public void updatePost(Long postId, PostRequest request, CustomOAuth2UserDto userDTO, MultipartFile image) throws IOException {
     Optional<Post> post = postRepository.findById(postId);
     if ((userDTO.getEmail().equals(post.get().getUser().getEmail())) ) {
         if(image.getName().equals(post.get().getFileName())){
 
         // 파일 뺴고 나머지 내용을 Request로 업데이트 해준다.
+          post.get().updatePostOnly(request);
 
         }else{
 
-          // 파일도 새로 업로드 후 ULR + Request 를 업데이트 해준다.
+          // 원래 파일 삭제
+          // 새로 업로드 후 URL + Request 내용으로 업데이트 해준다.
+        s3Uploader.deleteFile("example", post.get().getFileName());
+        String imageURL = s3Uploader.upload(image, "example");
+        post.get().updatePostAndFile(request,imageURL,image.getName());
 
         }
       } else {
