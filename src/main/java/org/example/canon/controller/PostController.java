@@ -67,8 +67,9 @@ public class PostController {
    public ResponseEntity<Void> updatePost(
            @AuthenticationPrincipal CustomOAuth2UserDto userDto,
            @RequestParam("image") MultipartFile image,
-           @PathVariable Long postId,
-           @RequestBody PostRequest request) throws IOException {
+           PostRequest request,
+           @PathVariable Long postId
+           ) throws IOException {
 
      postService.updatePost(postId, request, userDto,image);
      return ResponseEntity.ok().build();
