@@ -7,8 +7,8 @@ import lombok.Setter;
 @Setter
 public class EmailRequest {
 
-    private String to;
+    private String subject;
     private String message;
-    private String from;
+    private String sender;
 
 }

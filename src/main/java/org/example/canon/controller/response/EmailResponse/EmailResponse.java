@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class EmailResponse {
 
     private String to;
+    private String subject;
     private String message;
     private String from;
 
