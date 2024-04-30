@@ -21,4 +21,12 @@ public class Tools extends Base{
     @JoinColumn(name = "post_id")
     private Post post;
 
+
+    public static Tools of(String tool, Post post){
+        return Tools.builder()
+                .tool(tool)
+                .post(post)
+                .build();
+
+}
 }
