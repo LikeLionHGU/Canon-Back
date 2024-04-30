@@ -31,6 +31,8 @@ public class PostResponse {
   private byte isConfirmed;
   private List<String> tools;
 
+  private long viewCount;
+
 
   public PostResponse(PostDTO postDto, Long postId,String userName) {
     this.id = postId;
@@ -41,6 +43,7 @@ public class PostResponse {
     this.createdDate = postDto.getCreatedDate();
     this.imageURL = postDto.getImageURL();
     this.tools = postDto.getTools();
+    this.viewCount = postDto.getViewCount();
     this.contact = postDto.getContact();
     this.isConfirmed = postDto.getIsConfirmed();
   }
@@ -51,6 +54,7 @@ public class PostResponse {
     this.userName = postDto.getUserName();
     this.title = postDto.getTitle();
     this.content = postDto.getContent();
+    this.viewCount = postDto.getViewCount();
     this.category = postDto.getCategory();
     this.tools = postDto.getTools();
     this.createdDate = postDto.getCreatedDate();
