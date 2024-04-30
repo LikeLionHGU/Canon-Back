@@ -34,10 +34,11 @@ public class PostService {
     System.out.println(email);
     User user = userRepository.findByEmail(email);
 
-    //PostDTO로 넘어온 Request에 있는 Tools 를 tools 테이블에 넣기
-
     Post post = Post.of(postDTO, user);
-    postRepository.save(post);
+    Post ret = postRepository.save(post);
+
+    //PostDTO로 넘어온 Request에 있는 Tools 를 tools 테이블에 넣기
+    toolsService.saveTools(ret , postDTO.getTools());
 
 
 
