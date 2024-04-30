@@ -27,14 +27,19 @@ public class PostService {
   private final PostRepository postRepository;
   private final UserRepository userRepository;
   private final S3Uploader s3Uploader;
+  private final ToolsService toolsService;
 
 
   public long addPost(PostDTO postDTO, String email) {
     System.out.println(email);
     User user = userRepository.findByEmail(email);
 
+    //PostDTO로 넘어온 Request에 있는 Tools 를 tools 테이블에 넣기
+
     Post post = Post.of(postDTO, user);
     postRepository.save(post);
+
+
 
     return post.getId();
   }
