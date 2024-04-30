@@ -36,6 +36,8 @@ public class PostDTO {
 
   private List<String> tools;
 
+  private long viewCount;
+
   public static PostDTO of(PostRequest postrequest, String imageUrl, String fileName) {
     return PostDTO.builder()
         .content(postrequest.getContent())
@@ -57,6 +59,7 @@ public class PostDTO {
         .userName(post.getUser().getUsername())
         .content(post.getContent())
         .title(post.getTitle())
+        .viewCount(post.getViewCount())
         .category(post.getCategory())
         .contact(post.getContact())
         .isConfirmed(post.getIsConfirmed())

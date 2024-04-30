@@ -34,6 +34,8 @@ public class Post extends Base {
 
     private String contact;
 
+    private long viewCount= 0;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "User_Id")
     private User user;
@@ -44,6 +46,10 @@ public class Post extends Base {
 
     public void minusLike() {
         this.countLike -= 1;
+    }
+
+    public void plusViewCount() {
+        this.viewCount += 1;
     }
 
     public static Post of(PostDTO dto , User user){

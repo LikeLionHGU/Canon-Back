@@ -18,6 +18,7 @@ public class ToolsService {
     private final PostRepository postRepository;
 
     public void saveTools(Post post, List<String> toolsName){
+
         if(toolsName.isEmpty()){
             return;
         }
@@ -27,10 +28,6 @@ public class ToolsService {
             Tools tools = Tools.of(toolsName.get(i), post);
             toolsRepository.save(tools);
         }
-
-    //List랑 유저를 인자로 받아서 그 크기만큼 반복
-        // List 하나에 있는 거 유저 정보랑 같이 save
-
 
 }
 }
