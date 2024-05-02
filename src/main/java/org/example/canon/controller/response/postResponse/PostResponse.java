@@ -81,12 +81,11 @@ public class PostResponse {
 
     this.isConfirmed = postDto.getIsConfirmed();
 
-    for(int i = 0; i < toolDTO.size(); i++) {
       if (this.tools == null) {
         this.tools = new ArrayList<>();
       }
-      this.tools.add(toolDTO.get(i).getTools().toString());
-    }
+      this.tools.add(toolDTO.get(0).getTools().toString());
+
 
   }
 }
