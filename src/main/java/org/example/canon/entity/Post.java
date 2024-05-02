@@ -28,11 +28,13 @@ public class Post extends Base {
 
     private String fileName;
 
-    private int countLike = 0;
+    private int countLike=0;
 
     private byte isConfirmed;
 
     private String contact;
+
+    private long viewCount=0;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "User_Id")
@@ -46,6 +48,10 @@ public class Post extends Base {
         this.countLike -= 1;
     }
 
+    public void plusViewCount() {
+        this.viewCount += 1;
+    }
+
     public static Post of(PostDTO dto , User user){
         return Post.builder()
                 .content(dto.getContent())
@@ -53,6 +59,7 @@ public class Post extends Base {
                 .category(dto.getCategory())
                 .imageURL(dto.getImageURL())
                 .contact(dto.getContact())
+                .viewCount(dto.getViewCount())
                 .fileName(dto.getFileName())
                 .user(user)
                 .build();

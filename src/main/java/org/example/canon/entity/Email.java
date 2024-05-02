@@ -18,9 +18,13 @@ public class Email extends Base{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    //얘 외래키로 바꿔야함
     private String receiver;
     private String message;
     private String subject;
+
+    //얘 외래키로 바꿔야함
     private String sender;
 
     public static Email of(EmailRequest emailRequest, String to){

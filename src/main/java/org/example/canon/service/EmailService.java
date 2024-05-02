@@ -34,16 +34,12 @@ public class EmailService {
 
         SimpleMailMessage msg = new SimpleMailMessage();
 
-        System.out.println("받는 사람 : "+receiverMail);
         msg.setTo(receiverMail);
 
-        System.out.println("보내는 사람 : "+userDTO.getEmail());
         msg.setFrom(userDTO.getEmail());
 
-        System.out.println("제목 : "+dto.getSubject());
         msg.setSubject(dto.getSubject());
 
-        System.out.println("내용 :"+dto.getMessage());
         msg.setText(dto.getMessage());
 
         javaMailSender.send(msg);

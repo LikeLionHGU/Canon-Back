@@ -6,8 +6,11 @@ import org.example.canon.controller.response.postResponse.PostListResponse;
 import org.example.canon.controller.response.postResponse.PostResponse;
 import org.example.canon.dto.CustomOAuth2UserDTO;
 import org.example.canon.dto.PostDTO;
+import org.example.canon.dto.ToolDTO;
+import org.example.canon.entity.Post;
 import org.example.canon.service.PostService;
 import org.example.canon.service.S3Uploader;
+import org.example.canon.service.ToolsService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +32,7 @@ public class PostController {
 
   private final PostService postService;
   private final S3Uploader s3Uploader;
+  private final ToolsService toolsService;
 
   @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<PostResponse> uploadPost(
@@ -49,7 +53,8 @@ public class PostController {
   @GetMapping("/{postId}")
   public ResponseEntity<PostResponse> getPost(@PathVariable Long postId) {
     PostDTO postDto = postService.getPost(postId);
-    PostResponse response = new PostResponse(postDto);
+    List<ToolDTO> toolDto = toolsService.getAllByPostId(postId);
+    PostResponse response = new PostResponse(postDto,toolDto);
     return ResponseEntity.ok(response);
   }
 
