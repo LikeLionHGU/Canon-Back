@@ -24,7 +24,7 @@ public class ToolsService {
         }
 
 
-        for(int i=0; i<toolsName.size()-1 ; i++){
+        for(int i=0; i<toolsName.size() ; i++){
             Tools tools = Tools.of(toolsName.get(i), post);
             toolsRepository.save(tools);
         }
