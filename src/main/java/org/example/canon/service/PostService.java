@@ -77,6 +77,7 @@ public class PostService {
   public PostDTO getPost(Long postId) {
     Post post = postRepository.findById(postId).orElseThrow(PostNotFoundException::new);
     post.plusViewCount();
+    postRepository.save(post);
     return PostDTO.of(post);
   }
 
