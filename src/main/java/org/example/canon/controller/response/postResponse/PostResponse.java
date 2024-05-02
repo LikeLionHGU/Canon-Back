@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.canon.dto.PostDTO;
+import org.example.canon.dto.ToolDTO;
 import org.example.canon.entity.User;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -29,6 +31,7 @@ public class PostResponse {
   private String contact;
 
   private byte isConfirmed;
+
   private List<String> tools;
 
   private long viewCount;
@@ -61,6 +64,30 @@ public class PostResponse {
     this.imageURL = postDto.getImageURL();
     this.contact = postDto.getContact();
     this.isConfirmed = postDto.getIsConfirmed();
+  }
+
+  public PostResponse(PostDTO postDto, List<ToolDTO> toolDTO) {
+    this.id = postDto.getId();
+    this.userName = postDto.getUserName();
+    this.title = postDto.getTitle();
+    this.content = postDto.getContent();
+    this.viewCount = postDto.getViewCount();
+    this.category = postDto.getCategory();
+
+    this.tools = postDto.getTools();
+    this.createdDate = postDto.getCreatedDate();
+    this.imageURL = postDto.getImageURL();
+    this.contact = postDto.getContact();
+
+    this.isConfirmed = postDto.getIsConfirmed();
+
+    for(int i = 0; i < toolDTO.size(); i++) {
+      if (this.tools == null) {
+        this.tools = new ArrayList<>();
+      }
+      this.tools.add(toolDTO.get(i).getTools().toString());
+    }
+
   }
 }
 

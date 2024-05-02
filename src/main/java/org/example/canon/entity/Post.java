@@ -28,13 +28,13 @@ public class Post extends Base {
 
     private String fileName;
 
-    private int countLike;
+    private int countLike=0;
 
     private byte isConfirmed;
 
     private String contact;
 
-    private long viewCount;
+    private long viewCount=0;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "User_Id")

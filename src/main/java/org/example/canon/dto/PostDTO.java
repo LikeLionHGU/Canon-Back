@@ -47,7 +47,7 @@ public class PostDTO {
         .createdDate(LocalDateTime.now())
         .contact(postrequest.getContact())
         .fileName(fileName)
-        .viewCount(0)
+        .viewCount(0L)
         .isConfirmed((byte) 0)
         .imageURL(imageUrl)
         .build();

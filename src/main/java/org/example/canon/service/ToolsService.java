@@ -1,6 +1,8 @@
 package org.example.canon.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.canon.dto.PostDTO;
+import org.example.canon.dto.ToolDTO;
 import org.example.canon.entity.Post;
 import org.example.canon.entity.Tools;
 import org.example.canon.repository.PostRepository;
@@ -9,6 +11,7 @@ import org.example.canon.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -29,5 +32,11 @@ public class ToolsService {
             toolsRepository.save(tools);
         }
 }
+
+  public List<ToolDTO> getAllByPostId(Long postId) {
+    Post post = postRepository.findById(postId).orElseThrow();
+    List<Tools> tools = toolsRepository.findAllByPost(post);
+      return tools.stream().map(tool -> ToolDTO.of(tools)).collect(Collectors.toList());
+    }
 
 }
