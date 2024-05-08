@@ -67,6 +67,7 @@ public class PostService {
                     .and(PostSpecification.filterByYear(postFilterRequest.getYear()))));
 
 
+
     return postRepository.findAll(spec)
             .stream()
             .map(PostDTO::of)
