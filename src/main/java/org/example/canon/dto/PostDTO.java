@@ -5,6 +5,7 @@ import org.example.canon.controller.request.PostRequest;
 import org.example.canon.entity.Post;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -22,6 +23,10 @@ public class PostDTO {
   private String title;
 
   private String category;
+
+  private String major;
+
+  private Date year;
 
   private String contact;
 
@@ -42,6 +47,8 @@ public class PostDTO {
     return PostDTO.builder()
         .content(postrequest.getContent())
         .title(postrequest.getTitle())
+            .major(postrequest.getMajor())
+        .year(postrequest.getYear())
         .tools(postrequest.getTools())
         .category(postrequest.getCategory())
         .createdDate(LocalDateTime.now())
@@ -61,6 +68,8 @@ public class PostDTO {
         .content(post.getContent())
         .title(post.getTitle())
         .viewCount(post.getViewCount())
+            .major(post.getMajor())
+        .year(post.getYear())
         .category(post.getCategory())
         .contact(post.getContact())
         .isConfirmed(post.getIsConfirmed())

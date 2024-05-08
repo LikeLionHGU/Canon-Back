@@ -5,6 +5,8 @@ import lombok.*;
 import org.example.canon.controller.request.PostRequest;
 import org.example.canon.dto.PostDTO;
 
+import java.util.Date;
+
 @Entity
 @Getter
 @Setter
@@ -27,6 +29,10 @@ public class Post extends Base {
     private String imageURL;
 
     private String fileName;
+
+    private String major;
+
+    private Date year;
 
     private int countLike=0;
 
@@ -58,6 +64,8 @@ public class Post extends Base {
                 .title(dto.getTitle())
                 .category(dto.getCategory())
                 .imageURL(dto.getImageURL())
+                .major(dto.getMajor())
+                .year(dto.getYear())
                 .contact(dto.getContact())
                 .viewCount(dto.getViewCount())
                 .fileName(dto.getFileName())
@@ -75,6 +83,8 @@ public class Post extends Base {
         this.title = request.getTitle();
         this.category = request.getCategory();
         this.contact = request.getContact();
+        this.major = request.getMajor();
+        this.year = request.getYear();
         this.imageURL = imageURL;
         this.fileName = fileName;
     }
@@ -83,6 +93,8 @@ public class Post extends Base {
     public void updatePostOnly(PostRequest request){
         this.content = request.getContent();
         this.title = request.getTitle();
+        this.major = request.getMajor();
+        this.year = request.getYear();
         this.category = request.getCategory();
         this.contact = request.getContact();
     }

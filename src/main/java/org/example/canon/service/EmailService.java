@@ -32,6 +32,7 @@ public class EmailService {
         String receiverMail = post.get().getUser().getEmail();
         EmailDTO dto = EmailDTO.of(request);
 
+
         SimpleMailMessage msg = new SimpleMailMessage();
 
         msg.setTo(receiverMail);
