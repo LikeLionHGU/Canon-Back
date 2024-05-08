@@ -26,7 +26,7 @@ public class PostDTO {
 
   private String major;
 
-  private Date year;
+  private String year;
 
   private String contact;
 

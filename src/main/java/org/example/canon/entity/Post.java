@@ -32,7 +32,7 @@ public class Post extends Base {
 
     private String major;
 
-    private Date year;
+    private String year;
 
     private int countLike=0;
 

@@ -1,6 +1,7 @@
 package org.example.canon.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.canon.controller.request.PostFilterRequest;
 import org.example.canon.controller.request.PostRequest;
 import org.example.canon.controller.response.postResponse.PostListResponse;
 import org.example.canon.controller.response.postResponse.PostResponse;
@@ -64,6 +65,14 @@ public class PostController {
           @AuthenticationPrincipal CustomOAuth2UserDTO userDto, @PathVariable Long postId) {
     postService.deletePost(postId, userDto);
     return ResponseEntity.ok().build();
+  }
+
+  @GetMapping("/filtered")
+  public ResponseEntity<PostListResponse> getFilteredPosts( PostFilterRequest postFilterRequest){
+
+    List<PostDTO> posts = postService.getAllFilteredPost(postFilterRequest);
+    PostListResponse response = new PostListResponse(posts);
+    return ResponseEntity.ok(response);
   }
 
 
