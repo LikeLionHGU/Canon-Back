@@ -2,6 +2,7 @@ package org.example.canon.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.canon.controller.request.AdminConfirmRequest;
+import org.example.canon.controller.request.PostFilterRequest;
 import org.example.canon.controller.request.PostRequest;
 import org.example.canon.dto.CustomOAuth2UserDTO;
 import org.example.canon.dto.PostDTO;
@@ -12,6 +13,8 @@ import org.example.canon.exception.PostEditDisableException;
 import org.example.canon.exception.PostNotFoundException;
 import org.example.canon.repository.PostRepository;
 import org.example.canon.repository.UserRepository;
+import org.example.canon.specification.PostSpecification;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -55,6 +58,20 @@ public class PostService {
     Post post = postRepository.findById(postId).orElseThrow(PostNotFoundException::new);
     post.confirmPost(request.getDecision());
     postRepository.save(post);
+  }
+
+  public List<PostDTO> getAllFilteredPost(PostFilterRequest postFilterRequest){
+
+    Specification<Post> spec = Specification.where(PostSpecification.filterByCategory(postFilterRequest.getCategory())
+            .and(PostSpecification.filterByMajor(postFilterRequest.getMajor())
+                    .and(PostSpecification.filterByYear(postFilterRequest.getYear()))));
+
+
+
+    return postRepository.findAll(spec)
+            .stream()
+            .map(PostDTO::of)
+            .toList();
   }
 
 

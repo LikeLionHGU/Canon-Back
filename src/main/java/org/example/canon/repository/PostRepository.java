@@ -1,8 +1,10 @@
 package org.example.canon.repository;
 
 
+import org.example.canon.dto.PostDTO;
 import org.example.canon.entity.Post;
 import org.example.canon.entity.User;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -21,6 +23,5 @@ public interface PostRepository  extends JpaRepository<Post,Long> {
     List<Post> findAllByUserId(Long userId); //마이페이지용
 
 
-
-
+    List<Post> findAll(Specification<Post> spec);
 }
