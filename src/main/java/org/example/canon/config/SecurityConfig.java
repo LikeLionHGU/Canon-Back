@@ -53,8 +53,9 @@ public class SecurityConfig {
     //경로별 인가 작업
     http
             .authorizeHttpRequests((auth) -> auth
-                    .requestMatchers("/","*/post/main").permitAll() // 게시글 보는 거 다 가능해야함
-                    .requestMatchers("my").hasRole("USER")   //User : 댓글, 게시글 작성 , 마이페이지 / Admin : 컨펌하는 페이지
+                    .requestMatchers("/","*/post/main","posts/filtered","posts/{postId}").permitAll() // 게시글 보는 거 다 가능해야함
+                    .requestMatchers("/my","/posts","/comment/*","/sending/*").hasRole("USER")   //User : 댓글, 게시글 작성 , 마이페이지 / Admin : 컨펌하는 페이지
+                    .requestMatchers("/admin/*").hasRole("ADMIN")
                     .anyRequest().authenticated());
 
     //세션 설정 : STATELESS
