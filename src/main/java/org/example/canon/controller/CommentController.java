@@ -18,6 +18,8 @@ import java.util.List;
 @RequestMapping("/comment")
 @Controller
 @RequiredArgsConstructor
+@CrossOrigin("*")
+
 public class CommentController {
     private final CommentService commentService;
 
