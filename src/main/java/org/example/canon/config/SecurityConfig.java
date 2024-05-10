@@ -58,6 +58,7 @@ public class SecurityConfig {
                     .requestMatchers("/admin/*").hasRole("ADMIN")
                     .anyRequest().authenticated());
 
+
     //세션 설정 : STATELESS
     http
             .sessionManagement((session) -> session
