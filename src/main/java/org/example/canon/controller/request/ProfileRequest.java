@@ -12,6 +12,7 @@ public class ProfileRequest {
     private String info;
 
     private String contact;
+    private String contribution;
 
 
 

@@ -19,6 +19,8 @@ public class Profile extends Base {
 
     private String info;
 
+    private String contribution;
+
     private String contact;
 
     private String profileImageURL;

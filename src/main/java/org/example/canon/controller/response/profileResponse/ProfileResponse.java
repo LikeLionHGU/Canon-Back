@@ -15,6 +15,8 @@ public class ProfileResponse {
 
     private String contact;
 
+    private String contribution;
+
     private String profileImageURL;
 
     private Long userId;

@@ -7,6 +7,7 @@ import org.example.canon.dto.CustomOAuth2UserDTO;
 import org.example.canon.dto.ProfileDTO;
 import org.example.canon.service.ProfileService;
 import org.example.canon.service.S3Uploader;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class ProfileController {
     private final ProfileService profileService;
     private final S3Uploader s3Uploader;
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<PostResponse> uploadProfile(@RequestParam("image") MultipartFile image,
                                                       ProfileRequest profileRequest,
                                                       @AuthenticationPrincipal CustomOAuth2UserDTO userDto) throws IOException {
@@ -31,7 +32,14 @@ public class ProfileController {
 
         ProfileDTO profileDTO = ProfileDTO.of(profileRequest, imageURL);
 
-        profileService.addProfile(profileDTO);
+        profileService.addProfile(profileDTO,userDto);
+        return null;
+    }
+
+    @GetMapping("/myinfo")
+    public ResponseEntity<ProfileDTO> getMyInfo(@AuthenticationPrincipal CustomOAuth2UserDTO userDto){
+        ProfileDTO profileDTO = profileService.getProfile(userDto);
+        return ResponseEntity.ok(profileDTO);
     }
 
 }
