@@ -8,7 +8,6 @@ import org.example.canon.controller.response.postResponse.PostResponse;
 import org.example.canon.dto.CustomOAuth2UserDTO;
 import org.example.canon.dto.PostDTO;
 import org.example.canon.dto.ToolDTO;
-import org.example.canon.entity.Post;
 import org.example.canon.service.PostService;
 import org.example.canon.service.S3Uploader;
 import org.example.canon.service.ToolsService;

@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.canon.dto.PostDTO;
 import org.example.canon.dto.ToolDTO;
-import org.example.canon.entity.User;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package org.example.canon.controller.response.CommentResponse;
+package org.example.canon.controller.response.postLikeResponse;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -9,7 +9,7 @@ import org.example.canon.controller.response.ApiResponse;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class CommentIdResponse extends ApiResponse {
+public class LikeIdResponse extends ApiResponse {
 
-    private Long commentId;
+    private Long postLikeId;
 }

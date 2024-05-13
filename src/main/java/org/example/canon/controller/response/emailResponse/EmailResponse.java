@@ -1,4 +1,4 @@
-package org.example.canon.controller.response.EmailResponse;
+package org.example.canon.controller.response.emailResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

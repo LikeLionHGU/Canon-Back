@@ -1,4 +1,4 @@
-package org.example.canon.controller.response.CommentResponse;
+package org.example.canon.controller.response.commentResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package org.example.canon.controller.response.LoginResponse;
+package org.example.canon.controller.response.loginResponse;
 
 import org.example.canon.dto.OAuth2Response;
 

@@ -2,11 +2,9 @@ package org.example.canon.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.canon.controller.request.AdminConfirmRequest;
-import org.example.canon.controller.request.PostRequest;
 import org.example.canon.controller.response.postResponse.PostListResponse;
 import org.example.canon.dto.PostDTO;
 import org.example.canon.service.PostService;
-import org.example.canon.service.S3Uploader;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
