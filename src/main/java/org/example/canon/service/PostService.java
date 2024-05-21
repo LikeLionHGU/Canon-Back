@@ -95,15 +95,14 @@ public class PostService {
   // 수정하는 로직
   // 여기 추가해야함
 
-  public List<PostDTO> getAllForUser() {
-    List<Post> posts = postRepository.findAllByConfirmed();
+  public List<PostDTO> getAllForUser(CustomOAuth2UserDTO userDTO) {
+    String email = userDTO.getEmail(); // assuming CustomOAuth2UserDTO has a method to get the user ID
+    List<Post> posts = postRepository.findAllByUserEmail(email);
+    List<PostDTO> returnPosts = new ArrayList<>();
 
-    List<PostDTO>returnPosts = new ArrayList<>();
-
-    for(Post nPost:posts) {
-      List<Image> images = imagesService.getAllImagesByPostId(nPost.getId());
-
-      returnPosts.add(PostDTO.of(nPost, images));
+    for (Post post : posts) {
+      List<Image> images = imagesService.getAllImagesByPostId(post.getId());
+      returnPosts.add(PostDTO.of(post, images));
     }
 
     return returnPosts;

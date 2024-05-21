@@ -106,8 +106,8 @@ public class PostController {
 
 
   @GetMapping("/main")
-  public ResponseEntity<PostListResponse> getAllPosts() {
-    List<PostDTO> posts = postService.getAllForUser();
+  public ResponseEntity<PostListResponse> getAllPosts(@AuthenticationPrincipal CustomOAuth2UserDTO userDto) {
+    List<PostDTO> posts = postService.getAllForUser(userDto);
     PostListResponse response = new PostListResponse(posts);
     return ResponseEntity.ok(response);
   }
