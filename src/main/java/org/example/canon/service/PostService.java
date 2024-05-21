@@ -104,7 +104,6 @@ public class PostService {
       List<Image> images = imagesService.getAllImagesByPostId(post.getId());
       returnPosts.add(PostDTO.of(post, images));
     }
-
     return returnPosts;
   }
 
