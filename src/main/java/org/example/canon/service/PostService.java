@@ -1,6 +1,7 @@
 package org.example.canon.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.canon.controller.PostController;
 import org.example.canon.controller.request.AdminConfirmRequest;
 import org.example.canon.controller.request.PostFilterRequest;
 import org.example.canon.controller.request.PostRequest;
@@ -144,30 +145,41 @@ public class PostService {
     }
   }
 
-
   @Transactional
-  public void updatePost(Long postId, PostRequest request, CustomOAuth2UserDTO userDTO, MultipartFile image) throws IOException {
+  public void updatePost(Long postId, PostRequest request, CustomOAuth2UserDTO userDTO, PostDTO postDTO) throws IOException {
     Optional<Post> post = postRepository.findById(postId);
     if ((userDTO.getEmail().equals(post.get().getUser().getEmail())) ) {
-      if(image.getName().equals(post.get().getFileName())){
-
-        // 파일 뺴고 나머지 내용을 Request로 업데이트 해준다.
-        post.get().updatePostOnly(request);
-
-      }else{
-
-        // 원래 파일 삭제
-        // 새로 업로드 후 URL + Request 내용으로 업데이트 해준다.
-        s3Uploader.deleteFile("example", post.get().getFileName());
-        String imageURL = s3Uploader.upload(image, "example");
-        post.get().updatePostAndFile(request,imageURL,image.getName());
-
-      }
+      deletePost(postId,userDTO);
+      addPost(postDTO, userDTO.getEmail());
     } else {
       throw new PostEditDisableException();
     }
 
-
   }
+
+//  @Transactional
+//  public void updatePost(Long postId, PostRequest request, CustomOAuth2UserDTO userDTO, MultipartFile image) throws IOException {
+//    Optional<Post> post = postRepository.findById(postId);
+//    if ((userDTO.getEmail().equals(post.get().getUser().getEmail())) ) {
+//      if(image.getName().equals(post.get().getFileName())){
+//
+//        // 파일 뺴고 나머지 내용을 Request로 업데이트 해준다.
+//        post.get().updatePostOnly(request);
+//
+//      }else{
+//
+//        // 원래 파일 삭제
+//        // 새로 업로드 후 URL + Request 내용으로 업데이트 해준다.
+//        s3Uploader.deleteFile("example", post.get().getFileName());
+//        String imageURL = s3Uploader.upload(image, "example");
+//        post.get().updatePostAndFile(request,imageURL,image.getName());
+//
+//      }
+//    } else {
+//      throw new PostEditDisableException();
+//    }
+//
+//
+//  }
 
 }

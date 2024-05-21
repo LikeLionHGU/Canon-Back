@@ -94,12 +94,24 @@ public class PostController {
   @PatchMapping("/update/{postId}")
   public ResponseEntity<Void> updatePost(
           @AuthenticationPrincipal CustomOAuth2UserDTO userDto,
-          @RequestParam("image") MultipartFile image,
+          @RequestParam("image") MultipartFile[] image,
           PostRequest request,
           @PathVariable Long postId
   ) throws IOException {
 
-    postService.updatePost(postId, request, userDto,image);
+    List<Image> images = new ArrayList<>();
+    for(int i=0; i< image.length; i++) {
+      String filename = image[i].getOriginalFilename();
+      String imageUrl = s3Uploader.upload(image[i], "example");
+
+      Image uploadImage = new Image(filename, imageUrl);
+      images.add(uploadImage);
+
+    }
+
+    PostDTO postDto = PostDTO.of(request, images);
+
+    postService.updatePost(postId, request, userDto, postDto);
     return ResponseEntity.ok().build();
   }
 
