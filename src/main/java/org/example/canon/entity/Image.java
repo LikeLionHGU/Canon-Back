@@ -27,9 +27,19 @@ public class Image {
 
     public static Image of(Image image, Post post){
         return Image.builder()
+                .id(image.getId())
                 .fileName(image.getFileName())
                 .imageURL(image.getImageURL())
                 .post(post)
+                .build();
+
+    }
+
+    public static Image of(Image image){
+        return Image.builder()
+                .id(image.getId())
+                .fileName(image.getFileName())
+                .imageURL(image.getImageURL())
                 .build();
 
     }

@@ -1,5 +1,6 @@
 package org.example.canon.service;
 import lombok.RequiredArgsConstructor;
+import org.example.canon.dto.PostLikeDTO;
 import org.example.canon.entity.Image;
 import org.example.canon.entity.Post;
 import org.example.canon.repository.ImagesRepository;
@@ -7,6 +8,7 @@ import org.example.canon.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +32,7 @@ public class ImagesService {
     public List<Image> getAllImagesByPostId(Long postId) {
         Post post = postRepository.findById(postId).orElseThrow();
         List<Image> images = imagesRepository.findAllByPost(post);
-        return images;
+        return images.stream().map(Image::of).toList();
     }
 
 }
