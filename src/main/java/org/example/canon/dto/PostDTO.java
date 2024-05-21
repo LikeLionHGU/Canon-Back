@@ -2,6 +2,7 @@ package org.example.canon.dto;
 
 import lombok.*;
 import org.example.canon.controller.request.PostRequest;
+import org.example.canon.entity.Image;
 import org.example.canon.entity.Post;
 
 import java.time.LocalDateTime;
@@ -32,10 +33,7 @@ public class PostDTO {
 
   private byte isConfirmed;
 
-  private String imageURL;
-
-  private String fileName;
-
+  private List<Image> images;
 
   private LocalDateTime createdDate;
 
@@ -43,40 +41,73 @@ public class PostDTO {
 
   private long viewCount;
 
-  public static PostDTO of(PostRequest postrequest, String imageUrl, String fileName) {
+  public static PostDTO of(PostRequest postrequest, List<Image> images) {
     return PostDTO.builder()
-        .content(postrequest.getContent())
-        .title(postrequest.getTitle())
+            .content(postrequest.getContent())
+            .title(postrequest.getTitle())
             .major(postrequest.getMajor())
-        .year(postrequest.getYear())
-        .tools(postrequest.getTools())
-        .category(postrequest.getCategory())
-        .createdDate(LocalDateTime.now())
-        .contact(postrequest.getContact())
-        .fileName(fileName)
-        .viewCount(0L)
-        .isConfirmed((byte) 0)
-        .imageURL(imageUrl)
-        .build();
+            .year(postrequest.getYear())
+            .tools(postrequest.getTools())
+            .category(postrequest.getCategory())
+            .createdDate(LocalDateTime.now())
+            .contact(postrequest.getContact())
+            .images(images)
+            .viewCount(0L)
+            .isConfirmed((byte) 0)
+            .build();
   }
 
-  public static PostDTO of(Post post) {
+  public static PostDTO of(Post post) { //이미지 관련은 없음. 따로 넣어주기 -> 아마 get로직인듯
     return PostDTO.builder()
-        .id(post.getId())
-        .userId(post.getUser().getId())
-        .userName(post.getUser().getUsername())
-        .content(post.getContent())
-        .title(post.getTitle())
-        .viewCount(post.getViewCount())
+            .id(post.getId())
+            .userId(post.getUser().getId())
+            .userName(post.getUser().getUsername())
+            .content(post.getContent())
+            .title(post.getTitle())
+            .viewCount(post.getViewCount())
             .major(post.getMajor())
-        .year(post.getYear())
-        .category(post.getCategory())
-        .contact(post.getContact())
-        .isConfirmed(post.getIsConfirmed())
-        .fileName(post.getFileName())
-        .imageURL(post.getImageURL())
-        .createdDate(post.getCreatedDate())
-        .build();
+            .year(post.getYear())
+            .category(post.getCategory())
+            .contact(post.getContact())
+            .isConfirmed(post.getIsConfirmed())
+            .createdDate(post.getCreatedDate())
+            .build();
+  }
+
+  public static PostDTO of(PostDTO post, List<Image> images) {
+    return PostDTO.builder()
+            .id(post.getId())
+            .userId(post.getUserId())
+            .userName(post.getUserName())
+            .content(post.getContent())
+            .title(post.getTitle())
+            .viewCount(post.getViewCount())
+            .major(post.getMajor())
+            .year(post.getYear())
+            .images(images)
+            .category(post.getCategory())
+            .contact(post.getContact())
+            .isConfirmed(post.getIsConfirmed())
+            .createdDate(post.getCreatedDate())
+            .build();
+  }
+
+  public static PostDTO of(Post post, List<Image> images) {
+    return PostDTO.builder()
+            .id(post.getId())
+            .userId(post.getUser().getId())
+            .userName(post.getUser().getUsername())
+            .content(post.getContent())
+            .title(post.getTitle())
+            .viewCount(post.getViewCount())
+            .major(post.getMajor())
+            .year(post.getYear())
+            .images(images)
+            .category(post.getCategory())
+            .contact(post.getContact())
+            .isConfirmed(post.getIsConfirmed())
+            .createdDate(post.getCreatedDate())
+            .build();
   }
 
 }

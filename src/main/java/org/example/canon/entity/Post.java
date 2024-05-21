@@ -58,24 +58,22 @@ public class Post extends Base {
         this.viewCount += 1;
     }
 
-    public static Post of(PostDTO dto , User user){
+    public static Post of(PostDTO dto , User user){ //이미지를 뺌
         return Post.builder()
                 .content(dto.getContent())
                 .title(dto.getTitle())
                 .category(dto.getCategory())
-                .imageURL(dto.getImageURL())
                 .major(dto.getMajor())
                 .year(dto.getYear())
                 .contact(dto.getContact())
                 .viewCount(dto.getViewCount())
-                .fileName(dto.getFileName())
                 .user(user)
                 .build();
     }
 
     public void confirmPost(byte decision){
-    this.isConfirmed = decision;
-     }
+        this.isConfirmed = decision;
+    }
 
     public void updatePostAndFile(PostRequest request, String imageURL, String fileName){
 
