@@ -75,7 +75,6 @@ public class PostController {
     return ResponseEntity.ok(response);
   }
 
-
   @DeleteMapping("/{postId}")
   public ResponseEntity<Void> deletePost(
           @AuthenticationPrincipal CustomOAuth2UserDTO userDto, @PathVariable Long postId) {
