@@ -65,7 +65,7 @@ public class PostController {
   }
 
 
-  @GetMapping("/{postId}")
+  @GetMapping("/get/{postId}")
   public ResponseEntity<PostResponse> getPost(@PathVariable Long postId) {
     PostDTO postDto = postService.getPost(postId);
     List<ToolDTO> toolDto = toolsService.getAllByPostId(postId);
@@ -91,7 +91,7 @@ public class PostController {
   }
 
   //보류. 아직 안함
-  @PatchMapping("/{postId}")
+  @PatchMapping("/update/{postId}")
   public ResponseEntity<Void> updatePost(
           @AuthenticationPrincipal CustomOAuth2UserDTO userDto,
           @RequestParam("image") MultipartFile image,
