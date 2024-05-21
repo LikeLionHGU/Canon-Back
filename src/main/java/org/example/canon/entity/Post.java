@@ -5,7 +5,9 @@ import lombok.*;
 import org.example.canon.controller.request.PostRequest;
 import org.example.canon.dto.PostDTO;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -33,6 +35,11 @@ public class Post extends Base {
     private String major;
 
     private String year;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Image> images = new ArrayList<>();
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Tools> tools = new ArrayList<>();
 
     private int countLike=0;
 
@@ -41,7 +48,6 @@ public class Post extends Base {
     private String contact;
 
     private long viewCount=0;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "User_Id")
     private User user;

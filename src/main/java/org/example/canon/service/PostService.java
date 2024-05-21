@@ -14,6 +14,7 @@ import org.example.canon.exception.PostEditDisableException;
 import org.example.canon.exception.PostNotFoundException;
 import org.example.canon.repository.ImagesRepository;
 import org.example.canon.repository.PostRepository;
+import org.example.canon.repository.ToolsRepository;
 import org.example.canon.repository.UserRepository;
 import org.example.canon.specification.PostSpecification;
 import org.springframework.data.jpa.domain.Specification;
@@ -36,6 +37,7 @@ public class PostService {
   private final S3Uploader s3Uploader;
   private final ToolsService toolsService;
   private final ImagesService imagesService;
+  private final ToolsRepository toolsRepository;
 
 
   public long addPost(PostDTO postDTO, String email) {
@@ -133,6 +135,8 @@ public class PostService {
         System.out.println("===" + imageName + "===");
         s3Uploader.deleteFile("example", imageName);
       }
+      imagesRepository.deleteAllByPostId(postId);
+      toolsRepository.deleteAllByPostId(postId);
     }
 
     if (userDTO.getEmail().equals(post.get().getUser().getEmail())) {

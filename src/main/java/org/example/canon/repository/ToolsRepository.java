@@ -12,4 +12,6 @@ import java.util.List;
 @Repository
 public interface ToolsRepository extends JpaRepository<Tools, Long> {
     List<Tools> findAllByPost(Post post);
+
+    void deleteAllByPostId(Long postId);
 }
