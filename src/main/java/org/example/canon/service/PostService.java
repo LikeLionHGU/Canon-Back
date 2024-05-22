@@ -146,7 +146,7 @@ public class PostService {
   }
 
   @Transactional
-  public void updatePost(Long postId, PostRequest request, CustomOAuth2UserDTO userDTO, PostDTO postDTO) throws IOException {
+  public void updatePost(Long postId, CustomOAuth2UserDTO userDTO, PostDTO postDTO) throws IOException {
     Optional<Post> post = postRepository.findById(postId);
     if ((userDTO.getEmail().equals(post.get().getUser().getEmail())) ) {
       deletePost(postId,userDTO);

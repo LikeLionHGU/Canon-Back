@@ -42,7 +42,7 @@ public class PostController {
   //done
   @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<PostResponse> uploadPost(
-          @RequestParam("image") MultipartFile[] image,
+          @RequestParam(name = "image",required = false) MultipartFile[] image,
           PostRequest request,
           @AuthenticationPrincipal CustomOAuth2UserDTO userDto)
           throws IOException {
@@ -94,7 +94,7 @@ public class PostController {
   @PatchMapping("/update/{postId}")
   public ResponseEntity<Void> updatePost(
           @AuthenticationPrincipal CustomOAuth2UserDTO userDto,
-          @RequestParam("image") MultipartFile[] image,
+          @RequestParam(name = "image",required = false) MultipartFile[] image,
           PostRequest request,
           @PathVariable Long postId
   ) throws IOException {
@@ -111,7 +111,7 @@ public class PostController {
 
     PostDTO postDto = PostDTO.of(request, images);
 
-    postService.updatePost(postId, request, userDto, postDto);
+    postService.updatePost(postId, userDto, postDto);
     return ResponseEntity.ok().build();
   }
 
