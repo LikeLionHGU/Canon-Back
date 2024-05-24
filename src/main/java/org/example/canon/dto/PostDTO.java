@@ -4,10 +4,12 @@ import lombok.*;
 import org.example.canon.controller.request.PostRequest;
 import org.example.canon.entity.Image;
 import org.example.canon.entity.Post;
+import org.example.canon.entity.Tools;
 
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @AllArgsConstructor
@@ -57,7 +59,10 @@ public class PostDTO {
             .build();
   }
 
-  public static PostDTO of(Post post) { //이미지 관련은 없음. 따로 넣어주기 -> 아마 get로직인듯
+  public static PostDTO of(Post post) {
+    List<String> toolNames = post.getTools().stream()
+            .map(tool -> tool.getTool())
+            .collect(Collectors.toList());
     return PostDTO.builder()
             .id(post.getId())
             .userId(post.getUser().getId())
@@ -67,6 +72,7 @@ public class PostDTO {
             .viewCount(post.getViewCount())
             .major(post.getMajor())
             .year(post.getYear())
+            .tools(toolNames)
             .category(post.getCategory())
             .contact(post.getContact())
             .isConfirmed(post.getIsConfirmed())
@@ -85,6 +91,7 @@ public class PostDTO {
             .major(post.getMajor())
             .year(post.getYear())
             .images(images)
+            .tools(post.getTools())
             .category(post.getCategory())
             .contact(post.getContact())
             .isConfirmed(post.getIsConfirmed())
@@ -93,6 +100,9 @@ public class PostDTO {
   }
 
   public static PostDTO of(Post post, List<Image> images) {
+    List<String> toolNames = post.getTools().stream()
+            .map(tool -> tool.getTool())
+            .collect(Collectors.toList());
     return PostDTO.builder()
             .id(post.getId())
             .userId(post.getUser().getId())
@@ -103,6 +113,7 @@ public class PostDTO {
             .major(post.getMajor())
             .year(post.getYear())
             .images(images)
+            .tools(toolNames)
             .category(post.getCategory())
             .contact(post.getContact())
             .isConfirmed(post.getIsConfirmed())
