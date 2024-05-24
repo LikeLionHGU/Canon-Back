@@ -5,7 +5,9 @@ import lombok.*;
 import org.example.canon.controller.request.PostRequest;
 import org.example.canon.dto.PostDTO;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -33,6 +35,11 @@ public class Post extends Base {
     private String major;
 
     private String year;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Image> images = new ArrayList<>();
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Tools> tools = new ArrayList<>();
 
     private int countLike=0;
 
@@ -41,7 +48,6 @@ public class Post extends Base {
     private String contact;
 
     private long viewCount=0;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "User_Id")
     private User user;
@@ -58,24 +64,22 @@ public class Post extends Base {
         this.viewCount += 1;
     }
 
-    public static Post of(PostDTO dto , User user){
+    public static Post of(PostDTO dto , User user){ //이미지를 뺌
         return Post.builder()
                 .content(dto.getContent())
                 .title(dto.getTitle())
                 .category(dto.getCategory())
-                .imageURL(dto.getImageURL())
                 .major(dto.getMajor())
                 .year(dto.getYear())
                 .contact(dto.getContact())
                 .viewCount(dto.getViewCount())
-                .fileName(dto.getFileName())
                 .user(user)
                 .build();
     }
 
     public void confirmPost(byte decision){
-    this.isConfirmed = decision;
-     }
+        this.isConfirmed = decision;
+    }
 
     public void updatePostAndFile(PostRequest request, String imageURL, String fileName){
 
