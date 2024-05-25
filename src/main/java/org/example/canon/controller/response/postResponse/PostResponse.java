@@ -5,10 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.canon.dto.PostDTO;
 import org.example.canon.dto.ToolDTO;
+import org.example.canon.entity.Image;
+import org.example.canon.entity.ImageOnlyURL;
+import org.example.canon.entity.User;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
@@ -25,7 +29,7 @@ public class PostResponse {
 
   private LocalDateTime createdDate;
 
-  private String imageURL;
+  private List<ImageOnlyURL> imageURLs;
 
   private String contact;
 
@@ -35,7 +39,6 @@ public class PostResponse {
 
   private long viewCount;
 
-
   public PostResponse(PostDTO postDto, Long postId,String userName) {
     this.id = postId;
     this.userName = userName;
@@ -43,12 +46,15 @@ public class PostResponse {
     this.content = postDto.getContent();
     this.category = postDto.getCategory();
     this.createdDate = postDto.getCreatedDate();
-    this.imageURL = postDto.getImageURL();
+    this.imageURLs = postDto.getImages().stream()
+            .map(img -> new ImageOnlyURL(img.getFileName(), img.getImageURL()))
+            .collect(Collectors.toList());
     this.tools = postDto.getTools();
     this.viewCount = postDto.getViewCount();
     this.contact = postDto.getContact();
     this.isConfirmed = postDto.getIsConfirmed();
   }
+
 
   public PostResponse(PostDTO postDto) {
     this.id = postDto.getId();
@@ -60,12 +66,12 @@ public class PostResponse {
     this.category = postDto.getCategory();
     this.tools = postDto.getTools();
     this.createdDate = postDto.getCreatedDate();
-    this.imageURL = postDto.getImageURL();
+
     this.contact = postDto.getContact();
     this.isConfirmed = postDto.getIsConfirmed();
   }
 
-  public PostResponse(PostDTO postDto, List<ToolDTO> toolDTO) {
+  public PostResponse(PostDTO postDto, List<ToolDTO> toolDTO, List<Image> images) {
     this.id = postDto.getId();
     this.userName = postDto.getUserName();
     this.title = postDto.getTitle();
@@ -74,15 +80,19 @@ public class PostResponse {
     this.category = postDto.getCategory();
     this.tools = postDto.getTools();
     this.createdDate = postDto.getCreatedDate();
-    this.imageURL = postDto.getImageURL();
+    this.imageURLs = images.stream()
+            .map(img -> new ImageOnlyURL(img.getFileName(), img.getImageURL()))
+            .collect(Collectors.toList());
     this.contact = postDto.getContact();
 
     this.isConfirmed = postDto.getIsConfirmed();
 
-      if (this.tools == null) {
-        this.tools = new ArrayList<>();
-      }
-      this.tools.add(toolDTO.get(0).getTools().toString());
+    if (this.tools == null) {
+      this.tools = new ArrayList<>();
+    }
+    this.tools.add(toolDTO.get(0).getTools().toString());
+
+
 
 
   }
