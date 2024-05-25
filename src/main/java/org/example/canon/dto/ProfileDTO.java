@@ -17,7 +17,6 @@ public class ProfileDTO {
     private String contact;
     private String contribution;
 
-
     private String profileImageURL;
 
     public static ProfileDTO of(ProfileRequest profileRequest , String profileImageURL){

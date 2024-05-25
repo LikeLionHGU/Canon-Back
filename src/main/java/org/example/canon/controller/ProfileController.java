@@ -3,6 +3,7 @@ package org.example.canon.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.canon.controller.request.ProfileRequest;
 import org.example.canon.controller.response.postResponse.PostResponse;
+import org.example.canon.controller.response.profileResponse.ProfileResponse;
 import org.example.canon.dto.CustomOAuth2UserDTO;
 import org.example.canon.dto.ProfileDTO;
 import org.example.canon.service.ProfileService;
@@ -25,9 +26,9 @@ public class ProfileController {
     private final S3Uploader s3Uploader;
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<PostResponse> uploadProfile(@RequestParam("image") MultipartFile image,
-                                                      ProfileRequest profileRequest,
-                                                      @AuthenticationPrincipal CustomOAuth2UserDTO userDto) throws IOException {
+    public ResponseEntity<ProfileResponse> uploadProfile(@RequestParam("image") MultipartFile image,
+                                                                  ProfileRequest profileRequest,
+                                                                  @AuthenticationPrincipal CustomOAuth2UserDTO userDto) throws IOException {
         String imageURL = s3Uploader.upload(image, "example");
 
         ProfileDTO profileDTO = ProfileDTO.of(profileRequest, imageURL);
@@ -36,10 +37,23 @@ public class ProfileController {
         return null;
     }
 
+    @PatchMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ProfileResponse> updateProfile(@RequestParam("image") MultipartFile image,
+                                                          ProfileRequest profileRequest,
+                                                          @AuthenticationPrincipal CustomOAuth2UserDTO userDto) throws IOException {
+        String imageURL = s3Uploader.upload(image, "example");
+
+        ProfileDTO profileDTO = ProfileDTO.of(profileRequest, imageURL);
+
+        profileService.updateProfile(profileDTO, userDto);
+        return null;
+    }
+
     @GetMapping("/myinfo")
-    public ResponseEntity<ProfileDTO> getMyInfo(@AuthenticationPrincipal CustomOAuth2UserDTO userDto){
+    public ResponseEntity<ProfileResponse> getMyInfo(@AuthenticationPrincipal CustomOAuth2UserDTO userDto){
         ProfileDTO profileDTO = profileService.getProfile(userDto);
-        return ResponseEntity.ok(profileDTO);
+        ProfileResponse response = new ProfileResponse(profileDTO);
+        return ResponseEntity.ok(response);
     }
 
 }

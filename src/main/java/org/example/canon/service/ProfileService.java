@@ -1,5 +1,6 @@
 package org.example.canon.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.canon.controller.request.ProfileRequest;
 import org.example.canon.dto.CustomOAuth2UserDTO;
@@ -19,12 +20,22 @@ public class ProfileService {
 
     public void addProfile(ProfileDTO profileDTO, CustomOAuth2UserDTO userDTO) {
 
-        //userDto에 담긴 정보로 유저 찾기
-        //이미 존재하면 업데이트
+        User user = userRepository.findByEmail(userDTO.getEmail());
 
-        //존재하지 않으면 새로 추가
 
+            Profile profile = Profile.of(profileDTO,user);
+            user.doneProfile();
+            profileRepository.save(profile);
+        }
+
+    @Transactional
+    public void updateProfile(ProfileDTO profileDTO, CustomOAuth2UserDTO userDTO) {
+
+        User user = userRepository.findByEmail(userDTO.getEmail());
+        Profile profile = profileRepository.findByUser(user);
+        profile.update(profileDTO);
     }
+
 
      public ProfileDTO getProfile(CustomOAuth2UserDTO userDTO) {
 
