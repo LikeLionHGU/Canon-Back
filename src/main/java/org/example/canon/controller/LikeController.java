@@ -1,8 +1,8 @@
 package org.example.canon.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.canon.controller.response.PostLikeResponse.LikeIdResponse;
-import org.example.canon.controller.response.PostLikeResponse.PostLikeListResponse;
+import org.example.canon.controller.response.postLikeResponse.LikeIdResponse;
+import org.example.canon.controller.response.postLikeResponse.PostLikeListResponse;
 import org.example.canon.dto.CustomOAuth2UserDTO;
 import org.example.canon.dto.PostLikeDTO;
 import org.example.canon.entity.PostLike;

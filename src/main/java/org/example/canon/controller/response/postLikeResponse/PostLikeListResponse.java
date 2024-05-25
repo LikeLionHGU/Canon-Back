@@ -1,4 +1,4 @@
-package org.example.canon.controller.response.PostLikeResponse;
+package org.example.canon.controller.response.postLikeResponse;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

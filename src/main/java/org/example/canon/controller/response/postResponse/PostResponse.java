@@ -78,7 +78,6 @@ public class PostResponse {
     this.content = postDto.getContent();
     this.viewCount = postDto.getViewCount();
     this.category = postDto.getCategory();
-
     this.tools = postDto.getTools();
     this.createdDate = postDto.getCreatedDate();
     this.imageURLs = images.stream()
