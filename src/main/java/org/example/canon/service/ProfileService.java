@@ -11,6 +11,8 @@ import org.example.canon.repository.ProfileRepository;
 import org.example.canon.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class ProfileService {
@@ -41,6 +43,13 @@ public class ProfileService {
 
         User user = userRepository.findByEmail(userDTO.getEmail());
         Profile profile = profileRepository.findByUser(user);
+        return ProfileDTO.of(profile);
+    }
+
+    public ProfileDTO getProfile(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(RuntimeException::new);
+        Profile profile = profileRepository.findByUser(user);
+
         return ProfileDTO.of(profile);
     }
 
