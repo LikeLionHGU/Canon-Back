@@ -96,9 +96,8 @@ public class PostService {
   // 수정하는 로직
   // 여기 추가해야함
 
-  public List<PostDTO> getAllForUser(CustomOAuth2UserDTO userDTO) {
-    String email = userDTO.getEmail(); // assuming CustomOAuth2UserDTO has a method to get the user ID
-    List<Post> posts = postRepository.findAllByUserEmail(email);
+  public List<PostDTO> getAllForUser() {
+    List<Post> posts = postRepository.findAllByConfirmed();
     List<PostDTO> returnPosts = new ArrayList<>();
 
     for (Post post : posts) {
