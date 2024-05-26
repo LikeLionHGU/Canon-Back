@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class PostResponse {
 
   private Long id;
-//  private Long userId;
+  private Long userId;
 
   private String userName;
   private String title;
@@ -78,6 +78,7 @@ public class PostResponse {
 
   public PostResponse(PostDTO postDto, List<ToolDTO> toolDTO, List<Image> images) {
     this.id = postDto.getId();
+    this.userId = postDto.getUserId();
     this.userName = postDto.getUserName();
     this.title = postDto.getTitle();
     this.content = postDto.getContent();

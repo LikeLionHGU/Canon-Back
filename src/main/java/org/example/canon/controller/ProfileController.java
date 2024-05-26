@@ -56,4 +56,11 @@ public class ProfileController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/{userId}")
+    public ResponseEntity<ProfileResponse> getProfile(@PathVariable Long userId){
+        ProfileDTO profileDTO = profileService.getProfile(userId);
+        ProfileResponse response = new ProfileResponse(profileDTO);
+        return ResponseEntity.ok(response);
+    }
+
 }
