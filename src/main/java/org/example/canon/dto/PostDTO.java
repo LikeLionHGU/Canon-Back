@@ -4,6 +4,7 @@ import lombok.*;
 import org.example.canon.controller.request.PostRequest;
 import org.example.canon.entity.Image;
 import org.example.canon.entity.Post;
+import org.example.canon.entity.Profile;
 import org.example.canon.entity.Tools;
 
 import java.time.LocalDateTime;
@@ -43,6 +44,13 @@ public class PostDTO {
 
   private long viewCount;
 
+  private String profileImageURL;
+  private String profileContact;
+  private String profileInfo;
+  private String profileName;
+  private String profileContribution;
+
+
   public static PostDTO of(PostRequest postrequest, List<Image> images) {
     return PostDTO.builder()
             .content(postrequest.getContent())
@@ -77,6 +85,31 @@ public class PostDTO {
             .contact(post.getContact())
             .isConfirmed(post.getIsConfirmed())
             .createdDate(post.getCreatedDate())
+            .build();
+  }
+  public static PostDTO of(Post post, Profile profile) {
+    List<String> toolNames = post.getTools().stream()
+            .map(tool -> tool.getTool())
+            .collect(Collectors.toList());
+    return PostDTO.builder()
+            .id(post.getId())
+            .userId(post.getUser().getId())
+            .userName(post.getUser().getUsername())
+            .content(post.getContent())
+            .title(post.getTitle())
+            .viewCount(post.getViewCount())
+            .major(post.getMajor())
+            .year(post.getYear())
+            .tools(toolNames)
+            .category(post.getCategory())
+            .contact(post.getContact())
+            .isConfirmed(post.getIsConfirmed())
+            .createdDate(post.getCreatedDate())
+            .profileImageURL(profile.getProfileImageURL())
+            .profileContact(profile.getContact())
+            .profileInfo(profile.getInfo())
+            .profileName(profile.getName())
+            .profileContribution(profile.getContribution())
             .build();
   }
 

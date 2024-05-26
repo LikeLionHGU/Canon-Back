@@ -38,6 +38,11 @@ public class PostResponse {
   private List<String> tools;
 
   private long viewCount;
+  private String profileImageURL;
+  private String profileContact;
+  private String profileInfo;
+  private String profileName;
+  private String profileContribution;
 
   public PostResponse(PostDTO postDto, Long postId,String userName) {
     this.id = postId;
@@ -84,6 +89,11 @@ public class PostResponse {
             .map(img -> new ImageOnlyURL(img.getFileName(), img.getImageURL()))
             .collect(Collectors.toList());
     this.contact = postDto.getContact();
+    this.profileContact = postDto.getProfileContact();
+    this.profileInfo = postDto.getProfileInfo();
+    this.profileName = postDto.getProfileName();
+    this.profileContribution = postDto.getProfileContribution();
+    this.profileImageURL = postDto.getProfileImageURL();
 
     this.isConfirmed = postDto.getIsConfirmed();
 
@@ -91,6 +101,7 @@ public class PostResponse {
       this.tools = new ArrayList<>();
     }
     this.tools.add(toolDTO.get(0).getTools().toString());
+
 
 
 

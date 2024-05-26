@@ -7,16 +7,15 @@ import org.example.canon.controller.request.PostFilterRequest;
 import org.example.canon.controller.request.PostRequest;
 import org.example.canon.dto.CustomOAuth2UserDTO;
 import org.example.canon.dto.PostDTO;
+import org.example.canon.dto.ProfileDTO;
 import org.example.canon.entity.Image;
 import org.example.canon.entity.Post;
+import org.example.canon.entity.Profile;
 import org.example.canon.entity.User;
 import org.example.canon.exception.PostDeleteDisableException;
 import org.example.canon.exception.PostEditDisableException;
 import org.example.canon.exception.PostNotFoundException;
-import org.example.canon.repository.ImagesRepository;
-import org.example.canon.repository.PostRepository;
-import org.example.canon.repository.ToolsRepository;
-import org.example.canon.repository.UserRepository;
+import org.example.canon.repository.*;
 import org.example.canon.specification.PostSpecification;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -39,6 +38,7 @@ public class PostService {
   private final ToolsService toolsService;
   private final ImagesService imagesService;
   private final ToolsRepository toolsRepository;
+  private final ProfileRepository profileRepository;
 
 
   public long addPost(PostDTO postDTO, String email) {
@@ -118,9 +118,10 @@ public class PostService {
 
   public PostDTO getPost(Long postId) {
     Post post = postRepository.findById(postId).orElseThrow(PostNotFoundException::new);
+    Profile profile = profileRepository.findByUser(post.getUser());
     post.plusViewCount();
     postRepository.save(post);
-    return PostDTO.of(post);
+    return PostDTO.of(post,profile);
   }
 
   @Transactional
@@ -157,29 +158,5 @@ public class PostService {
 
   }
 
-//  @Transactional
-//  public void updatePost(Long postId, PostRequest request, CustomOAuth2UserDTO userDTO, MultipartFile image) throws IOException {
-//    Optional<Post> post = postRepository.findById(postId);
-//    if ((userDTO.getEmail().equals(post.get().getUser().getEmail())) ) {
-//      if(image.getName().equals(post.get().getFileName())){
-//
-//        // 파일 뺴고 나머지 내용을 Request로 업데이트 해준다.
-//        post.get().updatePostOnly(request);
-//
-//      }else{
-//
-//        // 원래 파일 삭제
-//        // 새로 업로드 후 URL + Request 내용으로 업데이트 해준다.
-//        s3Uploader.deleteFile("example", post.get().getFileName());
-//        String imageURL = s3Uploader.upload(image, "example");
-//        post.get().updatePostAndFile(request,imageURL,image.getName());
-//
-//      }
-//    } else {
-//      throw new PostEditDisableException();
-//    }
-//
-//
-//  }
 
 }

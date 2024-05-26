@@ -55,7 +55,7 @@ public class SecurityConfig {
             .authorizeHttpRequests((auth) -> auth
                     .requestMatchers("/","*/post/main","posts/filtered","posts/{postId}").permitAll() // 게시글 보는 거 다 가능해야함
 //                    .requestMatchers("/my","/posts","/comment/*","/sending/*").hasRole("USER")   //User : 댓글, 게시글 작성 , 마이페이지 / Admin : 컨펌하는 페이지
-                    .requestMatchers("/admin/*").hasRole("ADMIN")
+//                    .requestMatchers("/admin/*").hasRole("ADMIN")
                     .anyRequest().authenticated());
 
 

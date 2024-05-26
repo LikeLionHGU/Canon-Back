@@ -13,6 +13,7 @@ public class ProfileDTO {
     private String name;
 
     private String info;
+    private Long userId;
 
     private String contact;
     private String contribution;
@@ -33,6 +34,7 @@ public class ProfileDTO {
     public static ProfileDTO of(Profile profile){
         return ProfileDTO.builder()
                 .name(profile.getName())
+                .userId(profile.getId())
                 .info(profile.getInfo())
                 .contribution(profile.getContribution())
                 .contact(profile.getContact())
