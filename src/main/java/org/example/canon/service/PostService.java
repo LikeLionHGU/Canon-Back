@@ -52,8 +52,6 @@ public class PostService {
     toolsService.saveTools(ret , postDTO.getTools());
     imagesService.saveImages(ret, postDTO.getImages());
 
-
-
     return post.getId();
   }
 

@@ -30,16 +30,22 @@ public class Post extends Base {
 
     private String imageURL;
 
+    private String videoURL;
+
     private String fileName;
 
     private String major;
 
     private String year;
+
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Image> images = new ArrayList<>();
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tools> tools = new ArrayList<>();
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
 
     private int countLike=0;
 
@@ -69,6 +75,7 @@ public class Post extends Base {
                 .content(dto.getContent())
                 .title(dto.getTitle())
                 .category(dto.getCategory())
+                .videoURL(dto.getVideoURL())
                 .major(dto.getMajor())
                 .year(dto.getYear())
                 .contact(dto.getContact())

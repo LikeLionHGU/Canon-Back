@@ -5,15 +5,14 @@ import org.example.canon.controller.request.PostFilterRequest;
 import org.example.canon.controller.request.PostRequest;
 import org.example.canon.controller.response.postResponse.PostListResponse;
 import org.example.canon.controller.response.postResponse.PostResponse;
+import org.example.canon.dto.CommentDTO;
 import org.example.canon.dto.CustomOAuth2UserDTO;
 import org.example.canon.dto.PostDTO;
 import org.example.canon.dto.ToolDTO;
+import org.example.canon.entity.Comment;
 import org.example.canon.entity.Image;
 import org.example.canon.entity.Post;
-import org.example.canon.service.ImagesService;
-import org.example.canon.service.PostService;
-import org.example.canon.service.S3Uploader;
-import org.example.canon.service.ToolsService;
+import org.example.canon.service.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +37,7 @@ public class PostController {
   private final S3Uploader s3Uploader;
   private final ToolsService toolsService;
   private final ImagesService imagesService;
+  private final CommentService commentService;
 
   //done
   @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -70,8 +70,9 @@ public class PostController {
     PostDTO postDto = postService.getPost(postId);
     List<ToolDTO> toolDto = toolsService.getAllByPostId(postId);
     List<Image> images = imagesService.getAllImagesByPostId(postId);
+    List<CommentDTO> commentsDto = commentService.getAllForPost(postId);
     //List<Image> onlyImages =
-    PostResponse response = new PostResponse(postDto,toolDto, images);
+    PostResponse response = new PostResponse(postDto,toolDto, images, commentsDto);
     return ResponseEntity.ok(response);
   }
 
