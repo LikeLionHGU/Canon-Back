@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class PostResponse {
 
   private Long id;
-//  private Long userId;
+  private Long userId;
 
   private String userName;
   private String title;
@@ -43,6 +43,11 @@ public class PostResponse {
   private List<String> tools;
 
   private long viewCount;
+  private String profileImageURL;
+  private String profileContact;
+  private String profileInfo;
+  private String profileName;
+  private String profileContribution;
 
   public PostResponse(PostDTO postDto, Long postId,String userName) {
     this.id = postId;
@@ -82,6 +87,7 @@ public class PostResponse {
 
   public PostResponse(PostDTO postDto, List<ToolDTO> toolDTO, List<Image> images, List<CommentDTO> commentDTO) {
     this.id = postDto.getId();
+    this.userId = postDto.getUserId();
     this.userName = postDto.getUserName();
     this.title = postDto.getTitle();
     this.content = postDto.getContent();
@@ -95,6 +101,11 @@ public class PostResponse {
             .map(img -> new ImageOnlyURL(img.getFileName(), img.getImageURL()))
             .collect(Collectors.toList());
     this.contact = postDto.getContact();
+    this.profileContact = postDto.getProfileContact();
+    this.profileInfo = postDto.getProfileInfo();
+    this.profileName = postDto.getProfileName();
+    this.profileContribution = postDto.getProfileContribution();
+    this.profileImageURL = postDto.getProfileImageURL();
 
     this.isConfirmed = postDto.getIsConfirmed();
 
@@ -108,6 +119,7 @@ public class PostResponse {
               .map(CommentDTO::getContent)
               .collect(Collectors.toList());
     }
+
 
 
   }

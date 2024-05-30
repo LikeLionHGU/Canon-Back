@@ -22,6 +22,7 @@ public class User extends Base {
     private String email;
     private String role;
     private String name;
+    private byte hasProfile;
 
 
     public User(String username, String email,String role , String idCode) {
@@ -29,7 +30,11 @@ public class User extends Base {
         this.email = email;
         this.role = role;
         this.name = idCode;
+        this.hasProfile=0;
     }
 
+    public void doneProfile() {
+            this.hasProfile = 1;
+    }
+    }
 
-}

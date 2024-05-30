@@ -71,8 +71,8 @@ public class PostController {
     List<ToolDTO> toolDto = toolsService.getAllByPostId(postId);
     List<Image> images = imagesService.getAllImagesByPostId(postId);
     List<CommentDTO> commentsDto = commentService.getAllForPost(postId);
-    //List<Image> onlyImages =
     PostResponse response = new PostResponse(postDto,toolDto, images, commentsDto);
+
     return ResponseEntity.ok(response);
   }
 

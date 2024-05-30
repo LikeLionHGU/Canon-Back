@@ -1,6 +1,5 @@
 package org.example.canon.controller.response.postResponse;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.canon.dto.PostDTO;

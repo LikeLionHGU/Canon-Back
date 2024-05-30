@@ -2,8 +2,8 @@ package org.example.canon.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.canon.controller.request.CommentRequest;
-import org.example.canon.controller.response.CommentResponse.CommentListResponse;
-import org.example.canon.controller.response.CommentResponse.CommentResponse;
+import org.example.canon.controller.response.commentResponse.CommentListResponse;
+import org.example.canon.controller.response.commentResponse.CommentResponse;
 import org.example.canon.dto.CommentDTO;
 import org.example.canon.dto.CustomOAuth2UserDTO;
 import org.example.canon.entity.Comment;

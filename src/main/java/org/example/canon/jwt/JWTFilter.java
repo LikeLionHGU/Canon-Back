@@ -44,12 +44,14 @@ public class JWTFilter extends OncePerRequestFilter {
         }
 
 
-        for (Cookie cookie : cookies) {
-
-            if (cookie.getName().equals("Authorization")) {
-
-                authorization = cookie.getValue();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("Authorization")) {
+                    authorization = cookie.getValue();
+                }
             }
+        }else{
+            System.out.println("쿠기가 없습니다.");
         }
 
         if (authorization == null) {

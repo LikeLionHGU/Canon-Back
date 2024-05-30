@@ -1,7 +1,7 @@
 package org.example.canon.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.canon.controller.response.LoginResponse.LoginResponse;
+import org.example.canon.controller.response.loginResponse.LoginResponse;
 import org.example.canon.repository.UserRepository;
 import org.example.canon.service.CustomOAuth2UserService;
 import org.springframework.http.ResponseEntity;
