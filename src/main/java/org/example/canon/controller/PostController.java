@@ -119,7 +119,7 @@ public class PostController {
 
   @GetMapping("/main")
   public ResponseEntity<PostListResponse> getAllPosts() {
-    List<PostDTO> posts = postService.getAllForUser();
+    List<PostDTO> posts = postService.getAllPost();
     PostListResponse response = new PostListResponse(posts);
     return ResponseEntity.ok(response);
   }

@@ -42,7 +42,7 @@ public class PostDTO {
 
   private List<Image> images;
 
-  private List<Comment> comments;
+  private List<String> comments;
 
   private LocalDateTime createdDate;
 
@@ -73,7 +73,9 @@ public class PostDTO {
             .map(tool -> tool.getTool())
             .collect(Collectors.toList());
 
-    List<Comment> commentslist = post.getComments();
+    List<String> commentss = post.getComments().stream()
+            .map(comment -> comment.getContent())
+            .collect(Collectors.toList());
     return PostDTO.builder()
             .id(post.getId())
             .userId(post.getUser().getId())
@@ -85,7 +87,7 @@ public class PostDTO {
             .year(post.getYear())
             .likeCount(post.getCountLike())
             .videoURL(post.getVideoURL())
-            .comments(commentslist)
+            .comments(commentss)
             .tools(toolNames)
             .category(post.getCategory())
             .contact(post.getContact())
@@ -104,6 +106,8 @@ public class PostDTO {
             .viewCount(post.getViewCount())
             .videoURL(post.getVideoURL())
             .major(post.getMajor())
+            .likeCount(post.getLikeCount())
+            .comments(post.getComments())
             .year(post.getYear())
             .images(images)
             .tools(post.getTools())
@@ -118,18 +122,25 @@ public class PostDTO {
     List<String> toolNames = post.getTools().stream()
             .map(tool -> tool.getTool())
             .collect(Collectors.toList());
+
+    List<String> commentss = post.getComments().stream()
+            .map(comment -> comment.getContent())
+            .collect(Collectors.toList());
+
     return PostDTO.builder()
             .id(post.getId())
             .userId(post.getUser().getId())
             .userName(post.getUser().getUsername())
             .content(post.getContent())
             .title(post.getTitle())
+            .likeCount(post.getCountLike())
             .viewCount(post.getViewCount())
             .videoURL(post.getVideoURL())
             .major(post.getMajor())
             .year(post.getYear())
             .images(images)
             .tools(toolNames)
+            .comments(commentss)
             .category(post.getCategory())
             .contact(post.getContact())
             .isConfirmed(post.getIsConfirmed())

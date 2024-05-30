@@ -94,7 +94,7 @@ public class PostService {
   // 수정하는 로직
   // 여기 추가해야함
 
-  public List<PostDTO> getAllForUser() {
+  public List<PostDTO> getAllPost() {
     List<Post> posts = postRepository.findAllByConfirmed();
     List<PostDTO> returnPosts = new ArrayList<>();
 
