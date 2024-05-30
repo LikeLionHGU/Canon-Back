@@ -16,6 +16,7 @@ public class PostRequest {
     private String major;
     private String year;
     private String title;
+    private String videoURL;
     private List<String> tools;
 
 

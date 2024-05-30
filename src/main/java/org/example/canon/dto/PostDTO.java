@@ -2,6 +2,7 @@ package org.example.canon.dto;
 
 import lombok.*;
 import org.example.canon.controller.request.PostRequest;
+import org.example.canon.entity.Comment;
 import org.example.canon.entity.Image;
 import org.example.canon.entity.Post;
 import org.example.canon.entity.Profile;
@@ -34,9 +35,15 @@ public class PostDTO {
 
   private String contact;
 
+  private int likeCount;
+
+  private String videoURL;
+
   private byte isConfirmed;
 
   private List<Image> images;
+
+  private List<String> comments;
 
   private LocalDateTime createdDate;
 
@@ -58,9 +65,11 @@ public class PostDTO {
             .major(postrequest.getMajor())
             .year(postrequest.getYear())
             .tools(postrequest.getTools())
+            .videoURL(postrequest.getVideoURL())
             .category(postrequest.getCategory())
             .createdDate(LocalDateTime.now())
             .contact(postrequest.getContact())
+            .likeCount(0)
             .images(images)
             .viewCount(0L)
             .isConfirmed((byte) 0)
@@ -71,6 +80,10 @@ public class PostDTO {
     List<String> toolNames = post.getTools().stream()
             .map(tool -> tool.getTool())
             .collect(Collectors.toList());
+
+    List<String> commentss = post.getComments().stream()
+            .map(comment -> comment.getContent())
+            .collect(Collectors.toList());
     return PostDTO.builder()
             .id(post.getId())
             .userId(post.getUser().getId())
@@ -80,6 +93,9 @@ public class PostDTO {
             .viewCount(post.getViewCount())
             .major(post.getMajor())
             .year(post.getYear())
+            .likeCount(post.getCountLike())
+            .videoURL(post.getVideoURL())
+            .comments(commentss)
             .tools(toolNames)
             .category(post.getCategory())
             .contact(post.getContact())
@@ -121,7 +137,10 @@ public class PostDTO {
             .content(post.getContent())
             .title(post.getTitle())
             .viewCount(post.getViewCount())
+            .videoURL(post.getVideoURL())
             .major(post.getMajor())
+            .likeCount(post.getLikeCount())
+            .comments(post.getComments())
             .year(post.getYear())
             .images(images)
             .tools(post.getTools())
@@ -136,17 +155,25 @@ public class PostDTO {
     List<String> toolNames = post.getTools().stream()
             .map(tool -> tool.getTool())
             .collect(Collectors.toList());
+
+    List<String> commentss = post.getComments().stream()
+            .map(comment -> comment.getContent())
+            .collect(Collectors.toList());
+
     return PostDTO.builder()
             .id(post.getId())
             .userId(post.getUser().getId())
             .userName(post.getUser().getUsername())
             .content(post.getContent())
             .title(post.getTitle())
+            .likeCount(post.getCountLike())
             .viewCount(post.getViewCount())
+            .videoURL(post.getVideoURL())
             .major(post.getMajor())
             .year(post.getYear())
             .images(images)
             .tools(toolNames)
+            .comments(commentss)
             .category(post.getCategory())
             .contact(post.getContact())
             .isConfirmed(post.getIsConfirmed())

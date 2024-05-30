@@ -3,8 +3,10 @@ package org.example.canon.controller.response.postResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.example.canon.dto.CommentDTO;
 import org.example.canon.dto.PostDTO;
 import org.example.canon.dto.ToolDTO;
+import org.example.canon.entity.Comment;
 import org.example.canon.entity.Image;
 import org.example.canon.entity.ImageOnlyURL;
 import org.example.canon.entity.User;
@@ -32,8 +34,11 @@ public class PostResponse {
   private List<ImageOnlyURL> imageURLs;
 
   private String contact;
+  private int likeCount;
 
   private byte isConfirmed;
+  private String videoURL;
+  private List<String> comments;
 
   private List<String> tools;
 
@@ -49,16 +54,20 @@ public class PostResponse {
     this.userName = userName;
     this.title = postDto.getTitle();
     this.content = postDto.getContent();
+    this.videoURL = postDto.getVideoURL();
     this.category = postDto.getCategory();
     this.createdDate = postDto.getCreatedDate();
     this.imageURLs = postDto.getImages().stream()
             .map(img -> new ImageOnlyURL(img.getFileName(), img.getImageURL()))
             .collect(Collectors.toList());
     this.tools = postDto.getTools();
+
     this.viewCount = postDto.getViewCount();
     this.contact = postDto.getContact();
     this.isConfirmed = postDto.getIsConfirmed();
   }
+
+
 
 
   public PostResponse(PostDTO postDto) {
@@ -76,7 +85,7 @@ public class PostResponse {
     this.isConfirmed = postDto.getIsConfirmed();
   }
 
-  public PostResponse(PostDTO postDto, List<ToolDTO> toolDTO, List<Image> images) {
+  public PostResponse(PostDTO postDto, List<ToolDTO> toolDTO, List<Image> images, List<CommentDTO> commentDTO) {
     this.id = postDto.getId();
     this.userId = postDto.getUserId();
     this.userName = postDto.getUserName();
@@ -85,6 +94,8 @@ public class PostResponse {
     this.viewCount = postDto.getViewCount();
     this.category = postDto.getCategory();
     this.tools = postDto.getTools();
+    this.videoURL = postDto.getVideoURL();
+    this.likeCount = postDto.getLikeCount();
     this.createdDate = postDto.getCreatedDate();
     this.imageURLs = images.stream()
             .map(img -> new ImageOnlyURL(img.getFileName(), img.getImageURL()))
@@ -103,7 +114,11 @@ public class PostResponse {
     }
     this.tools.add(toolDTO.get(0).getTools().toString());
 
-
+    if (commentDTO != null) {
+      this.comments = commentDTO.stream()
+              .map(CommentDTO::getContent)
+              .collect(Collectors.toList());
+    }
 
 
 
