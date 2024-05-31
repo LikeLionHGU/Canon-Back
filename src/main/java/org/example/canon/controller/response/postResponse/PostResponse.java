@@ -25,6 +25,7 @@ public class PostResponse {
   private Long userId;
 
   private String userName;
+  private String university;
   private String title;
   private String content;
   private String category;
@@ -52,6 +53,8 @@ public class PostResponse {
   public PostResponse(PostDTO postDto, Long postId,String userName) {
     this.id = postId;
     this.userName = userName;
+    this.userId = postDto.getUserId();
+    this.university = postDto.getUniversity();
     this.title = postDto.getTitle();
     this.content = postDto.getContent();
     this.videoURL = postDto.getVideoURL();
@@ -76,6 +79,7 @@ public class PostResponse {
     this.userName = postDto.getUserName();
     this.title = postDto.getTitle();
     this.content = postDto.getContent();
+    this.videoURL = postDto.getVideoURL();
     this.viewCount = postDto.getViewCount();
     this.category = postDto.getCategory();
     this.tools = postDto.getTools();
@@ -88,6 +92,7 @@ public class PostResponse {
   public PostResponse(PostDTO postDto, List<ToolDTO> toolDTO, List<Image> images, List<CommentDTO> commentDTO) {
     this.id = postDto.getId();
     this.userId = postDto.getUserId();
+    this.university = postDto.getUniversity();
     this.userName = postDto.getUserName();
     this.title = postDto.getTitle();
     this.content = postDto.getContent();

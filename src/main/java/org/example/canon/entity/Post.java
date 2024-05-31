@@ -22,6 +22,8 @@ public class Post extends Base {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String university;
+
     private String content;
 
     private String title;
@@ -74,6 +76,7 @@ public class Post extends Base {
         return Post.builder()
                 .content(dto.getContent())
                 .title(dto.getTitle())
+                .university(dto.getUniversity())
                 .category(dto.getCategory())
                 .videoURL(dto.getVideoURL())
                 .major(dto.getMajor())
@@ -92,6 +95,7 @@ public class Post extends Base {
 
         this.content = request.getContent();
         this.title = request.getTitle();
+        this.university = request.getUniversity();
         this.category = request.getCategory();
         this.contact = request.getContact();
         this.major = request.getMajor();
@@ -105,6 +109,7 @@ public class Post extends Base {
         this.content = request.getContent();
         this.title = request.getTitle();
         this.major = request.getMajor();
+        this.university = request.getUniversity();
         this.year = request.getYear();
         this.category = request.getCategory();
         this.contact = request.getContact();

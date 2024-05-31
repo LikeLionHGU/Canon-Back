@@ -23,6 +23,8 @@ public class PostDTO {
   private Long userId;
   private String userName;
 
+  private String university;
+
   private String content;
 
   private String title;
@@ -68,6 +70,7 @@ public class PostDTO {
             .videoURL(postrequest.getVideoURL())
             .category(postrequest.getCategory())
             .createdDate(LocalDateTime.now())
+            .university(postrequest.getUniversity())
             .contact(postrequest.getContact())
             .likeCount(0)
             .images(images)
@@ -91,6 +94,7 @@ public class PostDTO {
             .content(post.getContent())
             .title(post.getTitle())
             .viewCount(post.getViewCount())
+            .university(post.getUniversity())
             .major(post.getMajor())
             .year(post.getYear())
             .likeCount(post.getCountLike())
@@ -116,6 +120,7 @@ public class PostDTO {
             .viewCount(post.getViewCount())
             .major(post.getMajor())
             .year(post.getYear())
+            .university(post.getUniversity())
             .tools(toolNames)
             .category(post.getCategory())
             .contact(post.getContact())
@@ -138,6 +143,7 @@ public class PostDTO {
             .title(post.getTitle())
             .viewCount(post.getViewCount())
             .videoURL(post.getVideoURL())
+            .university(post.getUniversity())
             .major(post.getMajor())
             .likeCount(post.getLikeCount())
             .comments(post.getComments())
@@ -168,6 +174,7 @@ public class PostDTO {
             .title(post.getTitle())
             .likeCount(post.getCountLike())
             .viewCount(post.getViewCount())
+            .university(post.getUniversity())
             .videoURL(post.getVideoURL())
             .major(post.getMajor())
             .year(post.getYear())
