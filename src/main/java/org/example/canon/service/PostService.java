@@ -123,7 +123,11 @@ public class PostService {
     Profile profile = profileRepository.findByUser(post.getUser());
     post.plusViewCount();
     postRepository.save(post);
-    return PostDTO.of(post,profile);
+    if (profile == null) {
+      return PostDTO.of(post);
+    } else {
+      return PostDTO.of(post, profile);
+    }
   }
 
   @Transactional
