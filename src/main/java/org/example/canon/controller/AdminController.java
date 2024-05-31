@@ -25,6 +25,13 @@ public class AdminController {
     return ResponseEntity.ok(response);
   }
 
+  @GetMapping("/denied")
+  public ResponseEntity<PostListResponse> getAllDeniedPost() {
+    List<PostDTO> posts = postService.getAllDenied();
+    PostListResponse response = new PostListResponse(posts);
+    return ResponseEntity.ok(response);
+  }
+
   // 컨펌하는 로직 작성하기
   @PatchMapping("/{postId}")
   public ResponseEntity<Void> confirmPost(@PathVariable Long postId , @RequestBody AdminConfirmRequest  request) {
