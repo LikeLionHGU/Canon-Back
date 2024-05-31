@@ -90,6 +90,11 @@ public class PostService {
 
   }
 
+  public List<PostDTO> getAllDenied(){
+    List<Post> posts= postRepository.findAllByIsDenied();
+    return posts.stream().map(PostDTO::of).toList();
+  }
+
 
   // 수정하는 로직
   // 여기 추가해야함
