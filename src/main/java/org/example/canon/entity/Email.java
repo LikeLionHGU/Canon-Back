@@ -21,18 +21,14 @@ public class Email extends Base{
 
     //얘 외래키로 바꿔야함
     private String receiver;
-    private String message;
-    private String subject;
 
     //얘 외래키로 바꿔야함
     private String sender;
 
-    public static Email of(EmailRequest emailRequest, String to){
+    public static Email of(String receiver, String sender){
         return Email.builder()
-                .receiver(to)
-                .subject(emailRequest.getSubject())
-                .message(emailRequest.getMessage())
-                .sender(emailRequest.getSender())
+                .receiver(receiver)
+                .sender(sender)
                 .build();
     }
 
