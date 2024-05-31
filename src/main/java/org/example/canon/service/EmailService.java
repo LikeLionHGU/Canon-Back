@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class EmailService {
 
     private JavaMailSender mailSender;
@@ -35,7 +35,10 @@ public class EmailService {
         String receiverMail = post.get().getContact();
         String sender = userDTO.getEmail();
 
+        System.out.println(receiverMail);
+        System.out.println(sender);
         MimeMessage message = mailSender.createMimeMessage();
+
         String html = "<!DOCTYPE html>\n" +
                 "<html>\n" +
                 "<body style=\"background-color: #FF7D04; padding: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\">\n" +
