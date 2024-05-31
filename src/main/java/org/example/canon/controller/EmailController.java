@@ -19,12 +19,11 @@ public class EmailController {
 
     @PostMapping("/{postId}")
     public ResponseEntity<EmailResponse> SendEmail(
-            @RequestBody EmailRequest request,
             @PathVariable Long postId,
             @AuthenticationPrincipal CustomOAuth2UserDTO userDto){
 
         System.out.println("==여기까지는 됨 ===");
-        emailService.sendMail(userDto,request,postId);
+        emailService.sendMail(userDto,postId);
 
         return ResponseEntity.ok().build();
     }

@@ -11,6 +11,7 @@ import java.util.List;
 public class PostRequest {
 
     private String category;
+    private String university;
     private String contact;
     private String content;
     private String major;
