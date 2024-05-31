@@ -13,6 +13,10 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
@@ -24,7 +28,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
   @Override
   public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-
+    List<String> admin = new ArrayList<>(Arrays.asList("22000082@handong.ac.kr", "22100595@handong.ac.kr", "lucas0606@handong.ac.kr", "shalom99904@gmail.com", "xofks136@handong.ac.kr"));
     OAuth2User oAuth2User = super.loadUser(userRequest);
     System.out.println(oAuth2User.getAttributes());
 
@@ -40,7 +44,11 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
       User userEntity = new User();
       userEntity.setUsername(oAuth2Response.getName());
       userEntity.setEmail(oAuth2Response.getEmail());
-      userEntity.setRole("USER");
+      if (admin.contains(oAuth2Response.getEmail())) {
+        userEntity.setRole("ADMIN");
+      } else {
+        userEntity.setRole("USER");
+      }
       userEntity.setName(name);
       userRepository.save(userEntity);
 
@@ -48,7 +56,11 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
       userDTO.setName(name);
       userDTO.setUsername(oAuth2Response.getName());
       userDTO.setEmail(oAuth2Response.getEmail());
-      userDTO.setRole("USER");
+      if (admin.contains(oAuth2Response.getEmail())) {
+        userDTO.setRole("ADMIN");
+      } else {
+        userDTO.setRole("USER");
+      }
 
       return new CustomOAuth2UserDTO(userDTO);
 
