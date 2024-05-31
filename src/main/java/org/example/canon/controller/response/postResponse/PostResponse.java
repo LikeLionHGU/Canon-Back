@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.canon.dto.CommentDTO;
 import org.example.canon.dto.PostDTO;
+import org.example.canon.dto.ProfileDTO;
 import org.example.canon.dto.ToolDTO;
 import org.example.canon.entity.Comment;
 import org.example.canon.entity.Image;
@@ -89,7 +90,7 @@ public class PostResponse {
     this.isConfirmed = postDto.getIsConfirmed();
   }
 
-  public PostResponse(PostDTO postDto, List<ToolDTO> toolDTO, List<Image> images, List<CommentDTO> commentDTO) {
+  public PostResponse(PostDTO postDto, List<ToolDTO> toolDTO, List<Image> images, List<CommentDTO> commentDTO, ProfileDTO profileDTO) {
     this.id = postDto.getId();
     this.userId = postDto.getUserId();
     this.university = postDto.getUniversity();
@@ -106,11 +107,12 @@ public class PostResponse {
             .map(img -> new ImageOnlyURL(img.getFileName(), img.getImageURL()))
             .collect(Collectors.toList());
     this.contact = postDto.getContact();
-    this.profileContact = postDto.getProfileContact();
-    this.profileInfo = postDto.getProfileInfo();
-    this.profileName = postDto.getProfileName();
-    this.profileContribution = postDto.getProfileContribution();
-    this.profileImageURL = postDto.getProfileImageURL();
+
+    this.profileContact = profileDTO.getContact();
+    this.profileInfo = profileDTO.getInfo();
+    this.profileName = profileDTO.getName();
+    this.profileContribution = profileDTO.getContribution();
+    this.profileImageURL = profileDTO.getProfileImageURL();
 
     this.isConfirmed = postDto.getIsConfirmed();
 
@@ -124,7 +126,37 @@ public class PostResponse {
               .map(CommentDTO::getContent)
               .collect(Collectors.toList());
     }
+  }
+public PostResponse(PostDTO postDto, List<ToolDTO> toolDTO, List<Image> images, List<CommentDTO> commentDTO) {
+      this.id = postDto.getId();
+      this.userId = postDto.getUserId();
+      this.university = postDto.getUniversity();
+      this.userName = postDto.getUserName();
+      this.title = postDto.getTitle();
+      this.content = postDto.getContent();
+      this.viewCount = postDto.getViewCount();
+      this.category = postDto.getCategory();
+      this.tools = postDto.getTools();
+      this.videoURL = postDto.getVideoURL();
+      this.likeCount = postDto.getLikeCount();
+      this.createdDate = postDto.getCreatedDate();
+      this.imageURLs = images.stream()
+              .map(img -> new ImageOnlyURL(img.getFileName(), img.getImageURL()))
+              .collect(Collectors.toList());
+      this.contact = postDto.getContact();
 
+      this.isConfirmed = postDto.getIsConfirmed();
+
+      if (this.tools == null) {
+        this.tools = new ArrayList<>();
+      }
+      this.tools.add(toolDTO.get(0).getTools().toString());
+
+      if (commentDTO != null) {
+        this.comments = commentDTO.stream()
+                .map(CommentDTO::getContent)
+                .collect(Collectors.toList());
+      }
 
 
   }

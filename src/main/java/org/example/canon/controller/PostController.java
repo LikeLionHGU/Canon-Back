@@ -5,10 +5,7 @@ import org.example.canon.controller.request.PostFilterRequest;
 import org.example.canon.controller.request.PostRequest;
 import org.example.canon.controller.response.postResponse.PostListResponse;
 import org.example.canon.controller.response.postResponse.PostResponse;
-import org.example.canon.dto.CommentDTO;
-import org.example.canon.dto.CustomOAuth2UserDTO;
-import org.example.canon.dto.PostDTO;
-import org.example.canon.dto.ToolDTO;
+import org.example.canon.dto.*;
 import org.example.canon.entity.Comment;
 import org.example.canon.entity.Image;
 import org.example.canon.entity.Post;
@@ -34,6 +31,7 @@ public class PostController {
   private String SECRET_KEY;
 
   private final PostService postService;
+  private final ProfileService profileService;
   private final S3Uploader s3Uploader;
   private final ToolsService toolsService;
   private final ImagesService imagesService;
@@ -71,7 +69,14 @@ public class PostController {
     List<ToolDTO> toolDto = toolsService.getAllByPostId(postId);
     List<Image> images = imagesService.getAllImagesByPostId(postId);
     List<CommentDTO> commentsDto = commentService.getAllForPost(postId);
-    PostResponse response = new PostResponse(postDto,toolDto, images, commentsDto);
+    ProfileDTO profileDTO = profileService.getProfile(postDto.getUserId());
+    PostResponse response;
+    if(profileService.hasProfile(postId)){
+      response = new PostResponse(postDto,toolDto, images, commentsDto,profileDTO);
+    }
+    else{
+      response = new PostResponse(postDto,toolDto, images, commentsDto);
+    }
 
     return ResponseEntity.ok(response);
   }
