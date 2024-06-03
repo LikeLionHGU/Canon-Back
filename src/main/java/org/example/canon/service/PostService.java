@@ -56,7 +56,7 @@ public class PostService {
   }
 
   public List<PostDTO> getAllForAdmin() {
-    List<Post> posts = postRepository.findAllByIsNotChecked();
+    List<Post> posts = postRepository.findAll();
     return posts.stream().map(PostDTO::of).toList();
   }
 
