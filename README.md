@@ -253,12 +253,35 @@
 
 <hr>
 
+
+<h3>📌 ~6/3  </h3>
+
+<h4>● 완료 항목</h4>
+<ul>
+  ✅ security config <br>
+  ✅ 배포<br>
+  ✅ reqeustMatcher 설정
+
+
+
+</ul>
+
+<h4>● 완료되어야 하는 기능</h4>
+<ul>
+
+ 🔪 배포 로그인 에러 <br>
+     - USER 제대로 안 들어감<br>
+     - ADMIN 계정 인식 
+
+      
+</ul>
+
+<hr>
+
 <h2> 남은 기능들 </h2>
 
 <ul>
-  <li> security config  </li>
   <li> 배포 후 에러 해결 </li>
-  <li> 예외 처리 </li>
  
   
 <br>
