@@ -13,6 +13,7 @@ import org.example.canon.repository.ProfileRepository;
 import org.example.canon.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -46,7 +47,13 @@ public class ProfileService {
 
         User user = userRepository.findByEmail(userDTO.getEmail());
         Profile profile = profileRepository.findByUser(user);
-        return ProfileDTO.of(profile);
+         if(profile == null){
+             return null;
+         }
+        List<Post> uploadedPosts = postRepository.findAllByUser(user);
+        List<Post> likedPosts = postRepository.findLikedPostsByUser(user);
+
+        return ProfileDTO.of(profile,uploadedPosts,likedPosts);
     }
 
     public ProfileDTO getProfile(Long userId) {
@@ -55,7 +62,9 @@ public class ProfileService {
         if(profile == null){
             return null;
         }
-        return ProfileDTO.of(profile);
+        List<Post> uploadedPosts = postRepository.findAllByUser(user);
+        List<Post> likedPosts = postRepository.findLikedPostsByUser(user);
+        return ProfileDTO.of(profile,uploadedPosts,likedPosts);
     }
 
     public boolean hasProfile(Long postId) {
