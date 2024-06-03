@@ -2,7 +2,10 @@ package org.example.canon.dto;
 
 import lombok.*;
 import org.example.canon.controller.request.ProfileRequest;
+import org.example.canon.entity.Post;
 import org.example.canon.entity.Profile;
+
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -20,6 +23,9 @@ public class ProfileDTO {
 
     private String profileImageURL;
 
+    private List<Post> uploadedPosts;
+    private List<Post> likedPosts;
+
     public static ProfileDTO of(ProfileRequest profileRequest , String profileImageURL){
 
         return ProfileDTO.builder()
@@ -31,7 +37,7 @@ public class ProfileDTO {
                 .build();
     }
 
-    public static ProfileDTO of(Profile profile){
+    public static ProfileDTO of(Profile profile, List<Post> uploadedPosts, List<Post>likedPosts){
         return ProfileDTO.builder()
                 .name(profile.getName())
                 .userId(profile.getId())
@@ -39,6 +45,8 @@ public class ProfileDTO {
                 .contribution(profile.getContribution())
                 .contact(profile.getContact())
                 .profileImageURL(profile.getProfileImageURL())
+                .uploadedPosts(uploadedPosts)
+                .likedPosts(likedPosts)
                 .build();
     }
 

@@ -48,7 +48,16 @@ public class EmailService {
                 "      Coffee chat\n" +
                 "    </h1>\n" +
                 "    <hr style=\"border: none; border-top: 2px solid #FF7D04; width: 80%; margin: 20px auto;\">\n" +
-                "    <p style=\"font-size: 18px; line-height: 1.5; margin-bottom: 20px;\">메시지 : 안녕하세요 작품보고 연락드립니다, 확인하시면 답장 부탁드립니다.</p>\n" +
+                "    <p style=\"font-size: 18px; line-height: 1.5; margin-bottom: 20px;\">안녕하세요 [수신자 이름]님,<br>\n" +
+                "      [HUP] 플랫폼을 통해 [ "+ receiverMail +" ]님께 커피챗 요청이 도착했습니다.<br>\n" +
+                "      [ "+ sender +" ]님은 [ " + receiverMail +" ]님의 졸업 작품에 큰 관심을 가지고 있으며,<br>\n" +
+                "      이 기회를 통해 졸업 작품에 대한 피드백을 얻거나, 전문 지식을 공유하고,<br>\n" +
+                "      창의적인 아이디어를 나누게 될 수 있습니다.<br>\n" +
+                "      커피챗에 참여하여 유익한 대화를 나누고 싶다면<br>\n" +
+                "      아래 메일을 통해 대화를 시작해보세요!<br>\n" +
+                "      감사합니다.<br>\n" +
+                "      [HUP] 팀\n" +
+                "    </p>\n" +
                 "    <p style=\"font-size: 18px; line-height: 1.5; margin-bottom: 20px;\">연락처 : " + sender + "</p>\n" +
                 "    <hr style=\"border: none; border-top: 2px solid #FF7D04; width: 80%; margin: 20px auto;\">\n" +
                 "    <p style=\"font-size: 14px; color: #666; margin-bottom: 0;\">답장은 위 연락처로 부탁드립니다.</p>\n" +
@@ -62,9 +71,11 @@ public class EmailService {
                 "</body>\n" +
                 "</html>";
 
+
+        String title = "[HUP] 커피챗 요청 from "+sender;
         try {
             MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-            messageHelper.setSubject("[HUP] 커피챗 신청 메일입니다.");
+            messageHelper.setSubject(title);
             messageHelper.setTo(receiverMail);
             messageHelper.setFrom("gurdl2384@naver.com", "HUP 커피챗 서비스");
             messageHelper.setText(html,true);
