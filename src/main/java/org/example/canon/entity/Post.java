@@ -30,6 +30,7 @@ public class Post extends Base {
 
     private String category;
 
+
     private String imageURL;
 
     private String videoURL;
@@ -52,6 +53,9 @@ public class Post extends Base {
     private int countLike=0;
 
     private byte isConfirmed;
+
+    private long commentsCounts=0;
+
 
     private String contact;
 
