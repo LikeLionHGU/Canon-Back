@@ -44,6 +44,7 @@ public class PostResponse {
 
   private List<String> tools;
 
+  private long commentsCounts;
   private long viewCount;
   private String profileImageURL;
   private String profileContact;
@@ -59,6 +60,7 @@ public class PostResponse {
     this.title = postDto.getTitle();
     this.content = postDto.getContent();
     this.videoURL = postDto.getVideoURL();
+    this.commentsCounts=postDto.getCommentsCounts();
     this.category = postDto.getCategory();
     this.createdDate = postDto.getCreatedDate();
     this.imageURLs = postDto.getImages().stream()
@@ -99,6 +101,7 @@ public class PostResponse {
     this.content = postDto.getContent();
     this.viewCount = postDto.getViewCount();
     this.category = postDto.getCategory();
+    this.commentsCounts=postDto.getCommentsCounts();
     this.tools = postDto.getTools();
     this.videoURL = postDto.getVideoURL();
     this.likeCount = postDto.getLikeCount();
@@ -133,6 +136,7 @@ public PostResponse(PostDTO postDto, List<ToolDTO> toolDTO, List<Image> images, 
       this.university = postDto.getUniversity();
       this.userName = postDto.getUserName();
       this.title = postDto.getTitle();
+      this.commentsCounts=postDto.getCommentsCounts();
       this.content = postDto.getContent();
       this.viewCount = postDto.getViewCount();
       this.category = postDto.getCategory();

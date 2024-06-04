@@ -47,6 +47,8 @@ public class PostDTO {
   private List<Image> images;
 
   private List<String> comments;
+  private long commentsCounts;
+
 
   private LocalDateTime createdDate;
 
@@ -101,6 +103,7 @@ public class PostDTO {
             .major(post.getMajor())
             .year(post.getYear())
             .likeCount(post.getCountLike())
+            .commentsCounts(post.getComments().size())
             .videoURL(post.getVideoURL())
             .comments(commentss)
             .tools(toolNames)
@@ -121,6 +124,7 @@ public class PostDTO {
             .content(post.getContent())
             .title(post.getTitle())
             .viewCount(post.getViewCount())
+            .commentsCounts(post.getComments().size())
             .major(post.getMajor())
             .year(post.getYear())
             .university(post.getUniversity())
@@ -150,6 +154,7 @@ public class PostDTO {
             .major(post.getMajor())
             .likeCount(post.getLikeCount())
             .comments(post.getComments())
+            .commentsCounts(post.getComments().size())
             .year(post.getYear())
             .images(images)
             .tools(post.getTools())
@@ -178,6 +183,7 @@ public class PostDTO {
             .likeCount(post.getCountLike())
             .viewCount(post.getViewCount())
             .university(post.getUniversity())
+            .commentsCounts(post.getComments().size())
             .videoURL(post.getVideoURL())
             .major(post.getMajor())
             .year(post.getYear())
