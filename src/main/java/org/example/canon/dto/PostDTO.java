@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 @Builder
 public class PostDTO {
 
@@ -58,6 +59,8 @@ public class PostDTO {
   private String profileInfo;
   private String profileName;
   private String profileContribution;
+
+
 
 
   public static PostDTO of(PostRequest postrequest, List<Image> images) {
