@@ -62,6 +62,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         cookie.setSecure(true);
         cookie.setHttpOnly(false);
         cookie.setPath("/");
+        cookie.setDomain("hup-likelion.kro.kr");
         cookie.setAttribute("SameSite", "None");
         return cookie;
 
