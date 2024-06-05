@@ -18,8 +18,6 @@ import java.util.List;
 @RequestMapping("/like")
 @Controller
 @RequiredArgsConstructor
-@CrossOrigin("*")
-
 public class LikeController {
     private final PostLikeService postLikeService;
 

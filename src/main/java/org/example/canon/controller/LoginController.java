@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class LoginController {
 
     private final UserRepository userRepository;
