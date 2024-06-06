@@ -55,11 +55,11 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         response.sendRedirect("http://localhost:3000/DaePo");
     }
 
-    private Cookie createCookie(String key, String value) {
+    public Cookie createCookie(String key, String value) {
 
         Cookie cookie = new Cookie(key, value);
         cookie.setMaxAge(60*60*60*60);
-        cookie.setSecure(true);
+        cookie.setSecure(false);
         cookie.setHttpOnly(false);
         cookie.setPath("/");
         cookie.setDomain("hup-likelion.kro.kr");
