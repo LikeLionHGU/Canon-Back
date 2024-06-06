@@ -115,7 +115,6 @@ public class PostResponse {
     this.profileInfo = profileDTO.getInfo();
     this.profileName = profileDTO.getName();
     this.profileContribution = profileDTO.getContribution();
-    this.profileImageURL = profileDTO.getProfileImageURL();
 
     this.isConfirmed = postDto.getIsConfirmed();
 

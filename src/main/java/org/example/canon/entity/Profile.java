@@ -25,7 +25,6 @@ public class Profile extends Base {
 
     private String contact;
 
-    private String profileImageURL;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "User_Id")
@@ -38,7 +37,6 @@ public class Profile extends Base {
                 .info(profileDTO.getInfo())
                 .contribution(profileDTO.getContribution())
                 .contact(profileDTO.getContact())
-                .profileImageURL(profileDTO.getProfileImageURL())
                 .user(user)
                 .build();
     }
@@ -48,7 +46,6 @@ public class Profile extends Base {
         this.info = profileDTO.getInfo();
         this.contribution = profileDTO.getContribution();
         this.contact = profileDTO.getContact();
-        this.profileImageURL = profileDTO.getProfileImageURL();
     }
 
     public static Profile of(User user){
@@ -56,9 +53,7 @@ public class Profile extends Base {
         return Profile.builder()
                     .user(user)
                     .name(user.getUsername())
-                    .profileImageURL(null)
                 .contact(user.getEmail())
-                .profileImageURL(null)
                 .contribution(null)
                 .info(null)
                 .build();
