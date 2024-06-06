@@ -24,34 +24,46 @@ public class ProfileController {
     private final ProfileService profileService;
     private final S3Uploader s3Uploader;
 
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ProfileResponse> uploadProfile(@RequestParam("image") MultipartFile image,
-                                                                  ProfileRequest profileRequest,
-                                                                  @AuthenticationPrincipal CustomOAuth2UserDTO userDto) throws IOException {
-        String imageURL = s3Uploader.upload(image, "example");
-
-        ProfileDTO profileDTO = ProfileDTO.of(profileRequest, imageURL);
-
-        profileService.addProfile(profileDTO,userDto);
-        return null;
-    }
+//    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+//    public ResponseEntity<ProfileResponse> uploadProfile(@RequestParam("image") MultipartFile image,
+//                                                                  ProfileRequest profileRequest,
+//                                                                  @AuthenticationPrincipal CustomOAuth2UserDTO userDto) throws IOException {
+//        String imageURL = s3Uploader.upload(image, "example");
+//
+//        ProfileDTO profileDTO = ProfileDTO.of(profileRequest, imageURL);
+//
+//        profileService.addProfile(profileDTO,userDto);
+//        return null;
+//    }
 
     @PatchMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ProfileResponse> updateProfile(@RequestParam("image") MultipartFile image,
-                                                          ProfileRequest profileRequest,
+    public ResponseEntity<ProfileResponse> updateProfile(ProfileRequest profileRequest,
                                                           @AuthenticationPrincipal CustomOAuth2UserDTO userDto) throws IOException {
 
-        String imageURL = null;
 
-        if( image != null) {
-            imageURL = s3Uploader.upload(image, "example");
-        }
 
-        ProfileDTO profileDTO = ProfileDTO.of(profileRequest, imageURL);
+        ProfileDTO profileDTO = ProfileDTO.of(profileRequest);
 
         profileService.updateProfile(profileDTO, userDto);
         return null;
     }
+
+//    @PatchMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+//    public ResponseEntity<ProfileResponse> updateProfile(@RequestParam("image") MultipartFile image,
+//                                                         ProfileRequest profileRequest,
+//                                                         @AuthenticationPrincipal CustomOAuth2UserDTO userDto) throws IOException {
+//
+//        String imageURL = "123";
+//
+//        if( image != null) {
+//            imageURL = s3Uploader.upload(image, "example");
+//        }
+//
+//        ProfileDTO profileDTO = ProfileDTO.of(profileRequest, imageURL);
+//
+//        profileService.updateProfile(profileDTO, userDto);
+//        return null;
+//    }
 
     @GetMapping("/myinfo")
     public ResponseEntity<ProfileResponse> getMyInfo(@AuthenticationPrincipal CustomOAuth2UserDTO userDto){
