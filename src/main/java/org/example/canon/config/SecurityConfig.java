@@ -22,8 +22,8 @@ public class SecurityConfig {
   private final CustomOAuth2UserService customOAuth2UserService;
   private final CustomSuccessHandler customSuccessHandler;
   private final JWTUtil jwtUtil;
-  private final CustomAuthenticationFailureHandler customFailureHandler;  // 추가
-  private final RestAuthenticationEntryPoint restAuthenticationEntryPoint; // 추가
+  private final CustomAuthenticationFailureHandler customFailureHandler;
+  private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
 
 
@@ -53,7 +53,7 @@ public class SecurityConfig {
             .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig
                     .userService(customOAuth2UserService))
             .successHandler(customSuccessHandler)
-            .failureHandler(customFailureHandler)  // 추가
+            .failureHandler(customFailureHandler)
     );
 
     // 경로별 인가 작업
@@ -61,6 +61,7 @@ public class SecurityConfig {
             .requestMatchers("/", "/post/main", "/posts/filtered", "/posts/{postId:\\d+}", "/profile/{userId:\\d+}").permitAll()
             .requestMatchers("/admin/**").hasRole("ADMIN")
             .anyRequest().authenticated());
+
 
     // 세션 설정 : STATELESS
     http.sessionManagement(session -> session
