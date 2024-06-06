@@ -40,7 +40,12 @@ public class ProfileController {
     public ResponseEntity<ProfileResponse> updateProfile(@RequestParam("image") MultipartFile image,
                                                           ProfileRequest profileRequest,
                                                           @AuthenticationPrincipal CustomOAuth2UserDTO userDto) throws IOException {
-        String imageURL = s3Uploader.upload(image, "example");
+
+        String imageURL = null;
+
+        if( image != null) {
+            imageURL = s3Uploader.upload(image, "example");
+        }
 
         ProfileDTO profileDTO = ProfileDTO.of(profileRequest, imageURL);
 
