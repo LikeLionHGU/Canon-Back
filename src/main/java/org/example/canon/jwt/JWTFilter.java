@@ -100,7 +100,6 @@ public class JWTFilter extends OncePerRequestFilter {
 
             filterChain.doFilter(request, response);
         }catch (Exception e){
-            System.out.println("BBBBBBBBBBBB");
             setErrorResponse(response, e.getMessage(), HttpStatus.UNAUTHORIZED);
         }
 
@@ -109,7 +108,6 @@ public class JWTFilter extends OncePerRequestFilter {
 
     private void setErrorResponse(
             HttpServletResponse response, String message, HttpStatus httpStatus) {
-        System.out.println("AAAAAAAAAAAAAAA");
         ObjectMapper objectMapper = new ObjectMapper();
         response.setStatus(httpStatus.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);

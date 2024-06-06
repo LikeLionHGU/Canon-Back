@@ -54,7 +54,7 @@ public class PostController {
     }
 
     PostDTO postDto = PostDTO.of(request, images);
-
+    System.out.println(userDto.getEmail());
     Long postId = postService.addPost(postDto, userDto.getEmail());
 
     PostResponse response = new PostResponse(postDto, postId, userDto.getUsername());

@@ -1,11 +1,15 @@
 package org.example.canon.service;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.example.canon.dto.CustomOAuth2UserDTO;
 import org.example.canon.controller.response.loginResponse.GoogleResponse;
 // import org.example.canon.dto.NaverResponse;
 import org.example.canon.dto.OAuth2Response;
 import org.example.canon.dto.UserDTO;
+import org.example.canon.entity.Profile;
 import org.example.canon.entity.User;
+import org.example.canon.repository.ProfileRepository;
 import org.example.canon.repository.UserRepository;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -18,12 +22,15 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
+
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
   private final UserRepository userRepository;
+  private final ProfileRepository profileRepository;
 
-  public CustomOAuth2UserService(UserRepository userRepository) {
+  public CustomOAuth2UserService(UserRepository userRepository, ProfileRepository profileRepository) {
     this.userRepository = userRepository;
+      this.profileRepository = profileRepository;
   }
 
   @Override
@@ -51,6 +58,10 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
       }
       userEntity.setName(name);
       userRepository.save(userEntity);
+
+      Profile profile = Profile.of(userEntity);
+
+      profileRepository.save(profile);
 
       UserDTO userDTO = new UserDTO();
       userDTO.setName(name);
