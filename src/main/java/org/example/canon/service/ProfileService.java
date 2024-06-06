@@ -54,7 +54,7 @@ public class ProfileService {
 //         }
          System.out.println(user.getEmail());
         List<Post> uploadedPosts = postRepository.findAllByUser(user);
-        List<Post> likedPosts = postRepository.findLikedPostsByUser(user);
+        List<Post> likedPosts = postRepository.findLikedPostsByUser(user.getId());
 
         return ProfileDTO.of(profile,uploadedPosts,likedPosts);
     }
@@ -67,8 +67,15 @@ public class ProfileService {
             profile.setContact(user.getEmail());
         }
         List<Post> uploadedPosts = postRepository.findAllByUser(user);
-        List<Post> likedPosts = postRepository.findLikedPostsByUser(user);
+        List<Post> likedPosts = postRepository.findLikedPostsByUser(user.getId());
         return ProfileDTO.of(profile,uploadedPosts,likedPosts);
+    }
+
+    public ProfileDTO getProfileForPost(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(RuntimeException::new);
+        Profile profile = profileRepository.findByUser(user);
+
+        return ProfileDTO.of(profile);
     }
 
     public boolean hasProfile(Long postId) {

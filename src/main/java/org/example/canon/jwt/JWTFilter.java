@@ -40,6 +40,11 @@ public class JWTFilter extends OncePerRequestFilter {
 
             String requestUri = request.getRequestURI();
 
+            if(requestUri.matches("/error")){
+                filterChain.doFilter(request, response);
+                return;
+            }
+
             if (requestUri.matches("^\\/login(?:\\/.*)?$")) {
 
                 filterChain.doFilter(request, response);
@@ -53,7 +58,8 @@ public class JWTFilter extends OncePerRequestFilter {
 
             if (requestUri.matches("^\\/login(?:\\/.*)?$") || requestUri.matches("^\\/oauth2(?:\\/.*)?$")) {
                 setErrorResponse(response, "올바르지 않은 접근입니다.", HttpStatus.BAD_REQUEST);
-                return;
+                throw new DoNotLoginException();
+
             }
 
 
@@ -80,7 +86,9 @@ public class JWTFilter extends OncePerRequestFilter {
 
 
                 filterChain.doFilter(request, response);
-                return;
+
+                throw new ExpiredTokenException();
+
             }
 
             String username = jwtUtil.getUsername(token);
@@ -99,8 +107,10 @@ public class JWTFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authToken);
 
             filterChain.doFilter(request, response);
-        }catch (Exception e){
+        }catch (ExpiredTokenException e){
             setErrorResponse(response, e.getMessage(), HttpStatus.UNAUTHORIZED);
+        }catch (DoNotLoginException e){
+            setErrorResponse(response, e.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
 

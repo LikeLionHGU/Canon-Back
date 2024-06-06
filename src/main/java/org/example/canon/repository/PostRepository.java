@@ -29,8 +29,8 @@ public interface PostRepository  extends JpaRepository<Post,Long> {
     @Query("SELECT p FROM Post p WHERE p.user.email = :email")
     List<Post> findAllByUserEmail(@Param("email") String email);
 
-    @Query("SELECT p FROM Post p JOIN PostLike pl WHERE pl.user = :user")
-    List<Post> findLikedPostsByUser(@Param("user") User user);
+    @Query("SELECT p FROM Post p JOIN PostLike pl WHERE pl.user.id = :userId")
+    List<Post> findLikedPostsByUser(@Param("userId") Long userId);
 
     List<Post> findAllByUser(@Param("user") User user);
 
