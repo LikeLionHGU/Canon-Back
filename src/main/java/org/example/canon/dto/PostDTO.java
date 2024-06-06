@@ -132,7 +132,6 @@ public class PostDTO {
             .contact(post.getContact())
             .isConfirmed(post.getIsConfirmed())
             .createdDate(post.getCreatedDate())
-            .profileImageURL(profile.getProfileImageURL())
             .profileContact(profile.getContact())
             .profileInfo(profile.getInfo())
             .profileName(profile.getName())

@@ -24,7 +24,6 @@ public class ProfileResponse {
 
     private String contribution;
 
-    private String profileImageURL;
 
     private List<PostDTO> uploadedPosts;
     private List<PostDTO> likedPosts;
@@ -34,7 +33,6 @@ public class ProfileResponse {
             this.info = profileDTO.getInfo();
             this.contact = profileDTO.getContact();
             this.contribution = profileDTO.getContribution();
-            this.profileImageURL = profileDTO.getProfileImageURL();
             this.likedPosts = profileDTO.getLikedPosts().stream()
                 .map(PostDTO::of)
                 .collect(Collectors.toList());
