@@ -67,10 +67,7 @@ public class SecurityConfig {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
 
-      // AuthenticationEntryPoint 설정
-      http.exceptionHandling(exceptions -> exceptions
-              .authenticationEntryPoint(restAuthenticationEntryPoint)
-      );
+
 
       return http.build();
   }
