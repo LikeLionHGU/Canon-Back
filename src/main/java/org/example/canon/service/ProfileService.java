@@ -46,12 +46,15 @@ public class ProfileService {
      public ProfileDTO getProfile(CustomOAuth2UserDTO userDTO) {
 
         User user = userRepository.findByEmail(userDTO.getEmail());
+
         Profile profile = profileRepository.findByUser(user);
-         if(profile == null){
-             return null;
-         }
+//         if(profile == null){
+//             profile.setName(user.getName());
+//             profile.setContact(user.getEmail());
+//         }
+         System.out.println(user.getEmail());
         List<Post> uploadedPosts = postRepository.findAllByUser(user);
-        List<Post> likedPosts = postRepository.findLikedPostsByUser(user);
+        List<Post> likedPosts = postRepository.findLikedPostsByUser(user.getId());
 
         return ProfileDTO.of(profile,uploadedPosts,likedPosts);
     }
@@ -60,11 +63,19 @@ public class ProfileService {
         User user = userRepository.findById(userId).orElseThrow(RuntimeException::new);
         Profile profile = profileRepository.findByUser(user);
         if(profile == null){
-            return null;
+            profile.setName(user.getName());
+            profile.setContact(user.getEmail());
         }
         List<Post> uploadedPosts = postRepository.findAllByUser(user);
-        List<Post> likedPosts = postRepository.findLikedPostsByUser(user);
+        List<Post> likedPosts = postRepository.findLikedPostsByUser(user.getId());
         return ProfileDTO.of(profile,uploadedPosts,likedPosts);
+    }
+
+    public ProfileDTO getProfileForPost(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(RuntimeException::new);
+        Profile profile = profileRepository.findByUser(user);
+
+        return ProfileDTO.of(profile);
     }
 
     public boolean hasProfile(Long postId) {

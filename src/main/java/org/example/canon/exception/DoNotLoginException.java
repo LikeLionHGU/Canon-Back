@@ -5,7 +5,7 @@ public class DoNotLoginException extends RuntimeException{
 
 
 
-    public DoNotLoginException(String message) {
-        super(message);
+    public DoNotLoginException() {
+        super(MESSAGE);
     }
 }

@@ -25,6 +25,7 @@ public class User extends Base {
     private byte hasProfile;
 
 
+
     public User(String username, String email,String role , String idCode) {
         this.username = username;
         this.email = email;
@@ -36,5 +37,6 @@ public class User extends Base {
     public void doneProfile() {
             this.hasProfile = 1;
     }
+
     }
 

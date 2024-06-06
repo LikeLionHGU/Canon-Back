@@ -42,14 +42,15 @@ public class PostService {
 
 
   public long addPost(PostDTO postDTO, String email) {
-    System.out.println(email);
+    System.out.println("hello"+ email);
     User user = userRepository.findByEmail(email);
+    System.out.println(user.getUsername());
 
     Post post = Post.of(postDTO, user);
     Post ret = postRepository.save(post);
 
     //PostDTO로 넘어온 Request에 있는 Tools 를 tools 테이블에 넣기
-    toolsService.saveTools(ret , postDTO.getTools());
+    toolsService.saveTools(ret, postDTO.getTools() );
     imagesService.saveImages(ret, postDTO.getImages());
 
     return post.getId();
@@ -67,20 +68,20 @@ public class PostService {
     postRepository.save(post);
   }
 
-  public List<PostDTO> getAllFilteredPost(PostFilterRequest postFilterRequest){
+  public List<PostDTO> getAllFilteredPost(PostFilterRequest postFilterRequest) {
 
     Specification<Post> spec = Specification.where(PostSpecification.filterByCategory(postFilterRequest.getCategory())
             .and(PostSpecification.filterByMajor(postFilterRequest.getMajor())
                     .and(PostSpecification.filterByYear(postFilterRequest.getYear()))));
 
 
-    List<PostDTO>returnPosts = new ArrayList<>();
-    List<PostDTO>posts= postRepository.findAll(spec)
+    List<PostDTO> returnPosts = new ArrayList<>();
+    List<PostDTO> posts = postRepository.findAll(spec)
             .stream()
             .map(PostDTO::of)
             .toList();
 
-    for(PostDTO nPost:posts) {
+    for (PostDTO nPost : posts) {
       List<Image> images = imagesService.getAllImagesByPostId(nPost.getId());
 
       returnPosts.add(PostDTO.of(nPost, images));
@@ -90,8 +91,8 @@ public class PostService {
 
   }
 
-  public List<PostDTO> getAllDenied(){
-    List<Post> posts= postRepository.findAllByIsDenied();
+  public List<PostDTO> getAllDenied() {
+    List<Post> posts = postRepository.findAllByIsDenied();
     return posts.stream().map(PostDTO::of).toList();
   }
 
@@ -111,7 +112,6 @@ public class PostService {
   }
 
 
-
   //        public List<Post> getAllPostByUserId(Long userId) {
   //
   //            return postRepository.findAllByUserId(userId);
@@ -123,12 +123,15 @@ public class PostService {
     Profile profile = profileRepository.findByUser(post.getUser());
     post.plusViewCount();
     postRepository.save(post);
-    if (profile == null) {
-      return PostDTO.of(post);
-    } else {
+//    if (profile == null) {
+//      User user = post.getUser();
+//      profile.setName(user.getName());
+//      profile.setContact(user.getEmail());
+//    }
       return PostDTO.of(post, profile);
-    }
+
   }
+
 
   @Transactional
   public void deletePost(Long postId, CustomOAuth2UserDTO userDTO) {

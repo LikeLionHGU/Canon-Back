@@ -51,4 +51,17 @@ public class Profile extends Base {
         this.profileImageURL = profileDTO.getProfileImageURL();
     }
 
+    public static Profile of(User user){
+
+        return Profile.builder()
+                    .user(user)
+                    .name(user.getUsername())
+                    .profileImageURL(null)
+                .contact(user.getEmail())
+                .profileImageURL(null)
+                .contribution(null)
+                .info(null)
+                .build();
+    }
+
 }

@@ -50,5 +50,16 @@ public class ProfileDTO {
                 .build();
     }
 
+    public static ProfileDTO of(Profile profile){
+        return ProfileDTO.builder()
+                .name(profile.getName())
+                .userId(profile.getId())
+                .info(profile.getInfo())
+                .contribution(profile.getContribution())
+                .contact(profile.getContact())
+                .profileImageURL(profile.getProfileImageURL())
+                .build();
+    }
+
     // @Builder(builderMethodName = "childBuilder", buildMethodName = "buildChild", setterPrefix = "with", toBuilder = true
 }
