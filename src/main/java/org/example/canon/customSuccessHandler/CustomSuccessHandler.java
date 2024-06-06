@@ -59,11 +59,11 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
         Cookie cookie = new Cookie(key, value);
         cookie.setMaxAge(60*60*60*60);
-        cookie.setSecure(false);
-        cookie.setHttpOnly(false);
+//        cookie.setSecure(false);
+        cookie.setHttpOnly(true);
         cookie.setPath("/");
-        cookie.setDomain("hup-likelion.kro.kr");
-        cookie.setAttribute("SameSite", "None");
+//        cookie.setDomain("localhost");
+//        cookie.setAttribute("SameSite", "None");
         return cookie;
     }
 }
