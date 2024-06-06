@@ -48,7 +48,7 @@ public class EmailService {
                 "      Coffee chat\n" +
                 "    </h1>\n" +
                 "    <hr style=\"border: none; border-top: 2px solid #FF7D04; width: 80%; margin: 20px auto;\">\n" +
-                "    <p style=\"font-size: 18px; line-height: 1.5; margin-bottom: 20px;\">안녕하세요 [수신자 이름]님,<br>\n" +
+                "    <p style=\"font-size: 18px; line-height: 1.5; margin-bottom: 20px;\">안녕하세요 ["+ receiverMail +"]님,<br>\n" +
                 "      [HUP] 플랫폼을 통해 [ "+ receiverMail +" ]님께 커피챗 요청이 도착했습니다.<br>\n" +
                 "      [ "+ sender +" ]님은 [ " + receiverMail +" ]님의 졸업 작품에 큰 관심을 가지고 있으며,<br>\n" +
                 "      이 기회를 통해 졸업 작품에 대한 피드백을 얻거나, 전문 지식을 공유하고,<br>\n" +
