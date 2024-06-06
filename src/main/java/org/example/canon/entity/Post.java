@@ -41,6 +41,8 @@ public class Post extends Base {
 
     private String year;
 
+    @OneToMany(mappedBy = "post")
+    private List<PostLike> likes = new ArrayList<>();
 
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
