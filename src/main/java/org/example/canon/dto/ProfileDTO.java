@@ -6,6 +6,7 @@ import org.example.canon.entity.Post;
 import org.example.canon.entity.Profile;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @AllArgsConstructor
@@ -35,7 +36,9 @@ public class ProfileDTO {
                 .build();
     }
 
-    public static ProfileDTO of(Profile profile, List<Post> uploadedPosts, List<Post>likedPosts){
+    public static ProfileDTO of(Profile profile, List<Post> uploadedPosts, List<Post> likedPosts) {
+
+
         return ProfileDTO.builder()
                 .name(profile.getName())
                 .userId(profile.getId())

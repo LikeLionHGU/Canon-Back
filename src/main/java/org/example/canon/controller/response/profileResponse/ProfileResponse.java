@@ -28,6 +28,7 @@ public class ProfileResponse {
     private List<PostDTO> uploadedPosts;
     private List<PostDTO> likedPosts;
 
+
     public ProfileResponse(ProfileDTO profileDTO) {
             this.name = profileDTO.getName();
             this.info = profileDTO.getInfo();

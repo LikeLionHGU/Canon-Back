@@ -163,7 +163,6 @@ public class PostService {
       post.get().updatePostWithDto(postDTO);
 
       toolsIn.set(0,tools);
-
     } else {
       throw new PostEditDisableException();
     }

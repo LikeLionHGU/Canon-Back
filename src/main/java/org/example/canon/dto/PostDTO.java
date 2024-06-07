@@ -49,6 +49,8 @@ public class PostDTO {
   private long commentsCounts;
 
 
+
+
   private LocalDateTime createdDate;
 
   private List<String> tools;
@@ -91,6 +93,7 @@ public class PostDTO {
     List<String> commentss = post.getComments().stream()
             .map(comment -> comment.getContent())
             .collect(Collectors.toList());
+
     return PostDTO.builder()
             .id(post.getId())
             .userId(post.getUser().getId())
