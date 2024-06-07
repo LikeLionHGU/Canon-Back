@@ -34,13 +34,9 @@ public class ProfileResponse {
             this.info = profileDTO.getInfo();
             this.contact = profileDTO.getContact();
             this.contribution = profileDTO.getContribution();
-            this.likedPosts = profileDTO.getLikedPosts().stream()
-                .map(PostDTO::of)
-                .collect(Collectors.toList());
+            this.likedPosts = profileDTO.getLikedPosts();
 
-            this.uploadedPosts = profileDTO.getUploadedPosts().stream()
-                .map(PostDTO::of)
-                .collect(Collectors.toList());
+            this.uploadedPosts = profileDTO.getUploadedPosts();
     }
 
 }
