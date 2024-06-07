@@ -31,5 +31,12 @@ public class Tools extends Base{
 }
 
 
+    public static Tools of(String tool){
+        return Tools.builder()
+                .tool(tool)
+                .build();
+    }
+
+
 
 }

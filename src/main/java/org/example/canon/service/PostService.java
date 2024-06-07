@@ -8,10 +8,7 @@ import org.example.canon.controller.request.PostRequest;
 import org.example.canon.dto.CustomOAuth2UserDTO;
 import org.example.canon.dto.PostDTO;
 import org.example.canon.dto.ProfileDTO;
-import org.example.canon.entity.Image;
-import org.example.canon.entity.Post;
-import org.example.canon.entity.Profile;
-import org.example.canon.entity.User;
+import org.example.canon.entity.*;
 import org.example.canon.exception.PostDeleteDisableException;
 import org.example.canon.exception.PostEditDisableException;
 import org.example.canon.exception.PostNotFoundException;
@@ -22,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.tools.Tool;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -132,7 +130,6 @@ public class PostService {
 
   }
 
-
   @Transactional
   public void deletePost(Long postId, CustomOAuth2UserDTO userDTO) {
     Optional<Post> post = postRepository.findById(postId);
@@ -155,12 +152,18 @@ public class PostService {
     }
   }
 
+
+
   @Transactional
-  public void updatePost(Long postId, CustomOAuth2UserDTO userDTO, PostDTO postDTO) throws IOException {
+  public void updatePost(Long postId, CustomOAuth2UserDTO userDTO, PostDTO postDTO, List<String> toolString ) throws IOException {
     Optional<Post> post = postRepository.findById(postId);
+    List<Tools> toolsIn = toolsRepository.findAllByPost(post.get());
+    Tools tools = Tools.of(toolString.get(0),post.get());
     if ((userDTO.getEmail().equals(post.get().getUser().getEmail())) ) {
-      deletePost(postId,userDTO);
-      addPost(postDTO, userDTO.getEmail());
+      post.get().updatePostWithDto(postDTO);
+
+      toolsIn.set(0,tools);
+
     } else {
       throw new PostEditDisableException();
     }

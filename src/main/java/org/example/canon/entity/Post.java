@@ -124,4 +124,15 @@ public class Post extends Base {
     }
 
 
+    //작품명 / 년도 / 툴/ 설명 / 링크
+
+    public void updatePostWithDto(PostDTO postDTO){
+        this.content = postDTO.getContent();
+        this.year = postDTO.getYear();
+        this.title = postDTO.getTitle();
+        this.videoURL = postDTO.getVideoURL();
+
+    }
+
+
 }

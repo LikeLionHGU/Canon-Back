@@ -103,21 +103,20 @@ public class PostController {
     ) throws IOException {
 
         List<Image> images = new ArrayList<>();
+
         if (image != null) {
 
             for (int i = 0; i < image.length; i++) {
                 String filename = image[i].getOriginalFilename();
                 String imageUrl = s3Uploader.upload(image[i], "example");
-
                 Image uploadImage = new Image(filename, imageUrl);
                 images.add(uploadImage);
-
             }
         }
 
         PostDTO postDto = PostDTO.of(request, images);
 
-        postService.updatePost(postId, userDto, postDto);
+        postService.updatePost(postId, userDto, postDto, request.getTools());
         return ResponseEntity.ok().build();
     }
 
