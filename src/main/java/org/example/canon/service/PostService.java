@@ -55,8 +55,20 @@ public class PostService {
   }
 
   public List<PostDTO> getAllForAdmin() {
-    List<Post> posts = postRepository.findAll();
-    return posts.stream().map(PostDTO::of).toList();
+
+    List<PostDTO> returnPosts = new ArrayList<>();
+
+    List<PostDTO> posts = postRepository.findAll()
+            .stream()
+            .map(PostDTO::of)
+            .toList();
+
+    for (PostDTO nPost : posts) {
+      List<Image> images = imagesService.getAllImagesByPostId(nPost.getId());
+
+      returnPosts.add(PostDTO.of(nPost, images));
+    }
+    return returnPosts;
   }
 
   // 컨펌하는 로직
