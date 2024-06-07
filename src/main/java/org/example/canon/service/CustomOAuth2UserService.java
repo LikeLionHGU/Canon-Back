@@ -52,9 +52,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
       userEntity.setUsername(oAuth2Response.getName());
       userEntity.setEmail(oAuth2Response.getEmail());
       if (admin.contains(oAuth2Response.getEmail())) {
-        userEntity.setRole("ADMIN");
+        userEntity.setRole("ROLE_ADMIN");
       } else {
-        userEntity.setRole("USER");
+        userEntity.setRole("ROLE_USER");
       }
       userEntity.setName(name);
       userRepository.save(userEntity);
@@ -68,9 +68,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
       userDTO.setUsername(oAuth2Response.getName());
       userDTO.setEmail(oAuth2Response.getEmail());
       if (admin.contains(oAuth2Response.getEmail())) {
-        userDTO.setRole("ADMIN");
+        userDTO.setRole("ROLE_ADMIN");
       } else {
-        userDTO.setRole("USER");
+        userDTO.setRole("ROLE_USER");
       }
 
       return new CustomOAuth2UserDTO(userDTO);
