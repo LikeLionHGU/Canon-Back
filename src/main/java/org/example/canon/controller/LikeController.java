@@ -2,6 +2,7 @@ package org.example.canon.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.canon.controller.response.postLikeResponse.LikeIdResponse;
+import org.example.canon.controller.response.postLikeResponse.LikeTrueOrFalse;
 import org.example.canon.controller.response.postLikeResponse.PostLikeListResponse;
 import org.example.canon.dto.CustomOAuth2UserDTO;
 import org.example.canon.dto.PostLikeDTO;
@@ -29,11 +30,17 @@ public class LikeController {
     }
 
     @GetMapping("/byPost/{postId}")
-    public ResponseEntity<PostLikeListResponse> getAllLikeByPost(@PathVariable Long postId) {
-        List<PostLikeDTO> postLikes = postLikeService.getAllForLikesByPost(postId);
-        PostLikeListResponse response = new PostLikeListResponse(postLikes);
+    public ResponseEntity<LikeTrueOrFalse> getAllLikeByPost(@PathVariable Long postId, @AuthenticationPrincipal CustomOAuth2UserDTO userDto) {
+
+        Boolean hasLiked = postLikeService.checkUserLikesByPost(postId, userDto.getEmail());
+
+
+        String message = hasLiked ? "Liked." : "Not Liked";
+        LikeTrueOrFalse response = new LikeTrueOrFalse(message);
+
         return ResponseEntity.ok(response);
     }
+
 
     @GetMapping("/byUser/{userId}")
     public ResponseEntity<PostLikeListResponse> getAllLikeByUser(@PathVariable Long userId) {

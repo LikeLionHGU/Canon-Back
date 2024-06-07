@@ -3,6 +3,7 @@ package org.example.canon.service;
 import lombok.RequiredArgsConstructor;
 import org.example.canon.dto.CustomOAuth2UserDTO;
 import org.example.canon.dto.PostLikeDTO;
+import org.example.canon.dto.UserDTO;
 import org.example.canon.entity.Post;
 import org.example.canon.entity.PostLike;
 import org.example.canon.entity.User;
@@ -39,9 +40,12 @@ public class PostLikeService {
         return postLike;
     }
 
-    public List<PostLikeDTO> getAllForLikesByPost(Long postId) {
-        List<PostLike> likes = postLikeRepository.findAllByPostId(postId);
-        return likes.stream().map(PostLikeDTO::of).toList();
+    public Boolean checkUserLikesByPost(Long postId, String email) {
+        User findUser = userRepository.findByEmail(email);
+        Post findPost = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+        Optional<PostLike> like = postLikeRepository.findByUserAndPost(findUser, findPost);
+        return like.isPresent();
     }
 
     public List<PostLikeDTO> getAllForLikesByUser(Long userId) {
