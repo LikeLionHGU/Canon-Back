@@ -135,6 +135,7 @@ public class PostDTO {
             .category(post.getCategory())
             .contact(post.getContact())
             .isConfirmed(post.getIsConfirmed())
+            .videoURL(post.getVideoURL())
             .createdDate(post.getCreatedDate())
             .profileContact(profile.getContact())
             .profileInfo(profile.getInfo())
