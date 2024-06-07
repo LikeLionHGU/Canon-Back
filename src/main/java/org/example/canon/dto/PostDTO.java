@@ -100,6 +100,7 @@ public class PostDTO {
             .viewCount(post.getViewCount())
             .university(post.getUniversity())
             .major(post.getMajor())
+            .images(post.getImages())
             .year(post.getYear())
             .likeCount(post.getCountLike())
             .commentsCounts(post.getComments().size())
