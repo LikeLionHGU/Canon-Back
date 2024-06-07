@@ -127,6 +127,7 @@ public class PostDTO {
             .content(post.getContent())
             .title(post.getTitle())
             .viewCount(post.getViewCount())
+            .likeCount(post.getCountLike())
             .commentsCounts(post.getComments().size())
             .major(post.getMajor())
             .year(post.getYear())
