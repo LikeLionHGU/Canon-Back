@@ -43,7 +43,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     String name = oAuth2Response.getProvider() + " " + oAuth2Response.getProviderId();
 
-    User existData = userRepository.findByUsername(name);
+    User existData = userRepository.findByEmail(oAuth2Response.getEmail());
 
     String role = null;
 
