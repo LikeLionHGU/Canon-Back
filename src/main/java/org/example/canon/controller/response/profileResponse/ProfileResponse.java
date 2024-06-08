@@ -28,6 +28,7 @@ public class ProfileResponse {
     private List<PostDTO> uploadedPosts;
     private List<PostDTO> likedPosts;
 
+    private String role;
 
     public ProfileResponse(ProfileDTO profileDTO) {
             this.name = profileDTO.getName();
@@ -35,7 +36,7 @@ public class ProfileResponse {
             this.contact = profileDTO.getContact();
             this.contribution = profileDTO.getContribution();
             this.likedPosts = profileDTO.getLikedPosts();
-
+            this.role = profileDTO.getRole();
             this.uploadedPosts = profileDTO.getUploadedPosts();
     }
 
