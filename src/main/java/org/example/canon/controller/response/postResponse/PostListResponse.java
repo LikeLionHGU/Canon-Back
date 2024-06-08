@@ -11,8 +11,14 @@ import java.util.List;
 public class PostListResponse {
 
   private List<PostDTO> posts;
+  private String userRole;
 
   public PostListResponse(List<PostDTO> posts) {
     this.posts = posts;
+  }
+
+  public PostListResponse(List<PostDTO> posts,String usersRole) {
+    this.posts = posts;
+    this.userRole = usersRole;
   }
 }
