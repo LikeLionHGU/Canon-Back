@@ -49,10 +49,10 @@ public class LikeController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("/{likeId}")
+    @DeleteMapping("/{postId}")
     public ResponseEntity<Void> deleteLike(
-            @AuthenticationPrincipal CustomOAuth2UserDTO userDto, @PathVariable Long likeId) {
-        postLikeService.deleteLike(likeId, userDto);
+            @AuthenticationPrincipal CustomOAuth2UserDTO userDto, @PathVariable Long postId) {
+        postLikeService.deleteLike(postId, userDto);
         return ResponseEntity.ok().build();
     }
 
