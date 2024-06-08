@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.canon.dto.PostDTO;
+import org.example.canon.dto.PostDTO2;
 import org.example.canon.dto.ProfileDTO;
 import org.example.canon.entity.Post;
 import org.example.canon.entity.Profile;
@@ -25,8 +26,8 @@ public class ProfileResponse {
     private String contribution;
 
 
-    private List<PostDTO> uploadedPosts;
-    private List<PostDTO> likedPosts;
+    private List<PostDTO2> uploadedPosts;
+    private List<PostDTO2> likedPosts;
 
     private String role;
 
