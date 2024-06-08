@@ -23,8 +23,8 @@ public class ProfileDTO {
     private String contribution;
 
 
-    private List<PostDTO> uploadedPosts;
-    private List<PostDTO> likedPosts;
+    private List<PostDTO2> uploadedPosts;
+    private List<PostDTO2> likedPosts;
 
     private String role;
 
@@ -38,7 +38,7 @@ public class ProfileDTO {
                 .build();
     }
 
-    public static ProfileDTO of(Profile profile, List<PostDTO> uploadedPosts, List<PostDTO> likedPosts) {
+    public static ProfileDTO of(Profile profile, List<PostDTO2> uploadedPosts, List<PostDTO2> likedPosts) {
 
 
         return ProfileDTO.builder()
@@ -52,7 +52,7 @@ public class ProfileDTO {
                 .build();
     }
 
-    public static ProfileDTO of(Profile profile, List<PostDTO> uploadedPosts, List<PostDTO> likedPosts,String role) {
+    public static ProfileDTO of(Profile profile, List<PostDTO2> uploadedPosts, List<PostDTO2> likedPosts,String role) {
 
 
         return ProfileDTO.builder()

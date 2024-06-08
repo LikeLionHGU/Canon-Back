@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.canon.controller.request.ProfileRequest;
 import org.example.canon.dto.CustomOAuth2UserDTO;
 import org.example.canon.dto.PostDTO;
+import org.example.canon.dto.PostDTO2;
 import org.example.canon.dto.ProfileDTO;
 import org.example.canon.dto.UserDTO;
 import org.example.canon.entity.Image;
@@ -58,10 +59,9 @@ public class ProfileService {
 //             profile.setContact(user.getEmail());
 //         }
          System.out.println(user.getEmail());
-         List<PostDTO> returnPostsByUser = new ArrayList<>();
-         List<PostDTO> returnPostsByLike = new ArrayList<>();
-
-         List<PostDTO> uploadedPosts = postRepository.findAllByUser(user)
+         List<PostDTO2> returnPostsByUser = new ArrayList<>();
+         List<PostDTO2> returnPostsByLike = new ArrayList<>();
+        List<PostDTO> uploadedPosts = postRepository.findAllByUser(user)
                 .stream()
                 .map(PostDTO::of)
                 .toList();
@@ -69,7 +69,7 @@ public class ProfileService {
          for (PostDTO nPost : uploadedPosts) {
              List<Image> images = imagesService.getAllImagesByPostId(nPost.getId());
 
-             returnPostsByUser.add(PostDTO.of(nPost, images));
+             returnPostsByUser.add(PostDTO2.of(nPost, images));
          }
 
         List<PostDTO> likedPosts = postRepository.findLikedPostsByUser(user.getId())
@@ -80,12 +80,11 @@ public class ProfileService {
          for (PostDTO nPost : likedPosts) {
              List<Image> images = imagesService.getAllImagesByPostId(nPost.getId());
 
-             returnPostsByLike.add(PostDTO.of(nPost, images));
+             returnPostsByLike.add(PostDTO2.of(nPost, images));
          }
-         UserDTO userDTO1 = UserDTO.of(user);
-         String role = userDTO1.getRole();
-
-         return ProfileDTO.of(profile,uploadedPosts,likedPosts,role);
+         String role = user.getRole();
+         System.out.println(role+"안ㄴ녕d안녕안녕");
+         return ProfileDTO.of(profile,returnPostsByUser,returnPostsByLike,role);
 //        return ProfileDTO.of(profile,returnPostsByUser,returnPostsByLike);
     }
 
@@ -98,8 +97,8 @@ public class ProfileService {
             profile.setContact(user.getEmail());
         }
 
-        List<PostDTO> returnPostsByUser = new ArrayList<>();
-        List<PostDTO> returnPostsByLike = new ArrayList<>();
+        List<PostDTO2> returnPostsByUser = new ArrayList<>();
+        List<PostDTO2> returnPostsByLike = new ArrayList<>();
 
         List<PostDTO> uploadedPosts = postRepository.findAllByUser(user)
                 .stream()
@@ -109,7 +108,7 @@ public class ProfileService {
         for (PostDTO nPost : uploadedPosts) {
             List<Image> images = imagesService.getAllImagesByPostId(nPost.getId());
 
-            returnPostsByUser.add(PostDTO.of(nPost, images));
+            returnPostsByUser.add(PostDTO2.of(nPost, images));
         }
         List<PostDTO> likedPosts = postRepository.findLikedPostsByUser(user.getId())
                 .stream()
@@ -119,11 +118,11 @@ public class ProfileService {
         for (PostDTO nPost : likedPosts) {
             List<Image> images = imagesService.getAllImagesByPostId(nPost.getId());
 
-            returnPostsByLike.add(PostDTO.of(nPost, images));
+            returnPostsByLike.add(PostDTO2.of(nPost, images));
         }
         String role = user.getRole();
         System.out.println(role+"안ㄴ녕d안녕안녕");
-        return ProfileDTO.of(profile,uploadedPosts,likedPosts,role);
+        return ProfileDTO.of(profile,returnPostsByUser,returnPostsByLike,role);
     }
 
     public ProfileDTO getProfileForPost(Long userId) {
