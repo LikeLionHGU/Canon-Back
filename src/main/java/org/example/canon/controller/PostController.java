@@ -9,6 +9,8 @@ import org.example.canon.dto.*;
 import org.example.canon.entity.Comment;
 import org.example.canon.entity.Image;
 import org.example.canon.entity.Post;
+import org.example.canon.entity.User;
+import org.example.canon.repository.UserRepository;
 import org.example.canon.service.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -26,6 +28,7 @@ import java.util.List;
 @RequestMapping("/posts")
 public class PostController {
 
+    private final UserRepository userRepository;
     @Value("$${spring.jwt.secret}")
     private String SECRET_KEY;
 
@@ -122,9 +125,11 @@ public class PostController {
 
 
     @GetMapping("/main")
-    public ResponseEntity<PostListResponse> getAllPosts() {
+    public ResponseEntity<PostListResponse> getAllPosts(@AuthenticationPrincipal CustomOAuth2UserDTO userDto) {
         List<PostDTO> posts = postService.getAllPost();
-        PostListResponse response = new PostListResponse(posts);
+        User user = userRepository.findByEmail(userDto.getEmail());
+        PostListResponse response = new PostListResponse(posts,user.getRole());
+
         return ResponseEntity.ok(response);
     }
 
