@@ -7,6 +7,7 @@ import org.example.canon.dto.CustomOAuth2UserDTO;
 import org.example.canon.dto.PostDTO;
 import org.example.canon.dto.PostDTO2;
 import org.example.canon.dto.ProfileDTO;
+import org.example.canon.dto.UserDTO;
 import org.example.canon.entity.Image;
 import org.example.canon.entity.Post;
 import org.example.canon.entity.Profile;
