@@ -23,5 +23,6 @@ public interface PostLikeRepository extends JpaRepository<PostLike, Long> {
     List<PostLike> findAllByPostId(Long postId);
 
     List<PostLike> findAllByUserId(Long userId);
+    void deleteAllByPostId(Long postId);
 }
 

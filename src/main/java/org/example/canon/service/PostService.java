@@ -37,6 +37,8 @@ public class PostService {
   private final ImagesService imagesService;
   private final ToolsRepository toolsRepository;
   private final ProfileRepository profileRepository;
+  private final CommentRepository commentRepository;
+  private final PostLikeRepository postLikeRepository;
 
 
   public long addPost(PostDTO postDTO, String email) {
@@ -147,20 +149,22 @@ public class PostService {
     Optional<Post> post = postRepository.findById(postId);
     if (post.isPresent()) {
       Post posts = post.get();
-      List<Image> images = imagesRepository.findAllByPost(posts);
-      for(Image image : images){ //반복문으로 하나하나 지우기
-        String imageName = image.getFileName();
-        System.out.println("===" + imageName + "===");
-        s3Uploader.deleteFile("example", imageName);
-      }
-      imagesRepository.deleteAllByPostId(postId);
-      toolsRepository.deleteAllByPostId(postId);
-    }
+      if (userDTO.getEmail().equals(post.get().getUser().getEmail())) {
+        List<Image> images = imagesRepository.findAllByPost(posts);
+        for (Image image : images) { //반복문으로 하나하나 지우기
+          String imageName = image.getFileName();
+          System.out.println("===" + imageName + "===");
+          s3Uploader.deleteFile("example", imageName);
+        }
+        imagesRepository.deleteAllByPostId(postId);
+        toolsRepository.deleteAllByPostId(postId);
+        postRepository.deleteById(postId);
+        commentRepository.deleteAllByPostId(postId);
+        postLikeRepository.deleteAllByPostId(postId);
 
-    if (userDTO.getEmail().equals(post.get().getUser().getEmail())) {
-      postRepository.deleteById(postId);
-    } else {
-      throw new PostDeleteDisableException();
+      } else {
+        throw new PostDeleteDisableException();
+      }
     }
   }
 

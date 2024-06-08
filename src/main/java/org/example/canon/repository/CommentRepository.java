@@ -12,6 +12,7 @@ import java.util.List;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
     List<Comment> findAllByPostId(Long postId); //게시물 별 댓글 찾기
+    void deleteAllByPostId(Long postId);
 
 }
 
