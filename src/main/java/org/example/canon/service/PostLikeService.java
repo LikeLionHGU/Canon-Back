@@ -53,11 +53,16 @@ public class PostLikeService {
         return likes.stream().map(PostLikeDTO::of).toList();
     }
 
-    public void deleteLike(Long likeId, CustomOAuth2UserDTO userDTO) {
-        Optional<PostLike> postLike = postLikeRepository.findById(likeId);
-        Post post = postLike.get().getPost();
-        if (userDTO.getEmail().equals(postLike.get().getUser().getEmail())) {
-            postLikeRepository.deleteById(likeId);
+    public void deleteLike(Long postId, CustomOAuth2UserDTO userDTO) {
+
+        User user = userRepository.findByEmail(userDTO.getEmail());
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new NoSuchElementException("No post found with id " + postId));
+
+        Optional<PostLike> postLike = postLikeRepository.findByUserAndPost(user, post);
+
+        if (postLike.isPresent()) {
+            postLikeRepository.deleteById(postLike.get().getPostLikeId());
             post.minusLike();
             postRepository.save(post);
         } else {
