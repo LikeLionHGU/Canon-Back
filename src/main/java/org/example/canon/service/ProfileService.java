@@ -6,6 +6,7 @@ import org.example.canon.controller.request.ProfileRequest;
 import org.example.canon.dto.CustomOAuth2UserDTO;
 import org.example.canon.dto.PostDTO;
 import org.example.canon.dto.ProfileDTO;
+import org.example.canon.dto.UserDTO;
 import org.example.canon.entity.Image;
 import org.example.canon.entity.Post;
 import org.example.canon.entity.Profile;
@@ -59,7 +60,8 @@ public class ProfileService {
          System.out.println(user.getEmail());
          List<PostDTO> returnPostsByUser = new ArrayList<>();
          List<PostDTO> returnPostsByLike = new ArrayList<>();
-        List<PostDTO> uploadedPosts = postRepository.findAllByUser(user)
+
+         List<PostDTO> uploadedPosts = postRepository.findAllByUser(user)
                 .stream()
                 .map(PostDTO::of)
                 .toList();
@@ -80,8 +82,9 @@ public class ProfileService {
 
              returnPostsByLike.add(PostDTO.of(nPost, images));
          }
-         String role = user.getRole();
-         System.out.println(role+"안ㄴ녕d안녕안녕");
+         UserDTO userDTO1 = UserDTO.of(user);
+         String role = userDTO1.getRole();
+
          return ProfileDTO.of(profile,uploadedPosts,likedPosts,role);
 //        return ProfileDTO.of(profile,returnPostsByUser,returnPostsByLike);
     }
