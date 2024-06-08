@@ -26,6 +26,8 @@ public class ProfileDTO {
     private List<PostDTO> uploadedPosts;
     private List<PostDTO> likedPosts;
 
+    private String role;
+
     public static ProfileDTO of(ProfileRequest profileRequest){
 
         return ProfileDTO.builder()
@@ -47,6 +49,21 @@ public class ProfileDTO {
                 .contact(profile.getContact())
                 .uploadedPosts(uploadedPosts)
                 .likedPosts(likedPosts)
+                .build();
+    }
+
+    public static ProfileDTO of(Profile profile, List<PostDTO> uploadedPosts, List<PostDTO> likedPosts,String role) {
+
+
+        return ProfileDTO.builder()
+                .name(profile.getName())
+                .userId(profile.getId())
+                .info(profile.getInfo())
+                .contribution(profile.getContribution())
+                .contact(profile.getContact())
+                .uploadedPosts(uploadedPosts)
+                .likedPosts(likedPosts)
+                .role(role)
                 .build();
     }
 

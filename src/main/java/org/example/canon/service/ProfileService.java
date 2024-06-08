@@ -80,8 +80,10 @@ public class ProfileService {
 
              returnPostsByLike.add(PostDTO.of(nPost, images));
          }
-
-        return ProfileDTO.of(profile,returnPostsByUser,returnPostsByLike);
+         String role = user.getRole();
+         System.out.println(role+"안ㄴ녕d안녕안녕");
+         return ProfileDTO.of(profile,uploadedPosts,likedPosts,role);
+//        return ProfileDTO.of(profile,returnPostsByUser,returnPostsByLike);
     }
 
     public ProfileDTO getProfile(Long userId) {
@@ -116,7 +118,9 @@ public class ProfileService {
 
             returnPostsByLike.add(PostDTO.of(nPost, images));
         }
-        return ProfileDTO.of(profile,uploadedPosts,likedPosts);
+        String role = user.getRole();
+        System.out.println(role+"안ㄴ녕d안녕안녕");
+        return ProfileDTO.of(profile,uploadedPosts,likedPosts,role);
     }
 
     public ProfileDTO getProfileForPost(Long userId) {
